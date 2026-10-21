@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dremo topup - Game Top-up Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #0052cc;
+      --primary-light: #e6f0ff;
+      --secondary-blue: #0747a6;
+      --accent-gold: #ffab00;
+      --white: #ffffff;
+      --text-dark: #172b4d;
+      --text-muted: #5e6c84;
+      --border-color: #dfe1e6;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', 'Hind Siliguri', sans-serif; }
+    body { background-color: #f4f6fa; color: var(--text-dark); }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background: var(--white); border-bottom: 2px solid var(--primary-light); box-shadow: 0 2px 10px rgba(0, 82, 204, 0.05); }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); display: flex; align-items: center; gap: 8px; }
+    .logo span span { color: var(--accent-gold); }
+    .hero-banner { background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); color: var(--white); text-align: center; padding: 2rem 1rem; }
+    .hero-banner h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .hero-banner p { font-size: 0.95rem; }
+    .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+    .layout-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; }
+    .card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: 0 4px 16px rgba(0,0,0,0.04); overflow: hidden; position: relative; }
+    .offer-card .card-cover { background: linear-gradient(135deg, #096dd9, #1890ff); color: var(--white); padding: 1.8rem; text-align: center; }
+    .card-cover .cover-icon { font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 0.5rem; }
+    .card-cover h3 { font-size: 1.5rem; }
+    .badge { position: absolute; top: 12px; right: 12px; background: #ff4d4f; color: var(--white); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .card-body { padding: 1.5rem; }
+    .section-label { display: block; font-weight: 600; margin-bottom: 0.6rem; }
+    .radio-card { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 2px solid var(--primary-blue); background-color: var(--primary-light); border-radius: 8px; cursor: pointer; margin-bottom: 1.2rem; }
+    .radio-card .item-price { font-weight: 700; color: var(--primary-blue); }
+    .input-group { margin-bottom: 1.2rem; }
+    .input-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; }
+    .input-wrapper { display: flex; align-items: center; border: 1px solid var(--border-color); border-radius: 8px; padding: 0 12px; background: #fafbfc; }
+    .input-wrapper i { color: var(--text-muted); margin-right: 8px; }
+    .input-wrapper input, .modal .input-group input { width: 100%; padding: 10px 0; border: none; background: transparent; outline: none; font-size: 1rem; }
+    .modal .input-group input { border: 1px solid var(--border-color); padding: 10px 12px; border-radius: 6px; }
+    .btn { padding: 10px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; border: none; }
+    .btn-primary { background-color: var(--primary-blue); color: var(--white); }
+    .btn-outline { background: transparent; border: 1px solid #ff4d4f; color: #ff4d4f; }
+    .btn-submit { width: 100%; background: var(--primary-blue); color: var(--white); padding: 12px; font-size: 1rem; border-radius: 8px; }
+    .info-card { padding: 1.5rem; }
+    .card-header { display: flex; align-items: center; gap: 10px; color: var(--primary-blue); margin-bottom: 1.2rem; }
+    .step-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1rem; font-size: 0.95rem; }
+    .step-num { background: var(--primary-light); color: var(--primary-blue); font-weight: 700; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .support-box { margin-top: 1.5rem; background: var(--primary-light); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--primary-blue); }
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 999; }
+    .modal-content { background: var(--white); padding: 1.8rem; border-radius: var(--radius); width: 90%; max-width: 380px; position: relative; }
+    .close-btn { position: absolute; top: 12px; right: 15px; font-size: 1.5rem; cursor: pointer; }
+    .tab-header { display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 1.2rem; }
+    .tab-btn { flex: 1; padding: 10px; border: none; background: none; font-weight: 600; cursor: pointer; color: var(--text-muted); }
+    .tab-btn.active { color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); }
+    @media (max-width: 768px) { .layout-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-gem"></i>
+      <span>dremo <span>topup</span></span>
+    </div>
+    <div id="authNav">
+      <button class="btn btn-primary" onclick="openModal('login')">
+        <i class="fa-solid fa-user"></i> Login / Register
+      </button>
+    </div>
+    <div id="userNav" class="user-profile" style="display: none;">
+      <span style="margin-right: 8px;">👋 <b id="displayUsername">User</b></span>
+      <button class="btn btn-outline" onclick="logoutUser()">Logout</button>
+    </div>
+  </header>
+
+  <div class="hero-banner">
+    <h2>⚡ ড্রিমো টপ-আপ সেন্টারে স্বাগতম ⚡</h2>
+    <p>সবচেয়ে কম খরচে ও দ্রুততম সময়ে গেম টপ-আপ নিন নিরাপদে!</p>
+  </div>
+
+  <main class="container">
+    <div class="layout-grid">
+      <section class="card offer-card">
+        <div class="badge">🔥 Hot Deal</div>
+        <div class="card-cover">
+          <i class="fa-solid fa-crown cover-icon"></i>
+          <h3>মাত্র ৫ টাকায় উইকলি</h3>
+          <p>সীমিত সময়ের জন্য বিশেষ মেগা অফার!</p>
+        </div>
+
+        <div class="card-body">
+          <label class="section-label">সিলেক্ট করুন:</label>
+          <div class="radio-card">
+            <span><i class="fa-solid fa-calendar-check"></i> ৫ টাকা উইকলি</span>
+            <span class="item-price">৳ ৫.০০</span>
+          </div>
+
+          <div class="input-group">
+            <label for="playerUid">Uid বসান:</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-id-card"></i>
+              <input type="number" id="playerUid" placeholder="এখানে আপনার Player UID লিখুন...">
+            </div>
+          </div>
+
+          <button class="btn btn-submit" onclick="handleContinue()">Continue</button>
+        </div>
+      </section>
+
+      <section class="card info-card">
+        <div class="card-header">
+          <i class="fa-solid fa-circle-info"></i>
+          <h3>টপ-আপ করার নিয়মাবলী</h3>
+        </div>
+        <div class="step-item">
+          <span class="step-num">১</span>
+          <p>উপরে ডানপাশে ক্লিক করে আগে <b>Login</b> বা <b>Register</b> করে নিন।</p>
+        </div>
+        <div class="step-item">
+          <span class="step-num">২</span>
+          <p>আপনার সঠিক <b>Player UID</b> বক্সে বসান।</p>
+        </div>
+        <div class="step-item">
+          <span class="step-num">৩</span>
+          <p><b>Continue</b> বাটনে ক্লিক করে প্রক্রিয়াটি সম্পন্ন করুন।</p>
+        </div>
+        <div class="support-box">
+          <h4><i class="fa-solid fa-headset"></i> ২৪/৭ হেল্পলাইন</h4>
+          <p>যেকোনো সমস্যায় আমাদের সাথে যোগাযোগ করুন।</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="modal" id="authModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <div class="tab-header">
+        <button id="tabLogin" class="tab-btn active" onclick="switchTab('login')">Login</button>
+        <button id="tabRegister" class="tab-btn" onclick="switchTab('register')">Register</button>
+      </div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="input-group">
+          <label>Email বা Username</label>
+          <input type="text" id="loginId" required placeholder="ইমেইল বা ইউজারনেম দিন">
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="loginPass" required placeholder="পাসওয়ার্ড দিন">
+        </div>
+        <button type="submit" class="btn btn-submit">Login করুন</button>
+      </form>
+
+      <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
+        <div class="input-group">
+          <label>পুরো নাম</label>
+          <input type="text" id="regName" required placeholder="যেমন: Rahat Khan">
+        </div>
+        <div class="input-group">
+          <label>User Name</label>
+          <input type="text" id="regUsername" required placeholder="যেমন: rahat99">
+        </div>
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" id="regEmail" required placeholder="example@mail.com">
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="regPass" required placeholder="পাসওয়ার্ড দিন">
+        </div>
+        <button type="submit" class="btn btn-submit">Sign Up করুন</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+    document.addEventListener('DOMContentLoaded', updateUserUI);
+
+    function updateUserUI() {
+      const authNav = document.getElementById('authNav');
+      const userNav = document.getElementById('userNav');
+      const displayUsername = document.getElementById('displayUsername');
+
+      if (currentUser) {
+        authNav.style.display = 'none';
+        userNav.style.display = 'flex';
+        displayUsername.textContent = currentUser.name || currentUser.username;
+      } else {
+        authNav.style.display = 'block';
+        userNav.style.display = 'none';
+      }
+    }
+
+    function openModal(tab = 'login') {
+      document.getElementById('authModal').style.display = 'flex';
+      switchTab(tab);
+    }
+
+    function closeModal() {
+      document.getElementById('authModal').style.display = 'none';
+    }
+
+    function switchTab(tab) {
+      const tabLogin = document.getElementById('tabLogin');
+      const tabRegister = document.getElementById('tabRegister');
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+
+      if (tab === 'login') {
+        tabLogin.classList.add('active');
+        tabRegister.classList.remove('active');
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+      } else {
+        tabRegister.classList.add('active');
+        tabLogin.classList.remove('active');
+        registerForm.style.display = 'block';
+        loginForm.style.display = 'none';
+      }
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const username = document.getElementById('regUsername').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const pass = document.getElementById('regPass').value;
+
+      const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+
+      if (users.find(u => u.email === email || u.username === username)) {
+        alert('এই ইমেইল বা ইউজারনেম দিয়ে ইতোমধ্যে একাউন্ট খোলা আছে!');
+        return;
+      }
+
+      const newUser = { name, username, email, pass };
+      users.push(newUser);
+      localStorage.setItem('registeredUsers', JSON.stringify(users));
+
+      currentUser = newUser;
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+      alert('রেজিস্ট্রেশন সফল হয়েছে!');
+      closeModal();
+      updateUserUI();
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const loginId = document.getElementById('loginId').value.trim();
+      const pass = document.getElementById('loginPass').value;
+
+      const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+      const found = users.find(u => (u.email === loginId || u.username === loginId) && u.pass === pass);
+
+      if (found) {
+        currentUser = found;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        alert('লগইন সফল হয়েছে!');
+        closeModal();
+        updateUserUI();
+      } else {
+        alert('ভুল ইমেইল/ইউজারনেম অথবা পাসওয়ার্ড!');
+      }
+    }
+
+    function logoutUser() {
+      currentUser = null;
+      localStorage.removeItem('currentUser');
+      updateUserUI();
+      alert('লগআউট করা হয়েছে।');
+    }
+
+    function handleContinue() {
+      if (!currentUser) {
+        alert('⚠️ টপ-আপ করতে হলে অবশ্যই প্রথমে একাউন্ট লগইন থাকতে হবে!');
+        openModal('login');
+        return;
+      }
+
+      const uid = document.getElementById('playerUid').value.trim();
+      if (!uid) {
+        alert('অনুগ্রহ করে সঠিক Player UID বসান!');
+        return;
+      }
+
+      alert(`✅ অর্ডার গ্রহণ করা হয়েছে!\n\nইউজার: ${currentUser.name}\nPlayer UID: ${uid}\nঅফার: ৫ টাকা উইকলি`);
+    }
+  </script>
+</body>
+</html>

@@ -8,15 +8,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --bg-dark-blue: #070d1e;
-      --card-dark-blue: #0f1c3f;
-      --card-border: #1e3264;
+      --bg-dark-blue: #060c1c;
+      --card-dark-blue: #0e1936;
+      --card-border: #1a2d59;
       --primary-blue: #1877f2;
-      --primary-light: #162a56;
       --accent-gold: #ffb703;
       --text-white: #ffffff;
       --text-muted: #94a3b8;
-      --input-bg: #0b152e;
+      --input-bg: #081126;
       --radius: 14px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', 'Hind Siliguri', sans-serif; }
@@ -33,7 +32,7 @@
       justify-content: space-between; 
       align-items: center; 
       padding: 0.9rem 5%; 
-      background: #0a1329; 
+      background: #091329; 
       border-bottom: 1px solid var(--card-border); 
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); 
     }
@@ -45,14 +44,12 @@
       align-items: center; 
       gap: 10px; 
       text-decoration: none;
-      letter-spacing: 0.5px;
     }
     .logo-img {
       height: 40px;
       width: 40px;
       object-fit: contain;
       border-radius: 8px;
-      border: 1px solid var(--card-border);
     }
     .logo-text {
       color: var(--accent-gold);
@@ -64,12 +61,12 @@
       background: linear-gradient(135deg, #0d214d, #081432); 
       color: var(--text-white); 
       text-align: center; 
-      padding: 2.2rem 1rem; 
+      padding: 2rem 1rem; 
       border-bottom: 1px solid var(--card-border);
     }
     .hero-banner h2 { 
-      font-size: 1.6rem; 
-      margin-bottom: 0.5rem; 
+      font-size: 1.5rem; 
+      margin-bottom: 0.4rem; 
       color: var(--accent-gold);
     }
     .hero-banner p { 
@@ -77,70 +74,149 @@
       color: var(--text-muted);
     }
 
-    /* Layout */
+    /* Container */
     .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
-    .layout-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.8rem; }
     
-    /* Card Styles */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .section-title span {
+      color: var(--accent-gold);
+    }
+
+    /* 6 Grid Cards Layout */
+    .grid-offers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .offer-box {
+      background: var(--card-dark-blue);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .offer-box:hover {
+      border-color: var(--primary-blue);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(24, 119, 242, 0.25);
+    }
+
+    .offer-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+
+    .offer-icon-wrapper {
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #15326d, #081738);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+      border: 1px solid var(--card-border);
+    }
+
+    .offer-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+    }
+    .offer-price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 0.8rem;
+    }
+    .offer-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary-blue), #0f58bd);
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* Coming Soon Cards */
+    .coming-soon-box {
+      opacity: 0.6;
+      border-style: dashed;
+    }
+    .coming-soon-box:hover {
+      transform: none;
+      border-color: var(--card-border);
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    /* Checkout & Info Area */
+    .action-panel {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.5rem;
+    }
+
     .card { 
       background: var(--card-dark-blue); 
       border-radius: var(--radius); 
       border: 1px solid var(--card-border); 
+      padding: 1.5rem;
       box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
-      overflow: hidden; 
-      position: relative; 
     }
-    
-    /* Offer Section */
-    .offer-card .card-cover { 
-      background: linear-gradient(135deg, #133b8a, #0b2254); 
-      color: var(--text-white); 
-      padding: 1.8rem; 
-      text-align: center; 
-      border-bottom: 1px solid var(--card-border);
-    }
-    .card-cover .cover-icon { 
-      font-size: 2.5rem; 
-      color: var(--accent-gold); 
-      margin-bottom: 0.5rem; 
-    }
-    .card-cover h3 { font-size: 1.5rem; }
-    .badge { 
-      position: absolute; 
-      top: 12px; 
-      right: 12px; 
-      background: #ef4444; 
-      color: #fff; 
-      padding: 4px 10px; 
-      border-radius: 20px; 
-      font-size: 0.75rem; 
-      font-weight: 600; 
-      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
-    }
-    .card-body { padding: 1.5rem; }
-    .section-label { 
-      display: block; 
-      font-weight: 600; 
-      margin-bottom: 0.6rem; 
-      color: var(--text-muted);
-    }
-    .radio-card { 
+
+    .card-header { 
       display: flex; 
-      justify-content: space-between; 
       align-items: center; 
-      padding: 1.1rem; 
-      border: 2px solid var(--primary-blue); 
-      background-color: rgba(24, 119, 242, 0.15); 
-      border-radius: 10px; 
-      cursor: pointer; 
-      margin-bottom: 1.4rem; 
-    }
-    .radio-card .item-price { 
-      font-weight: 700; 
+      gap: 10px; 
       color: var(--accent-gold); 
+      margin-bottom: 1.2rem; 
       font-size: 1.15rem;
+      font-weight: 700;
     }
-    
+
+    .selected-banner {
+      background: rgba(24, 119, 242, 0.15);
+      border: 1px solid var(--primary-blue);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .selected-banner b {
+      color: var(--accent-gold);
+    }
+
     /* Inputs */
     .input-group { margin-bottom: 1.2rem; }
     .input-group label { 
@@ -176,7 +252,7 @@
     }
 
     /* Buttons */
-    .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: 0.2s; }
+    .btn { padding: 9px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: 0.2s; }
     .btn-primary { background-color: var(--primary-blue); color: #fff; }
     .btn-primary:hover { background-color: #125ec4; }
     .btn-outline { background: transparent; border: 1px solid #ef4444; color: #ef4444; }
@@ -189,19 +265,16 @@
       border-radius: 8px; 
       box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
     }
-    .btn-submit:hover { opacity: 0.95; }
 
-    /* Info Section */
-    .info-card { padding: 1.8rem; }
-    .card-header { display: flex; align-items: center; gap: 10px; color: var(--accent-gold); margin-bottom: 1.4rem; }
-    .step-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 1.1rem; font-size: 0.95rem; line-height: 1.5; color: #cbd5e1; }
+    /* Steps */
+    .step-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1rem; font-size: 0.92rem; color: #cbd5e1; }
     .step-num { 
       background: rgba(24, 119, 242, 0.2); 
       color: var(--accent-gold); 
       border: 1px solid var(--card-border);
       font-weight: 700; 
-      width: 28px; 
-      height: 28px; 
+      width: 26px; 
+      height: 26px; 
       border-radius: 50%; 
       display: flex; 
       align-items: center; 
@@ -209,14 +282,14 @@
       flex-shrink: 0; 
     }
     .support-box { 
-      margin-top: 1.8rem; 
+      margin-top: 1.4rem; 
       background: rgba(255, 183, 3, 0.08); 
-      padding: 1.1rem; 
+      padding: 1rem; 
       border-radius: 8px; 
       border-left: 4px solid var(--accent-gold); 
     }
-    .support-box h4 { color: var(--accent-gold); margin-bottom: 4px; }
-    .support-box p { color: var(--text-muted); font-size: 0.9rem; }
+    .support-box h4 { color: var(--accent-gold); margin-bottom: 4px; font-size: 0.95rem; }
+    .support-box p { color: var(--text-muted); font-size: 0.85rem; }
 
     /* Modal */
     .modal { 
@@ -244,7 +317,36 @@
     .tab-btn { flex: 1; padding: 10px; border: none; background: none; font-weight: 600; cursor: pointer; color: var(--text-muted); font-size: 1rem; }
     .tab-btn.active { color: var(--accent-gold); border-bottom: 2px solid var(--accent-gold); }
 
-    @media (max-width: 768px) { .layout-grid { grid-template-columns: 1fr; } }
+    /* Floating WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #25d366;
+      color: white;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+      z-index: 900;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) { 
+      .grid-offers { grid-template-columns: repeat(2, 1fr); }
+      .action-panel { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .grid-offers { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -273,51 +375,122 @@
     <p>সবচেয়ে কম খরচে ও দ্রুততম সময়ে গেম টপ-আপ নিন নিরাপদে!</p>
   </div>
 
-  <!-- Content Grid -->
   <main class="container">
-    <div class="layout-grid">
+    
+    <div class="section-title">
+      গেম টপ-আপ <span>প্যাকেজসমূহ</span>
+    </div>
+
+    <!-- 6 Grid Offers Section -->
+    <div class="grid-offers">
       
-      <!-- Offer Card -->
-      <section class="card offer-card">
-        <div class="badge">🔥 Hot Deal</div>
-        <div class="card-cover">
-          <i class="fa-solid fa-crown cover-icon"></i>
-          <h3>মাত্র ৫ টাকায় উইকলি</h3>
-          <p style="color: #cbd5e1; font-size: 0.9rem; margin-top: 4px;">সীমিত সময়ের জন্য বিশেষ মেগা অফার!</p>
+      <!-- Box 1 -->
+      <div class="offer-box" onclick="selectPackage('মাত্র ১২০ টাকায় উইকলি', '৳ ১২০.০০')">
+        <span class="offer-badge">POPULAR</span>
+        <div class="offer-icon-wrapper">
+          <i class="fa-solid fa-gem"></i>
+        </div>
+        <div class="offer-name">মাত্র ১২০ টাকায় উইকলি</div>
+        <div class="offer-price">৳ ১২০.০০</div>
+        <button class="offer-btn">সিলেক্ট করুন</button>
+      </div>
+
+      <!-- Box 2 -->
+      <div class="offer-box" onclick="selectPackage('মাত্র ৫ টাকায় উইকলি', '৳ ৫.০০')">
+        <span class="offer-badge">HOT DEAL</span>
+        <div class="offer-icon-wrapper">
+          <i class="fa-solid fa-fire"></i>
+        </div>
+        <div class="offer-name">মাত্র ৫ টাকায় উইকলি</div>
+        <div class="offer-price">৳ ৫.০০</div>
+        <button class="offer-btn">সিলেক্ট করুন</button>
+      </div>
+
+      <!-- Box 3 -->
+      <div class="offer-box" onclick="selectPackage('মাত্র ১০ টাকায় উইকলি লাইট', '৳ ১০.০০')">
+        <span class="offer-badge">MEGA</span>
+        <div class="offer-icon-wrapper">
+          <i class="fa-solid fa-crown"></i>
+        </div>
+        <div class="offer-name">মাত্র ১০ টাকায় উইকলি লাইট</div>
+        <div class="offer-price">৳ ১০.০০</div>
+        <button class="offer-btn">সিলেক্ট করুন</button>
+      </div>
+
+      <!-- Box 4 (Coming Soon) -->
+      <div class="offer-box coming-soon-box">
+        <div class="offer-icon-wrapper">
+          <i class="fa-solid fa-box-open"></i>
+        </div>
+        <div class="offer-name">শীঘ্রই আসছে (Box 4)</div>
+        <div class="offer-price">৳ --</div>
+        <button class="offer-btn" style="background: #334155;">অপেক্ষা করুন</button>
+      </div>
+
+      <!-- Box 5 (Coming Soon) -->
+      <div class="offer-box coming-soon-box">
+        <div class="offer-icon-wrapper">
+          <i class="fa-solid fa-gift"></i>
+        </div>
+        <div class="offer-name">শীঘ্রই আসছে (Box 5)</div>
+        <div class="offer-price">৳ --</div>
+        <button class="offer-btn" style="background: #334155;">অপেক্ষা করুন</button>
+      </div>
+
+      <!-- Box 6 (Coming Soon) -->
+      <div class="offer-box coming-soon-box">
+        <div class="offer-icon-wrapper">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <div class="offer-name">শীঘ্রই আসছে (Box 6)</div>
+        <div class="offer-price">৳ --</div>
+        <button class="offer-btn" style="background: #334155;">অপেক্ষা করুন</button>
+      </div>
+
+    </div>
+
+    <!-- Action & Instructions Panel -->
+    <div class="action-panel">
+      
+      <!-- Topup Box -->
+      <section class="card">
+        <div class="card-header">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>অর্ডার ও পেমেন্ট কনফার্মেশন</span>
         </div>
 
-        <div class="card-body">
-          <label class="section-label">সিলেক্ট করুন:</label>
-          <div class="radio-card">
-            <span style="font-weight: 600;"><i class="fa-solid fa-calendar-check" style="color: var(--accent-gold); margin-right: 6px;"></i> ৫ টাকা উইকলি</span>
-            <span class="item-price">৳ ৫.০০</span>
+        <div class="selected-banner">
+          <div>
+            <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">নির্বাচিত প্যাকেজ:</span>
+            <b id="selectedPackageName">মাত্র ১২০ টাকায় উইকলি</b>
           </div>
-
-          <div class="input-group">
-            <label for="playerUid">Uid বসান:</label>
-            <div class="input-wrapper">
-              <i class="fa-solid fa-id-card"></i>
-              <input type="number" id="playerUid" placeholder="এখানে আপনার Player UID লিখুন...">
-            </div>
-          </div>
-
-          <button class="btn btn-submit" onclick="handleContinue()">Continue</button>
+          <b id="selectedPackagePrice" style="font-size: 1.15rem; color: var(--accent-gold);">৳ ১২০.০০</b>
         </div>
+
+        <div class="input-group">
+          <label for="playerUid">Uid বসান:</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-id-card"></i>
+            <input type="number" id="playerUid" placeholder="এখানে আপনার Player UID লিখুন...">
+          </div>
+        </div>
+
+        <button class="btn btn-submit" onclick="handleContinue()">Continue <i class="fa-solid fa-arrow-right"></i></button>
       </section>
 
-      <!-- Info Card -->
-      <section class="card info-card">
+      <!-- Rules Box -->
+      <section class="card">
         <div class="card-header">
-          <i class="fa-solid fa-circle-info fa-lg"></i>
-          <h3>টপ-আপ করার নিয়মাবলী</h3>
+          <i class="fa-solid fa-circle-info"></i>
+          <span>টপ-আপ করার নিয়মাবলী</span>
         </div>
         <div class="step-item">
           <span class="step-num">১</span>
-          <p>উপরে ডানপাশে ক্লিক করে আগে <b>Login</b> বা <b>Register</b> করে নিন।</p>
+          <p>প্যাকেজ নির্বাচন করার পূর্বে উপরে ডানপাশে ক্লিক করে <b>Login</b> বা <b>Register</b> করে নিন।</p>
         </div>
         <div class="step-item">
           <span class="step-num">২</span>
-          <p>আপনার সঠিক <b>Player UID</b> বক্সে বসান।</p>
+          <p>যে প্যাকেজটি নিতে চান সেটিতে ক্লিক করুন এবং আপনার সঠিক <b>Player UID</b> বক্সে বসান।</p>
         </div>
         <div class="step-item">
           <span class="step-num">৩</span>
@@ -325,13 +498,20 @@
         </div>
         <div class="support-box">
           <h4><i class="fa-solid fa-headset"></i> ২৪/৭ হেল্পলাইন</h4>
-          <p>যেকোনো সমস্যায় সরাসরি আমাদের সাপোর্ট টিমে যোগাযোগ করুন।</p>
+          <p>যেকোনো প্রয়োজনে নিচের হোয়াটসঅ্যাপ আইকনে ক্লিক করে যোগাযোগ করুন।</p>
         </div>
       </section>
+
     </div>
+
   </main>
 
-  <!-- Modal -->
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/" target="_blank" class="whatsapp-float">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Login/Register Modal -->
   <div class="modal" id="authModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -376,6 +556,8 @@
 
   <script>
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+    let currentSelectedPackage = 'মাত্র ১২০ টাকায় উইকলি';
+    let currentSelectedPrice = '৳ ১২০.০০';
 
     document.addEventListener('DOMContentLoaded', updateUserUI);
 
@@ -392,6 +574,17 @@
         authNav.style.display = 'block';
         userNav.style.display = 'none';
       }
+    }
+
+    function selectPackage(name, price) {
+      currentSelectedPackage = name;
+      currentSelectedPrice = price;
+      document.getElementById('selectedPackageName').textContent = name;
+      document.getElementById('selectedPackagePrice').textContent = price;
+      
+      // Auto scroll to UID Box
+      document.getElementById('playerUid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('playerUid').focus();
     }
 
     function openModal(tab = 'login') {
@@ -443,7 +636,7 @@
       currentUser = newUser;
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
-      alert('Registration shofol hoyeche!');
+      alert('রেজিস্ট্রেশন সফল হয়েছে!');
       closeModal();
       updateUserUI();
     }
@@ -459,11 +652,11 @@
       if (found) {
         currentUser = found;
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        alert('Login shofol hoyeche!');
+        alert('লগইন সফল হয়েছে!');
         closeModal();
         updateUserUI();
       } else {
-        alert('Bhul email/username othoba password!');
+        alert('ভুল ইমেইল/ইউজারনেম অথবা পাসওয়ার্ড!');
       }
     }
 
@@ -471,23 +664,23 @@
       currentUser = null;
       localStorage.removeItem('currentUser');
       updateUserUI();
-      alert('Logout kora hoyeche.');
+      alert('লগআউট করা হয়েছে।');
     }
 
     function handleContinue() {
       if (!currentUser) {
-        alert('⚠️ Top-up korte hole obosshoi age account login thakte hobe!');
+        alert('⚠️ টপ-আপ করতে হলে অবশ্যই প্রথমে একাউন্ট লগইন থাকতে হবে!');
         openModal('login');
         return;
       }
 
       const uid = document.getElementById('playerUid').value.trim();
       if (!uid) {
-        alert('Onugroho kore sothik Player UID boshann!');
+        alert('অনুগ্রহ করে সঠিক Player UID বসান!');
         return;
       }
 
-      alert(`✅ Order grohon kora hoyeche!\n\nUser: ${currentUser.name}\nPlayer UID: ${uid}\nOffer: 5 taka weekly`);
+      alert(`✅ অর্ডার গ্রহণ করা হয়েছে!\n\nইউজার: ${currentUser.name}\nPlayer UID: ${uid}\nপ্যাকেজ: ${currentSelectedPackage}\nমূল্য: ${currentSelectedPrice}`);
     }
   </script>
 </body>

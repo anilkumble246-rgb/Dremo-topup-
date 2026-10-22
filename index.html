@@ -17,6 +17,8 @@
       --text-muted: #94a3b8;
       --input-bg: #081126;
       --radius: 14px;
+      --bkash: #e2136e;
+      --nagad: #f7921e;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', 'Hind Siliguri', sans-serif; }
     
@@ -110,7 +112,7 @@
       flex-direction: column;
       align-items: center;
     }
-    .offer-box:hover {
+    .offer-box:hover, .offer-box.active {
       border-color: var(--primary-blue);
       transform: translateY(-4px);
       box-shadow: 0 8px 20px rgba(24, 119, 242, 0.25);
@@ -129,7 +131,6 @@
       z-index: 2;
     }
 
-    /* Cover Image Container */
     .offer-cover-img {
       width: 100%;
       height: 130px;
@@ -184,7 +185,6 @@
       cursor: pointer;
     }
 
-    /* Coming Soon Cards */
     .coming-soon-box {
       opacity: 0.6;
       border-style: dashed;
@@ -199,7 +199,7 @@
     /* Checkout & Info Area */
     .action-panel {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
+      grid-template-columns: 1.25fr 0.95fr;
       gap: 1.5rem;
     }
 
@@ -235,13 +235,77 @@
       color: var(--accent-gold);
     }
 
+    /* Payment Methods: bKash & Nagad Only */
+    .payment-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 1.2rem;
+    }
+    .pay-opt {
+      border: 2px solid var(--card-border);
+      background: var(--input-bg);
+      border-radius: 10px;
+      padding: 12px 10px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .pay-opt small {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+    .pay-opt.active {
+      border-color: var(--accent-gold);
+      background: rgba(255, 183, 3, 0.12);
+      color: var(--accent-gold);
+    }
+    .pay-opt.bkash { border-bottom: 4px solid var(--bkash); }
+    .pay-opt.nagad { border-bottom: 4px solid var(--nagad); }
+
+    .payment-instruction {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed var(--card-border);
+      border-radius: 8px;
+      padding: 0.9rem;
+      font-size: 0.88rem;
+      margin-bottom: 1.2rem;
+    }
+    .copy-number-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--input-bg);
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-top: 8px;
+      border: 1px solid var(--card-border);
+    }
+    .copy-btn {
+      background: var(--primary-blue);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
     /* Inputs */
-    .input-group { margin-bottom: 1.2rem; }
+    .input-group { margin-bottom: 1rem; }
     .input-group label { 
       display: block; 
       font-weight: 600; 
       margin-bottom: 6px; 
-      font-size: 0.9rem; 
+      font-size: 0.85rem; 
       color: var(--text-muted);
     }
     .input-wrapper { 
@@ -255,11 +319,11 @@
     .input-wrapper i { color: var(--text-muted); margin-right: 10px; }
     .input-wrapper input, .modal .input-group input { 
       width: 100%; 
-      padding: 12px 0; 
+      padding: 10px 0; 
       border: none; 
       background: transparent; 
       outline: none; 
-      font-size: 1rem; 
+      font-size: 0.95rem; 
       color: var(--text-white);
     }
     .modal .input-group input { 
@@ -272,7 +336,6 @@
     /* Buttons */
     .btn { padding: 9px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: 0.2s; }
     .btn-primary { background-color: var(--primary-blue); color: #fff; }
-    .btn-primary:hover { background-color: #125ec4; }
     .btn-outline { background: transparent; border: 1px solid #ef4444; color: #ef4444; }
     .btn-submit { 
       width: 100%; 
@@ -285,19 +348,20 @@
     }
 
     /* Steps */
-    .step-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1rem; font-size: 0.92rem; color: #cbd5e1; }
+    .step-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1rem; font-size: 0.88rem; color: #cbd5e1; }
     .step-num { 
       background: rgba(24, 119, 242, 0.2); 
       color: var(--accent-gold); 
       border: 1px solid var(--card-border);
       font-weight: 700; 
-      width: 26px; 
-      height: 26px; 
+      width: 24px; 
+      height: 24px; 
       border-radius: 50%; 
       display: flex; 
       align-items: center; 
       justify-content: center; 
       flex-shrink: 0; 
+      font-size: 0.8rem;
     }
     .support-box { 
       margin-top: 1.4rem; 
@@ -352,10 +416,6 @@
       box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
       z-index: 900;
       text-decoration: none;
-      transition: transform 0.2s;
-    }
-    .whatsapp-float:hover {
-      transform: scale(1.1);
     }
 
     @media (max-width: 768px) { 
@@ -402,15 +462,12 @@
     <!-- 6 Grid Offers Section -->
     <div class="grid-offers">
       
-      <!-- Box 1 (120 Taka Weekly - With Custom Cover Image) -->
+      <!-- Box 1 -->
       <div class="offer-box" onclick="selectPackage('মাত্র ১২০ টাকায় উইকলি', '৳ ১২০.০০')">
         <span class="offer-badge">POPULAR</span>
-        
-        <!-- Weekly 120 Cover Image -->
         <div class="offer-cover-img">
-          <img src="./weekly-120.jpg" alt="Weekly Membership 120" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'offer-icon-wrapper\' style=\'margin-bottom:0;\'><i class=\'fa-solid fa-gem\'></i></div>';">
+          <img src="./weekly-120.jpg" alt="Weekly Membership 120" onerror="this.onerror=null; this.src='./weekly-120.jpg.png';">
         </div>
-
         <div class="offer-name">মাত্র ১২০ টাকায় উইকলি</div>
         <div class="offer-price">৳ ১২০.০০</div>
         <button class="offer-btn">সিলেক্ট করুন</button>
@@ -427,45 +484,36 @@
         <button class="offer-btn">সিলেক্ট করুন</button>
       </div>
 
-      <!-- Box 3 (Weekly Lite - With Custom Cover Image) -->
+      <!-- Box 3 -->
       <div class="offer-box" onclick="selectPackage('মাত্র ১০ টাকায় উইকলি লাইট', '৳ ১০.০০')">
         <span class="offer-badge">MEGA</span>
-        
-        <!-- Weekly Lite Cover Image -->
         <div class="offer-cover-img">
-          <img src="./weekly-lite.jpg" alt="Weekly Lite" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'offer-icon-wrapper\' style=\'margin-bottom:0;\'><i class=\'fa-solid fa-crown\'></i></div>';">
+          <img src="./weekly-lite.jpg" alt="Weekly Lite" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'offer-icon-wrapper\\' style=\\'margin-bottom:0;\\'><i class=\\'fa-solid fa-crown\\'></i></div>';">
         </div>
-
         <div class="offer-name">মাত্র ১০ টাকায় উইকলি লাইট</div>
         <div class="offer-price">৳ ১০.০০</div>
         <button class="offer-btn">সিলেক্ট করুন</button>
       </div>
 
-      <!-- Box 4 (Coming Soon) -->
+      <!-- Box 4 -->
       <div class="offer-box coming-soon-box">
-        <div class="offer-icon-wrapper">
-          <i class="fa-solid fa-box-open"></i>
-        </div>
+        <div class="offer-icon-wrapper"><i class="fa-solid fa-box-open"></i></div>
         <div class="offer-name">শীঘ্রই আসছে (Box 4)</div>
         <div class="offer-price">৳ --</div>
         <button class="offer-btn" style="background: #334155;">অপেক্ষা করুন</button>
       </div>
 
-      <!-- Box 5 (Coming Soon) -->
+      <!-- Box 5 -->
       <div class="offer-box coming-soon-box">
-        <div class="offer-icon-wrapper">
-          <i class="fa-solid fa-gift"></i>
-        </div>
+        <div class="offer-icon-wrapper"><i class="fa-solid fa-gift"></i></div>
         <div class="offer-name">শীঘ্রই আসছে (Box 5)</div>
         <div class="offer-price">৳ --</div>
         <button class="offer-btn" style="background: #334155;">অপেক্ষা করুন</button>
       </div>
 
-      <!-- Box 6 (Coming Soon) -->
+      <!-- Box 6 -->
       <div class="offer-box coming-soon-box">
-        <div class="offer-icon-wrapper">
-          <i class="fa-solid fa-bolt"></i>
-        </div>
+        <div class="offer-icon-wrapper"><i class="fa-solid fa-bolt"></i></div>
         <div class="offer-name">শীঘ্রই আসছে (Box 6)</div>
         <div class="offer-price">৳ --</div>
         <button class="offer-btn" style="background: #334155;">অপেক্ষা করুন</button>
@@ -473,56 +521,101 @@
 
     </div>
 
-    <!-- Action & Instructions Panel -->
+    <!-- Payment & Info Panel -->
     <div class="action-panel">
       
-      <!-- Topup Box -->
+      <!-- Topup & Payment Box -->
       <section class="card">
         <div class="card-header">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span>অর্ডার ও পেমেন্ট কনফার্মেশন</span>
+          <i class="fa-solid fa-wallet"></i>
+          <span>পেমেন্ট ও অর্ডার কনফার্মেশন</span>
         </div>
 
         <div class="selected-banner">
           <div>
-            <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">নির্বাচিত প্যাকেজ:</span>
+            <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">নির্বাচিত প্যাকেজ:</span>
             <b id="selectedPackageName">মাত্র ১২০ টাকায় উইকলি</b>
           </div>
           <b id="selectedPackagePrice" style="font-size: 1.15rem; color: var(--accent-gold);">৳ ১২০.০০</b>
         </div>
 
+        <!-- Player UID -->
         <div class="input-group">
-          <label for="playerUid">Uid বসান:</label>
+          <label for="playerUid">১. Player UID বসান:</label>
           <div class="input-wrapper">
             <i class="fa-solid fa-id-card"></i>
             <input type="number" id="playerUid" placeholder="এখানে আপনার Player UID লিখুন...">
           </div>
         </div>
 
-        <button class="btn btn-submit" onclick="handleContinue()">Continue <i class="fa-solid fa-arrow-right"></i></button>
+        <!-- Payment Method Select (Bkash & Nagad only) -->
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 6px;">২. পেমেন্ট মেথড নির্বাচন করুন (Send Money):</label>
+        <div class="payment-options">
+          <div class="pay-opt bkash active" onclick="setPaymentMethod('bKash')">
+            <span><i class="fa-solid fa-mobile-screen-button"></i> bKash</span>
+            <small>Send Money</small>
+          </div>
+          <div class="pay-opt nagad" onclick="setPaymentMethod('Nagad')">
+            <span><i class="fa-solid fa-mobile-screen-button"></i> Nagad</span>
+            <small>Send Money</small>
+          </div>
+        </div>
+
+        <!-- Payment Number & Copy -->
+        <div class="payment-instruction">
+          <div>নিচের নম্বরে <b id="payMethodName" style="color:var(--accent-gold);">bKash</b> (Send Money) করুন:</div>
+          <div class="copy-number-box">
+            <span id="targetNumber" style="font-weight: 700; letter-spacing: 1px; font-size: 1.05rem;">01975-025703</span>
+            <button class="copy-btn" onclick="copyNumber()"><i class="fa-regular fa-copy"></i> Copy</button>
+          </div>
+        </div>
+
+        <!-- Sender Number -->
+        <div class="input-group">
+          <label for="senderNumber">৩. যে নম্বর থেকে টাকা পাঠিয়েছেন:</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-phone"></i>
+            <input type="number" id="senderNumber" placeholder="যেমন: 01XXXXXXXXX">
+          </div>
+        </div>
+
+        <!-- Transaction ID -->
+        <div class="input-group">
+          <label for="trxId">৪. Transaction ID (TrxID) বসান:</label>
+          <div class="input-wrapper">
+            <i class="fa-solid fa-receipt"></i>
+            <input type="text" id="trxId" placeholder="যেমন: BL8A92KM">
+          </div>
+        </div>
+
+        <button class="btn btn-submit" onclick="handleOrderSubmit()">অর্ডার নিশ্চিত করুন <i class="fa-solid fa-check-circle"></i></button>
       </section>
 
       <!-- Rules Box -->
       <section class="card">
         <div class="card-header">
           <i class="fa-solid fa-circle-info"></i>
-          <span>টপ-আপ করার নিয়মাবলী</span>
+          <span>টপ-আপ করার নিয়মাবলী</span>
         </div>
         <div class="step-item">
           <span class="step-num">১</span>
-          <p>প্যাকেজ নির্বাচন করার পূর্বে উপরে ডানপাশে ক্লিক করে <b>Login</b> বা <b>Register</b> করে নিন।</p>
+          <p>টপ-আপ করার পূর্বে অবশ্যই একাউন্টে <b>Login</b> করে নিন।</p>
         </div>
         <div class="step-item">
           <span class="step-num">২</span>
-          <p>যে প্যাকেজটি নিতে চান সেটিতে ক্লিক করুন এবং আপনার সঠিক <b>Player UID</b> বক্সে বসান।</p>
+          <p>প্যাকেজ নির্বাচন করে আপনার সঠিক <b>Player UID</b> বসান।</p>
         </div>
         <div class="step-item">
           <span class="step-num">৩</span>
-          <p><b>Continue</b> বাটনে ক্লিক করে প্রক্রিয়াটি সম্পন্ন করুন।</p>
+          <p>বিকাশ বা নগদ নম্বর কপি করে প্যাকেজের সমপরিমাণ টাকা <b>Send Money</b> করুন।</p>
+        </div>
+        <div class="step-item">
+          <span class="step-num">৪</span>
+          <p>টাকা পাঠানোর পর প্রাপ্ত <b>TrxID</b> এবং আপনার মোবাইল নম্বরটি লিখে <b>অর্ডার নিশ্চিত করুন</b> বাটনে চাপ দিন।</p>
         </div>
         <div class="support-box">
           <h4><i class="fa-solid fa-headset"></i> ২৪/৭ হেল্পলাইন</h4>
-          <p>যেকোনো প্রয়োজনে নিচের হোয়াটসঅ্যাপ আইকনে ক্লিক করে যোগাযোগ করুন।</p>
+          <p>টাকা পাঠাতে সমস্যা হলে সরাসরি হোয়াটসঅ্যাপে যোগাযোগ করুন।</p>
         </div>
       </section>
 
@@ -530,7 +623,6 @@
 
   </main>
 
-  <!-- Floating WhatsApp Button -->
   <a href="https://wa.me/" target="_blank" class="whatsapp-float">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
@@ -582,6 +674,13 @@
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
     let currentSelectedPackage = 'মাত্র ১২০ টাকায় উইকলি';
     let currentSelectedPrice = '৳ ১২০.০০';
+    let selectedMethod = 'bKash';
+
+    // Apnar dewa Bkash & Nagad Send Money numbers
+    const paymentNumbers = {
+      'bKash': '01975-025703',
+      'Nagad': '01846-008588'
+    };
 
     document.addEventListener('DOMContentLoaded', updateUserUI);
 
@@ -606,9 +705,26 @@
       document.getElementById('selectedPackageName').textContent = name;
       document.getElementById('selectedPackagePrice').textContent = price;
       
-      // Auto scroll to UID Box
       document.getElementById('playerUid').scrollIntoView({ behavior: 'smooth', block: 'center' });
       document.getElementById('playerUid').focus();
+    }
+
+    function setPaymentMethod(method) {
+      selectedMethod = method;
+      document.querySelectorAll('.pay-opt').forEach(el => el.classList.remove('active'));
+      
+      const target = event.currentTarget;
+      if (target) target.classList.add('active');
+
+      document.getElementById('payMethodName').textContent = method;
+      document.getElementById('targetNumber').textContent = paymentNumbers[method];
+    }
+
+    function copyNumber() {
+      const num = document.getElementById('targetNumber').textContent;
+      navigator.clipboard.writeText(num).then(() => {
+        alert('নম্বর কপি করা হয়েছে: ' + num);
+      });
     }
 
     function openModal(tab = 'login') {
@@ -647,9 +763,8 @@
       const pass = document.getElementById('regPass').value;
 
       const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-
       if (users.find(u => u.email === email || u.username === username)) {
-        alert('Ei email ba username diye account khola ache!');
+        alert('এই ইমেইল বা ইউজারনেম দিয়ে ইতোমধ্যে একাউন্ট খোলা আছে!');
         return;
       }
 
@@ -660,7 +775,7 @@
       currentUser = newUser;
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
-      alert('রেজিস্ট্রেশন সফল হয়েছে!');
+      alert('রেজিস্ট্রেশন সফল হয়েছে!');
       closeModal();
       updateUserUI();
     }
@@ -676,7 +791,7 @@
       if (found) {
         currentUser = found;
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        alert('লগইন সফল হয়েছে!');
+        alert('লগইন সফল হয়েছে!');
         closeModal();
         updateUserUI();
       } else {
@@ -688,23 +803,37 @@
       currentUser = null;
       localStorage.removeItem('currentUser');
       updateUserUI();
-      alert('লগআউট করা হয়েছে।');
+      alert('লগআউট করা হয়েছে।');
     }
 
-    function handleContinue() {
+    function handleOrderSubmit() {
       if (!currentUser) {
-        alert('⚠️ টপ-আপ করতে হলে অবশ্যই প্রথমে একাউন্ট লগইন থাকতে হবে!');
+        alert('⚠️ টপ-আপ অর্ডার করতে হলে অবশ্যই প্রথমে লগইন থাকতে হবে!');
         openModal('login');
         return;
       }
 
       const uid = document.getElementById('playerUid').value.trim();
+      const sender = document.getElementById('senderNumber').value.trim();
+      const trx = document.getElementById('trxId').value.trim();
+
       if (!uid) {
         alert('অনুগ্রহ করে সঠিক Player UID বসান!');
         return;
       }
+      if (!sender || sender.length < 11) {
+        alert('টাকা পাঠানোর সঠিক মোবাইল নম্বরটি দিন!');
+        return;
+      }
+      if (!trx || trx.length < 5) {
+        alert('সঠিক Transaction ID (TrxID) বসান!');
+        return;
+      }
 
-      alert(`✅ অর্ডার গ্রহণ করা হয়েছে!\n\nইউজার: ${currentUser.name}\nPlayer UID: ${uid}\nপ্যাকেজ: ${currentSelectedPackage}\nমূল্য: ${currentSelectedPrice}`);
+      alert(`✅ আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে!\n\nপ্যাকেজ: ${currentSelectedPackage}\nমূল্য: ${currentSelectedPrice}\nPlayer UID: ${uid}\nমেথড: ${selectedMethod} (Send Money)\nপ্রেরক নম্বর: ${sender}\nTrxID: ${trx}\n\nঅল্প সময়ের মধ্যে ভেরিফাই করে আপনার অ্যাকাউন্টে টপ-আপ যুক্ত করা হবে।`);
+      
+      document.getElementById('senderNumber').value = '';
+      document.getElementById('trxId').value = '';
     }
   </script>
 </body>

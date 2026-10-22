@@ -571,7 +571,7 @@
     <!-- 6 Grid Offers Section -->
     <div class="grid-offers">
       
-      <!-- Box 1 (120 Taka Weekly) -->
+      <!-- Box 1 (120 Taka Weekly - Dual Support: weekly-120.jpg or weekly-120.jpg.png) -->
       <div class="offer-box" onclick="selectPackage('মাত্র ১২০ টাকায় উইকলি', '৳ ১২০.০০')">
         <span class="offer-badge">POPULAR</span>
         <div class="offer-cover-img">
@@ -582,11 +582,10 @@
         <button class="offer-btn">সিলেক্ট করুন</button>
       </div>
 
-      <!-- Box 2 (5 Taka Weekly - Dual Name Supported) -->
+      <!-- Box 2 (5 Taka Weekly) -->
       <div class="offer-box" onclick="selectPackage('মাত্র ৫ টাকায় উইকলি', '৳ ৫.০০')">
         <span class="offer-badge">HOT DEAL</span>
         <div class="offer-cover-img">
-          <!-- .jpg অথবা .jpg.png উভয় ফাইলেই কাজ করবে -->
           <img src="./weekly-5.jpg" alt="Weekly 5 Taka" onerror="this.onerror=null; this.src='./weekly-5.jpg.png';">
         </div>
         <div class="offer-name">মাত্র ৫ টাকায় উইকলি</div>
@@ -598,7 +597,7 @@
       <div class="offer-box" onclick="selectPackage('মাত্র ১০ টাকায় উইকলি লাইট', '৳ ১০.০০')">
         <span class="offer-badge">MEGA</span>
         <div class="offer-cover-img">
-          <img src="./weekly-lite.jpg" alt="Weekly Lite" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'offer-icon-wrapper\\' style=\\'margin-bottom:0;\\'><i class=\\'fa-solid fa-crown\\'></i></div>';">
+          <img src="./weekly-lite.jpg" alt="Weekly Lite" onerror="this.onerror=null; this.src='./weekly-lite.jpg.png';">
         </div>
         <div class="offer-name">মাত্র ১০ টাকায় উইকলি লাইট</div>
         <div class="offer-price">৳ ১০.০০</div>
@@ -644,9 +643,9 @@
         <div class="selected-banner">
           <div>
             <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">নির্বাচিত প্যাকেজ:</span>
-            <b id="selectedPackageName">মাত্র ৫ টাকায় উইকলি</b>
+            <b id="selectedPackageName">মাত্র ১২০ টাকায় উইকলি</b>
           </div>
-          <b id="selectedPackagePrice" style="font-size: 1.15rem; color: var(--accent-gold);">৳ ৫.০০</b>
+          <b id="selectedPackagePrice" style="font-size: 1.15rem; color: var(--accent-gold);">৳ ১২০.০০</b>
         </div>
 
         <!-- Player UID -->
@@ -796,8 +795,8 @@
 
   <script>
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-    let currentSelectedPackage = 'মাত্র ৫ টাকায় উইকলি';
-    let currentSelectedPrice = '৳ ৫.০০';
+    let currentSelectedPackage = 'মাত্র ১২০ টাকায় উইকলি';
+    let currentSelectedPrice = '৳ ১২০.০০';
     let selectedMethod = 'bKash';
 
     const paymentNumbers = {

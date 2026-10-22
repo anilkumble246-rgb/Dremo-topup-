@@ -20,7 +20,7 @@
       --bkash: #e2136e;
       --nagad: #f7921e;
       
-      /* Admin Theme Colors */
+      /* Admin Purple Palette */
       --admin-purple-bg: #130924;
       --admin-purple-card: #20103c;
       --admin-purple-border: #44247d;
@@ -193,24 +193,17 @@
       width: 65px;
       height: 65px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #1877f2, #0d52b3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      color: #fff;
-      flex-shrink: 0;
-    }
-    .game-cat-icon.efootball-icon {
       background: transparent;
       padding: 0;
       overflow: hidden;
       border: 1px solid var(--card-border);
+      flex-shrink: 0;
     }
-    .game-cat-icon.efootball-icon img {
+    .game-cat-icon img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
     .game-cat-info h3 { font-size: 1.25rem; color: #fff; margin-bottom: 4px; }
     .game-cat-info p { font-size: 0.85rem; color: var(--text-muted); }
@@ -536,7 +529,7 @@
       position: fixed; 
       inset: 0; 
       background: rgba(0,0,0,0.75); 
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px); 
       justify-content: center; 
       align-items: center; 
       z-index: 999; 
@@ -749,18 +742,23 @@
     
     <!-- Game Selection Banner Cards -->
     <div class="games-cat-grid">
+      <!-- Free Fire Selector Card with Dual Support -->
       <div class="game-cat-card" id="catBtn_freefire" onclick="switchCategory('freefire')">
         <span class="game-cat-badge">ACTIVE</span>
-        <div class="game-cat-icon"><i class="fa-solid fa-fire"></i></div>
+        <div class="game-cat-icon">
+          <!-- .png, .jpg বা .jpg.png সব ফরম্যাট সাপোর্ট করবে -->
+          <img src="./uid.jpg.png" alt="Free Fire UID Topup" onerror="this.onerror=null; this.src='./uid.jpg'; this.onerror=function(){this.src='./freefire-cover.jpg';};">
+        </div>
         <div class="game-cat-info">
           <h3>Free Fire Topup</h3>
-          <p>উইকলি, মান্থলি ও ডায়মন্ড প্যাকেজসমূহ</p>
+          <p>UID কোড দিয়ে উইকলি ও ডায়মন্ড প্যাকেজসমূহ</p>
         </div>
       </div>
 
+      <!-- eFootball Selector Card -->
       <div class="game-cat-card" id="catBtn_efootball" onclick="switchCategory('efootball')">
         <span class="game-cat-badge" style="border-color:#10b981; color:#34d399;">NEW</span>
-        <div class="game-cat-icon efootball-icon">
+        <div class="game-cat-icon">
           <img src="./efootball-cover.jpg" alt="eFootball" onerror="this.onerror=null; this.src='./efootball-cover.jpg.png';">
         </div>
         <div class="game-cat-info">
@@ -1089,7 +1087,6 @@
       updateUserUI();
     });
 
-    // Category Switching (Free Fire vs eFootball vs All)
     function switchCategory(cat) {
       const ffSec = document.getElementById('freefire_section');
       const efSec = document.getElementById('efootball_section');

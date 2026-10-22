@@ -19,71 +19,32 @@
       --radius: 14px;
       --bkash: #e2136e;
       --nagad: #f7921e;
-      
-      /* Admin Theme Colors */
       --admin-purple-bg: #130924;
       --admin-purple-card: #20103c;
       --admin-purple-border: #44247d;
       --admin-accent: #a855f7;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', 'Hind Siliguri', sans-serif; }
+    body { background-color: var(--bg-dark-blue); color: var(--text-white); min-height: 100vh; }
     
-    body { 
-      background-color: var(--bg-dark-blue); 
-      color: var(--text-white); 
-      min-height: 100vh;
-    }
-    
-    /* Navbar */
     .navbar { 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      padding: 0.9rem 5%; 
-      background: #091329; 
-      border-bottom: 1px solid var(--card-border); 
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); 
-      position: relative;
+      display: flex; justify-content: space-between; align-items: center; 
+      padding: 0.9rem 5%; background: #091329; border-bottom: 1px solid var(--card-border); 
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); position: relative;
     }
     .logo { 
-      font-size: 1.35rem; 
-      font-weight: 700; 
-      color: var(--text-white); 
-      display: flex; 
-      align-items: center; 
-      gap: 10px; 
-      text-decoration: none;
+      font-size: 1.35rem; font-weight: 700; color: var(--text-white); 
+      display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer;
     }
-    .logo-img {
-      height: 40px;
-      width: 40px;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-    .logo-text {
-      color: var(--accent-gold);
-      text-shadow: 0 0 10px rgba(255, 183, 3, 0.3);
-    }
+    .logo-img { height: 40px; width: 40px; object-fit: contain; border-radius: 8px; }
+    .logo-text { color: var(--accent-gold); text-shadow: 0 0 10px rgba(255, 183, 3, 0.3); }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .nav-right { display: flex; align-items: center; gap: 10px; }
     .admin-btn {
       background: linear-gradient(135deg, #7e22ce, #9333ea);
-      border: 1px solid #c084fc;
-      color: #fff;
-      font-size: 0.85rem;
-      font-weight: 700;
-      padding: 7px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      gap: 6px;
-      animation: pulse 2s infinite;
+      border: 1px solid #c084fc; color: #fff; font-size: 0.85rem; font-weight: 700;
+      padding: 7px 14px; border-radius: 8px; cursor: pointer; display: none;
+      align-items: center; gap: 6px; animation: pulse 2s infinite;
     }
     @keyframes pulse {
       0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7); }
@@ -92,96 +53,107 @@
     }
 
     .menu-btn {
-      background: rgba(24, 119, 242, 0.15);
-      border: 1px solid var(--card-border);
-      color: var(--accent-gold);
-      font-size: 1.3rem;
-      padding: 7px 12px;
-      border-radius: 8px;
+      background: rgba(24, 119, 242, 0.15); border: 1px solid var(--card-border);
+      color: var(--accent-gold); font-size: 1.3rem; padding: 7px 12px;
+      border-radius: 8px; cursor: pointer;
+    }
+    .dropdown-menu {
+      display: none; position: absolute; top: 60px; right: 5%;
+      background: #0e1936; border: 1px solid var(--card-border);
+      border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      width: 175px; overflow: hidden; z-index: 995;
+    }
+    .dropdown-menu.show { display: block; }
+    .dropdown-item {
+      display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+      color: #fff; text-decoration: none; cursor: pointer; font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .dropdown-item:hover { background: rgba(24, 119, 242, 0.2); color: var(--accent-gold); }
+
+    .hero-banner { 
+      background: linear-gradient(135deg, #0d214d, #081432); 
+      color: var(--text-white); text-align: center; padding: 2rem 1rem; 
+      border-bottom: 1px solid var(--card-border);
+    }
+    .hero-banner h2 { font-size: 1.5rem; margin-bottom: 0.4rem; color: var(--accent-gold); }
+    .hero-banner p { font-size: 0.95rem; color: var(--text-muted); }
+
+    .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+
+    /* Category Navigation Cards */
+    .games-cat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .game-cat-card {
+      background: var(--card-dark-blue);
+      border: 2px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
       cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .game-cat-card:hover, .game-cat-card.active {
+      border-color: var(--accent-gold);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(255, 183, 3, 0.2);
+      background: #111e42;
+    }
+    .game-cat-icon {
+      width: 65px;
+      height: 65px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1877f2, #0d52b3);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: 0.2s;
-    }
-    .menu-btn:hover {
-      background: rgba(24, 119, 242, 0.3);
-    }
-
-    /* Dropdown Menu */
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 60px;
-      right: 5%;
-      background: #0e1936;
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      width: 175px;
-      overflow: hidden;
-      z-index: 995;
-    }
-    .dropdown-menu.show {
-      display: block;
-    }
-    .dropdown-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
+      font-size: 2rem;
       color: #fff;
-      text-decoration: none;
-      cursor: pointer;
-      font-size: 0.95rem;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: 0.2s;
+      flex-shrink: 0;
     }
-    .dropdown-item:last-child {
-      border-bottom: none;
+    .game-cat-icon.efootball-icon {
+      background: linear-gradient(135deg, #10b981, #047857);
     }
-    .dropdown-item:hover {
-      background: rgba(24, 119, 242, 0.2);
+    .game-cat-info h3 { font-size: 1.25rem; color: #fff; margin-bottom: 4px; }
+    .game-cat-info p { font-size: 0.85rem; color: var(--text-muted); }
+    .game-cat-badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: rgba(255, 183, 3, 0.15);
       color: var(--accent-gold);
-    }
-
-    /* Hero Banner */
-    .hero-banner { 
-      background: linear-gradient(135deg, #0d214d, #081432); 
-      color: var(--text-white); 
-      text-align: center; 
-      padding: 2rem 1rem; 
-      border-bottom: 1px solid var(--card-border);
-    }
-    .hero-banner h2 { 
-      font-size: 1.5rem; 
-      margin-bottom: 0.4rem; 
-      color: var(--accent-gold);
-    }
-    .hero-banner p { 
-      font-size: 0.95rem; 
-      color: var(--text-muted);
-    }
-
-    /* Container */
-    .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
-    
-    .section-title {
-      font-size: 1.35rem;
+      border: 1px solid var(--accent-gold);
+      font-size: 0.65rem;
       font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-left: 4px solid var(--accent-gold);
-      padding-left: 12px;
-    }
-    .section-title span {
-      color: var(--accent-gold);
+      padding: 2px 7px;
+      border-radius: 6px;
     }
 
-    /* Grid Layouts */
+    .section-title {
+      font-size: 1.35rem; font-weight: 700; color: #ffffff;
+      margin-bottom: 1.2rem; display: flex; align-items: center; justify-content: space-between;
+      border-left: 4px solid var(--accent-gold); padding-left: 12px;
+    }
+    .section-title span { color: var(--accent-gold); }
+    .back-btn {
+      background: rgba(24, 119, 242, 0.2);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .back-btn:hover { background: var(--primary-blue); }
+
     .grid-offers {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -210,426 +182,191 @@
     }
 
     .offer-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #ef4444;
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 12px;
-      z-index: 2;
+      position: absolute; top: 10px; right: 10px;
+      background: #ef4444; color: #fff; font-size: 0.65rem;
+      font-weight: 700; padding: 3px 8px; border-radius: 12px; z-index: 2;
     }
-
     .stock-tag {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: #10b981;
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 8px;
-      z-index: 2;
+      position: absolute; top: 10px; left: 10px;
+      background: #10b981; color: #fff; font-size: 0.65rem;
+      font-weight: 700; padding: 2px 7px; border-radius: 8px; z-index: 2;
     }
-    .stock-tag.out {
-      background: #ef4444;
-    }
+    .stock-tag.out { background: #ef4444; }
 
-    /* Cover Image Container */
     .offer-cover-img {
-      width: 100%;
-      height: 130px;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 0.9rem;
-      border: 1px solid var(--card-border);
-      background: #07122b;
+      width: 100%; height: 130px; border-radius: 10px;
+      overflow: hidden; margin-bottom: 0.9rem;
+      border: 1px solid var(--card-border); background: #07122b;
     }
-    .offer-cover-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .offer-cover-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .offer-icon-wrapper {
-      width: 100%;
-      height: 130px;
-      border-radius: 10px;
+      width: 100%; height: 130px; border-radius: 10px;
       background: linear-gradient(135deg, #15326d, #081738);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.8rem;
-      color: var(--accent-gold);
-      margin-bottom: 0.9rem;
-      border: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; color: var(--accent-gold);
+      margin-bottom: 0.9rem; border: 1px solid var(--card-border);
+    }
+    .offer-icon-wrapper.efootball-bg {
+      background: linear-gradient(135deg, #093f2f, #041f17);
+      color: #34d399;
     }
 
-    .offer-name {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 0.4rem;
-    }
-    .offer-price {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-      margin-bottom: 0.8rem;
-    }
+    .offer-name { font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 0.4rem; }
+    .offer-price { font-size: 1.1rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 0.8rem; }
     .offer-btn {
-      width: 100%;
-      background: linear-gradient(135deg, var(--primary-blue), #0f58bd);
-      color: #fff;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
+      width: 100%; background: linear-gradient(135deg, var(--primary-blue), #0f58bd);
+      color: #fff; border: none; padding: 8px 12px; border-radius: 8px;
+      font-weight: 600; font-size: 0.85rem; cursor: pointer;
     }
 
-    /* Checkout & Info Area */
     .action-panel {
       display: grid;
       grid-template-columns: 1.25fr 0.95fr;
       gap: 1.5rem;
       margin-top: 2rem;
     }
-
     .card { 
-      background: var(--card-dark-blue); 
-      border-radius: var(--radius); 
-      border: 1px solid var(--card-border); 
-      padding: 1.5rem;
+      background: var(--card-dark-blue); border-radius: var(--radius); 
+      border: 1px solid var(--card-border); padding: 1.5rem;
       box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
     }
-
     .card-header { 
-      display: flex; 
-      align-items: center; 
-      gap: 10px; 
-      color: var(--accent-gold); 
-      margin-bottom: 1.2rem; 
-      font-size: 1.15rem;
-      font-weight: 700;
+      display: flex; align-items: center; gap: 10px; 
+      color: var(--accent-gold); margin-bottom: 1.2rem; 
+      font-size: 1.15rem; font-weight: 700;
     }
-
     .selected-banner {
-      background: rgba(24, 119, 242, 0.15);
-      border: 1px solid var(--primary-blue);
-      border-radius: 8px;
-      padding: 0.8rem 1rem;
-      margin-bottom: 1.2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      background: rgba(24, 119, 242, 0.15); border: 1px solid var(--primary-blue);
+      border-radius: 8px; padding: 0.8rem 1rem; margin-bottom: 1.2rem;
+      display: flex; justify-content: space-between; align-items: center;
     }
-    .selected-banner b {
-      color: var(--accent-gold);
-    }
+    .selected-banner b { color: var(--accent-gold); }
 
-    /* Payment Methods */
-    .payment-options {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 1.2rem;
-    }
+    .payment-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.2rem; }
     .pay-opt {
-      border: 2px solid var(--card-border);
-      background: var(--input-bg);
-      border-radius: 10px;
-      padding: 12px 10px;
-      text-align: center;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 700;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
+      border: 2px solid var(--card-border); background: var(--input-bg);
+      border-radius: 10px; padding: 12px 10px; text-align: center;
+      cursor: pointer; font-size: 0.95rem; font-weight: 700;
+      transition: all 0.2s ease; display: flex; flex-direction: column;
+      align-items: center; gap: 4px;
     }
-    .pay-opt small {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: var(--text-muted);
-    }
-    .pay-opt.active {
-      border-color: var(--accent-gold);
-      background: rgba(255, 183, 3, 0.12);
-      color: var(--accent-gold);
-    }
+    .pay-opt small { font-size: 0.75rem; font-weight: 400; color: var(--text-muted); }
+    .pay-opt.active { border-color: var(--accent-gold); background: rgba(255, 183, 3, 0.12); color: var(--accent-gold); }
     .pay-opt.bkash { border-bottom: 4px solid var(--bkash); }
     .pay-opt.nagad { border-bottom: 4px solid var(--nagad); }
 
     .payment-instruction {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px dashed var(--card-border);
-      border-radius: 8px;
-      padding: 0.9rem;
-      font-size: 0.88rem;
-      margin-bottom: 1.2rem;
+      background: rgba(255, 255, 255, 0.03); border: 1px dashed var(--card-border);
+      border-radius: 8px; padding: 0.9rem; font-size: 0.88rem; margin-bottom: 1.2rem;
     }
     .copy-number-box {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--input-bg);
-      padding: 8px 12px;
-      border-radius: 6px;
-      margin-top: 8px;
-      border: 1px solid var(--card-border);
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--input-bg); padding: 8px 12px; border-radius: 6px;
+      margin-top: 8px; border: 1px solid var(--card-border);
     }
     .copy-btn {
-      background: var(--primary-blue);
-      color: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 5px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
+      background: var(--primary-blue); color: #fff; border: none;
+      padding: 6px 12px; border-radius: 5px; font-size: 0.8rem;
+      font-weight: 600; cursor: pointer;
     }
 
-    /* Inputs */
     .input-group { margin-bottom: 1rem; }
-    .input-group label { 
-      display: block; 
-      font-weight: 600; 
-      margin-bottom: 6px; 
-      font-size: 0.85rem; 
-      color: var(--text-muted);
-    }
+    .input-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.85rem; color: var(--text-muted); }
     .input-wrapper { 
-      display: flex; 
-      align-items: center; 
-      border: 1px solid var(--card-border); 
-      border-radius: 8px; 
-      padding: 0 12px; 
-      background: var(--input-bg); 
+      display: flex; align-items: center; border: 1px solid var(--card-border); 
+      border-radius: 8px; padding: 0 12px; background: var(--input-bg); 
     }
     .input-wrapper i { color: var(--text-muted); margin-right: 10px; }
     .input-wrapper input, .modal .input-group input { 
-      width: 100%; 
-      padding: 10px 0; 
-      border: none; 
-      background: transparent; 
-      outline: none; 
-      font-size: 0.95rem; 
-      color: var(--text-white);
+      width: 100%; padding: 10px 0; border: none; background: transparent; 
+      outline: none; font-size: 0.95rem; color: var(--text-white);
     }
-    .modal .input-group input { 
-      border: 1px solid var(--card-border); 
-      padding: 10px 12px; 
-      border-radius: 6px; 
-      background: var(--input-bg);
-    }
+    .modal .input-group input { border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 6px; background: var(--input-bg); }
 
-    /* Buttons */
     .btn { padding: 9px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: 0.2s; }
     .btn-primary { background-color: var(--primary-blue); color: #fff; }
     .btn-outline { background: transparent; border: 1px solid #ef4444; color: #ef4444; }
     .btn-submit { 
-      width: 100%; 
-      background: linear-gradient(135deg, #1877f2, #0d52b3); 
-      color: #fff; 
-      padding: 12px; 
-      font-size: 1.05rem; 
-      border-radius: 8px; 
-      box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+      width: 100%; background: linear-gradient(135deg, #1877f2, #0d52b3); 
+      color: #fff; padding: 12px; font-size: 1.05rem; border-radius: 8px; 
+      box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3); border: none; cursor: pointer; font-weight: 700;
     }
 
-    /* Steps */
     .step-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1rem; font-size: 0.88rem; color: #cbd5e1; }
     .step-num { 
-      background: rgba(24, 119, 242, 0.2); 
-      color: var(--accent-gold); 
-      border: 1px solid var(--card-border); 
-      font-weight: 700; 
-      width: 24px; 
-      height: 24px; 
-      border-radius: 50%; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      flex-shrink: 0; 
-      font-size: 0.8rem;
+      background: rgba(24, 119, 242, 0.2); color: var(--accent-gold); 
+      border: 1px solid var(--card-border); font-weight: 700; width: 24px; 
+      height: 24px; border-radius: 50%; display: flex; align-items: center; 
+      justify-content: center; flex-shrink: 0; font-size: 0.8rem;
     }
     .support-box { 
-      margin-top: 1.4rem; 
-      background: rgba(255, 183, 3, 0.08); 
-      padding: 1rem; 
-      border-radius: 8px; 
-      border-left: 4px solid var(--accent-gold); 
+      margin-top: 1.4rem; background: rgba(255, 183, 3, 0.08); 
+      padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-gold); 
     }
     .support-box h4 { color: var(--accent-gold); margin-bottom: 4px; font-size: 0.95rem; }
     .support-box p { color: var(--text-muted); font-size: 0.85rem; }
 
-    /* Modals */
     .modal { 
-      display: none; 
-      position: fixed; 
-      inset: 0; 
-      background: rgba(0,0,0,0.75); 
-      backdrop-filter: blur(4px);
-      justify-content: center; 
-      align-items: center; 
-      z-index: 999; 
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); 
+      backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 999; 
     }
     .modal-content { 
-      background: #0f1c3f; 
-      border: 1px solid var(--card-border); 
-      padding: 2rem; 
-      border-radius: var(--radius); 
-      width: 90%; 
-      max-width: 420px; 
-      position: relative; 
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
-      max-height: 85vh; 
-      overflow-y: auto; 
+      background: #0f1c3f; border: 1px solid var(--card-border); padding: 2rem; 
+      border-radius: var(--radius); width: 90%; max-width: 420px; position: relative; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6); max-height: 85vh; overflow-y: auto; 
     }
     .close-btn { position: absolute; top: 12px; right: 16px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
     .tab-header { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 1.4rem; }
     .tab-btn { flex: 1; padding: 10px; border: none; background: none; font-weight: 600; cursor: pointer; color: var(--text-muted); font-size: 1rem; }
     .tab-btn.active { color: var(--accent-gold); border-bottom: 2px solid var(--accent-gold); }
 
-    /* Orders List Styling */
     .order-card-item {
-      background: #081126;
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 12px;
+      background: #081126; border: 1px solid var(--card-border);
+      border-radius: 10px; padding: 12px; margin-bottom: 12px;
       border-left: 4px solid var(--accent-gold);
     }
     .order-card-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; font-size: 0.82rem;
+      color: var(--text-muted); margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.06);
       padding-bottom: 4px;
     }
-    .order-detail-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.88rem;
-      margin-bottom: 4px;
-    }
-    .order-detail-row b {
-      color: #fff;
-    }
-
-    /* Status Badges */
-    .status-badge {
-      font-size: 0.75rem;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-weight: 700;
-      text-transform: capitalize;
-    }
+    .order-detail-row { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 4px; }
+    .order-detail-row b { color: #fff; }
+    .status-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 6px; font-weight: 700; text-transform: capitalize; }
     .status-pending { background: #eab308; color: #000; }
     .status-processing { background: #3b82f6; color: #fff; }
     .status-complete { background: #22c55e; color: #fff; }
     .status-cancel { background: #ef4444; color: #fff; }
 
-    /* ADMIN PANEL MODAL (Purple Theme) */
+    /* Admin Purple Modal */
     #adminModal .modal-content {
-      background-color: var(--admin-purple-bg);
-      border: 2px solid var(--admin-purple-border);
-      max-width: 880px;
-      width: 95%;
-      color: #fff;
-      box-shadow: 0 10px 40px rgba(126, 34, 206, 0.5);
+      background-color: var(--admin-purple-bg); border: 2px solid var(--admin-purple-border);
+      max-width: 880px; width: 95%; color: #fff; box-shadow: 0 10px 40px rgba(126, 34, 206, 0.5);
     }
-    .admin-nav-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--admin-purple-border);
-      padding-bottom: 10px;
-    }
+    .admin-nav-tabs { display: flex; gap: 10px; margin-bottom: 1.5rem; border-bottom: 1px solid var(--admin-purple-border); padding-bottom: 10px; }
     .admin-tab {
-      background: var(--admin-purple-card);
-      border: 1px solid var(--admin-purple-border);
-      color: #cbd5e1;
-      padding: 8px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
+      background: var(--admin-purple-card); border: 1px solid var(--admin-purple-border);
+      color: #cbd5e1; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600;
     }
-    .admin-tab.active {
-      background: var(--admin-accent);
-      color: #fff;
-      border-color: #d8b4fe;
-    }
-    .admin-card {
-      background: var(--admin-purple-card);
-      border: 1px solid var(--admin-purple-border);
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
-    .admin-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-      text-align: left;
-    }
-    .admin-table th, .admin-table td {
-      padding: 10px;
-      border-bottom: 1px solid var(--admin-purple-border);
-    }
-    .admin-table th {
-      background: rgba(168, 85, 247, 0.15);
-      color: #e9d5ff;
-    }
-    .admin-select {
-      background: #0d0618;
-      border: 1px solid var(--admin-purple-border);
-      color: #fff;
-      padding: 5px 8px;
-      border-radius: 6px;
-      outline: none;
-      font-size: 0.82rem;
-    }
-    .admin-input {
-      background: #0d0618;
-      border: 1px solid var(--admin-purple-border);
-      color: #fff;
-      padding: 6px 10px;
-      border-radius: 6px;
-      width: 110px;
-      font-weight: bold;
-    }
+    .admin-tab.active { background: var(--admin-accent); color: #fff; border-color: #d8b4fe; }
+    .admin-card { background: var(--admin-purple-card); border: 1px solid var(--admin-purple-border); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+    .admin-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
+    .admin-table th, .admin-table td { padding: 10px; border-bottom: 1px solid var(--admin-purple-border); }
+    .admin-table th { background: rgba(168, 85, 247, 0.15); color: #e9d5ff; }
+    .admin-select { background: #0d0618; border: 1px solid var(--admin-purple-border); color: #fff; padding: 5px 8px; border-radius: 6px; font-size: 0.82rem; }
+    .admin-input { background: #0d0618; border: 1px solid var(--admin-purple-border); color: #fff; padding: 6px 10px; border-radius: 6px; width: 110px; font-weight: bold; }
 
-    /* Floating WhatsApp Button */
     .whatsapp-float {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background-color: #25d366;
-      color: white;
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-      z-index: 900;
+      position: fixed; bottom: 25px; right: 25px; background-color: #25d366;
+      color: white; width: 55px; height: 55px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 900;
       text-decoration: none;
     }
 
     @media (max-width: 768px) { 
+      .games-cat-grid { grid-template-columns: 1fr; }
       .grid-offers { grid-template-columns: repeat(2, 1fr); }
       .action-panel { grid-template-columns: 1fr; }
       .admin-table { display: block; overflow-x: auto; }
@@ -641,16 +378,14 @@
 </head>
 <body>
 
-  <!-- Navbar -->
   <header class="navbar">
-    <div class="logo">
+    <div class="logo" onclick="switchCategory('all')">
       <img src="./logo.png" alt="logo" class="logo-img" onerror="this.style.display='none'; document.getElementById('altGem').style.display='inline-block';">
       <i id="altGem" class="fa-solid fa-gem" style="display: none; color: var(--accent-gold);"></i>
       <span class="logo-text">⚡ 𝐃𝐫𝐞𝐦𝐨 𝐭𝐨𝐩𝐮𝐩 ⚡</span>
     </div>
 
     <div class="nav-right">
-      <!-- Admin Panel Shortcut Button -->
       <button class="admin-btn" id="adminShortcutBtn" onclick="openAdminModal()">
         <i class="fa-solid fa-crown"></i> Admin Panel
       </button>
@@ -665,12 +400,10 @@
         <button class="btn btn-outline" onclick="logoutUser()">Logout</button>
       </div>
 
-      <!-- 3 lines Menu Button -->
       <button class="menu-btn" onclick="toggleDropdown(event)">
         <i class="fa-solid fa-bars"></i>
       </button>
 
-      <!-- Dropdown with Orders and Admin options -->
       <div class="dropdown-menu" id="dropdownMenu">
         <div class="dropdown-item" onclick="openOrdersModal()">
           <i class="fa-solid fa-clock-rotate-left" style="color: var(--accent-gold);"></i> Orders
@@ -682,7 +415,6 @@
     </div>
   </header>
 
-  <!-- Banner -->
   <div class="hero-banner">
     <h2>⚡ 𝐃𝐫𝐞𝐦𝐨 𝐭𝐨𝐩𝐮𝐩 এ স্বাগতম ⚡</h2>
     <p>সবচেয়ে কম খরচে ও দ্রুততম সময়ে গেম টপ-আপ নিন নিরাপদে!</p>
@@ -690,98 +422,157 @@
 
   <main class="container">
     
-    <!-- Free Fire Packages Section -->
-    <div class="section-title">
-      Free Fire <span>প্যাকেজসমূহ</span>
-    </div>
-
-    <div class="grid-offers">
-      <!-- Box 1 (120 Taka Weekly) -->
-      <div class="offer-box" id="card_box1" onclick="selectPackageById('box1')">
-        <span class="offer-badge">POPULAR</span>
-        <span class="stock-tag" id="stockTag_box1">In Stock</span>
-        <div class="offer-cover-img">
-          <img src="./weekly-120.jpg" alt="Weekly Membership 120" onerror="this.onerror=null; this.src='./weekly-120.jpg.png';">
+    <!-- Game Selection Banner Cards -->
+    <div class="games-cat-grid">
+      <div class="game-cat-card" id="catBtn_freefire" onclick="switchCategory('freefire')">
+        <span class="game-cat-badge">ACTIVE</span>
+        <div class="game-cat-icon"><i class="fa-solid fa-fire"></i></div>
+        <div class="game-cat-info">
+          <h3>Free Fire Topup</h3>
+          <p>উইকলি, মান্থলি ও ডায়মন্ড প্যাকেজসমূহ</p>
         </div>
-        <div class="offer-name" id="name_box1">মাত্র ১২০ টাকায় উইকলি</div>
-        <div class="offer-price" id="price_box1">৳ ১২০.০০</div>
-        <button class="offer-btn" id="btn_box1">সিলেক্ট করুন</button>
       </div>
 
-      <!-- Box 2 (5 Taka Weekly) -->
-      <div class="offer-box" id="card_box2" onclick="selectPackageById('box2')">
-        <span class="offer-badge">HOT DEAL</span>
-        <span class="stock-tag" id="stockTag_box2">In Stock</span>
-        <div class="offer-cover-img">
-          <img src="./weekly-5.jpg" alt="Weekly 5 Taka" onerror="this.onerror=null; this.src='./weekly-5.jpg.png';">
+      <div class="game-cat-card" id="catBtn_efootball" onclick="switchCategory('efootball')">
+        <span class="game-cat-badge" style="border-color:#10b981; color:#34d399;">NEW</span>
+        <div class="game-cat-icon efootball-icon"><i class="fa-solid fa-futbol"></i></div>
+        <div class="game-cat-info">
+          <h3>eFootball Coins</h3>
+          <p>eFootball এর সকল কয়েন ও প্যাক সার্ভিস</p>
         </div>
-        <div class="offer-name" id="name_box2">মাত্র ৫ টাকায় উইকলি</div>
-        <div class="offer-price" id="price_box2">৳ ৫.০০</div>
-        <button class="offer-btn" id="btn_box2">সিলেক্ট করুন</button>
-      </div>
-
-      <!-- Box 3 (Weekly Lite) -->
-      <div class="offer-box" id="card_box3" onclick="selectPackageById('box3')">
-        <span class="offer-badge">MEGA</span>
-        <span class="stock-tag" id="stockTag_box3">In Stock</span>
-        <div class="offer-cover-img">
-          <img src="./weekly-lite.jpg" alt="Weekly Lite" onerror="this.onerror=null; this.src='./weekly-lite.jpg.png';">
-        </div>
-        <div class="offer-name" id="name_box3">মাত্র ১০ টাকায় উইকলি লাইট</div>
-        <div class="offer-price" id="price_box3">৳ ১০.০০</div>
-        <button class="offer-btn" id="btn_box3">সিলেক্ট করুন</button>
       </div>
     </div>
 
+    <!-- Section 1: Free Fire Packages -->
+    <div id="freefire_section">
+      <div class="section-title">
+        <div>Free Fire <span>প্যাকেজসমূহ</span></div>
+        <button class="back-btn" onclick="switchCategory('all')"><i class="fa-solid fa-layer-group"></i> সব গেম দেখুন</button>
+      </div>
 
-    <!-- NEW SECTION: eFootball Section -->
-    <div class="section-title">
-      <i class="fa-solid fa-futbol" style="color:var(--accent-gold);"></i> eFootball <span>Coins & Offers</span>
+      <div class="grid-offers">
+        <!-- Box 1 -->
+        <div class="offer-box" id="card_box1" onclick="selectPackageById('box1')">
+          <span class="offer-badge">POPULAR</span>
+          <span class="stock-tag" id="stockTag_box1">In Stock</span>
+          <div class="offer-cover-img">
+            <img src="./weekly-120.jpg" alt="Weekly Membership 120" onerror="this.onerror=null; this.src='./weekly-120.jpg.png';">
+          </div>
+          <div class="offer-name" id="name_box1">মাত্র ১২০ টাকায় উইকলি</div>
+          <div class="offer-price" id="price_box1">৳ ১২০.০০</div>
+          <button class="offer-btn" id="btn_box1">সিলেক্ট করুন</button>
+        </div>
+
+        <!-- Box 2 -->
+        <div class="offer-box" id="card_box2" onclick="selectPackageById('box2')">
+          <span class="offer-badge">HOT DEAL</span>
+          <span class="stock-tag" id="stockTag_box2">In Stock</span>
+          <div class="offer-cover-img">
+            <img src="./weekly-5.jpg" alt="Weekly 5 Taka" onerror="this.onerror=null; this.src='./weekly-5.jpg.png';">
+          </div>
+          <div class="offer-name" id="name_box2">মাত্র ৫ টাকায় উইকলি</div>
+          <div class="offer-price" id="price_box2">৳ ৫.০০</div>
+          <button class="offer-btn" id="btn_box2">সিলেক্ট করুন</button>
+        </div>
+
+        <!-- Box 3 -->
+        <div class="offer-box" id="card_box3" onclick="selectPackageById('box3')">
+          <span class="offer-badge">MEGA</span>
+          <span class="stock-tag" id="stockTag_box3">In Stock</span>
+          <div class="offer-cover-img">
+            <img src="./weekly-lite.jpg" alt="Weekly Lite" onerror="this.onerror=null; this.src='./weekly-lite.jpg.png';">
+          </div>
+          <div class="offer-name" id="name_box3">মাত্র ১০ টাকায় উইকলি লাইট</div>
+          <div class="offer-price" id="price_box3">৳ ১০.০০</div>
+          <button class="offer-btn" id="btn_box3">সিলেক্ট করুন</button>
+        </div>
+      </div>
     </div>
 
-    <div class="grid-offers">
-      <!-- eFootball Item 1 -->
-      <div class="offer-box" id="card_efootball1" onclick="selectPackageById('efootball1')">
-        <span class="offer-badge">TOP SALE</span>
-        <span class="stock-tag" id="stockTag_efootball1">In Stock</span>
-        <div class="offer-cover-img">
-          <img src="./efootball-130.jpg" alt="eFootball 130 Coins" onerror="this.onerror=null; this.src='./efootball.png'; this.onerror=function(){this.parentElement.innerHTML='<div class=\'offer-icon-wrapper\' style=\'margin-bottom:0;\'><i class=\'fa-solid fa-futbol\'></i></div>';};">
-        </div>
-        <div class="offer-name" id="name_efootball1">eFootball 130 Coins</div>
-        <div class="offer-price" id="price_efootball1">৳ ১১৫.০০</div>
-        <button class="offer-btn" id="btn_efootball1">সিলেক্ট করুন</button>
+    <!-- Section 2: eFootball Services Section -->
+    <div id="efootball_section">
+      <div class="section-title">
+        <div><i class="fa-solid fa-futbol" style="color:var(--accent-gold);"></i> eFootball <span>Coins Services</span></div>
+        <button class="back-btn" onclick="switchCategory('all')"><i class="fa-solid fa-layer-group"></i> সব গেম দেখুন</button>
       </div>
 
-      <!-- eFootball Item 2 -->
-      <div class="offer-box" id="card_efootball2" onclick="selectPackageById('efootball2')">
-        <span class="offer-badge">POPULAR</span>
-        <span class="stock-tag" id="stockTag_efootball2">In Stock</span>
-        <div class="offer-cover-img">
-          <img src="./efootball-520.jpg" alt="eFootball 520 Coins" onerror="this.onerror=null; this.src='./efootball.png'; this.onerror=function(){this.parentElement.innerHTML='<div class=\'offer-icon-wrapper\' style=\'margin-bottom:0;\'><i class=\'fa-solid fa-futbol\'></i></div>';};">
+      <div class="grid-offers">
+        <!-- eFootball 130 Coins -->
+        <div class="offer-box" id="card_efootball1" onclick="selectPackageById('efootball1')">
+          <span class="offer-badge">HOT</span>
+          <span class="stock-tag" id="stockTag_efootball1">In Stock</span>
+          <div class="offer-cover-img">
+            <img src="./efootball-130.jpg" alt="eFootball 130 Coins" onerror="this.onerror=null; this.src='./efootball.png'; this.onerror=function(){this.parentElement.innerHTML='<div class=\'offer-icon-wrapper efootball-bg\'><i class=\'fa-solid fa-futbol\'></i></div>';};">
+          </div>
+          <div class="offer-name" id="name_efootball1">eFootball 130 Coins</div>
+          <div class="offer-price" id="price_efootball1">৳ ১১৫.০০</div>
+          <button class="offer-btn" id="btn_efootball1">সিলেক্ট করুন</button>
         </div>
-        <div class="offer-name" id="name_efootball2">eFootball 520 Coins</div>
-        <div class="offer-price" id="price_efootball2">৳ ৪৩০.০০</div>
-        <button class="offer-btn" id="btn_efootball2">সিলেক্ট করুন</button>
-      </div>
 
-      <!-- eFootball Item 3 -->
-      <div class="offer-box" id="card_efootball3" onclick="selectPackageById('efootball3')">
-        <span class="offer-badge">BEST VALUE</span>
-        <span class="stock-tag" id="stockTag_efootball3">In Stock</span>
-        <div class="offer-cover-img">
-          <img src="./efootball-1050.jpg" alt="eFootball 1050 Coins" onerror="this.onerror=null; this.src='./efootball.png'; this.onerror=function(){this.parentElement.innerHTML='<div class=\'offer-icon-wrapper\' style=\'margin-bottom:0;\'><i class=\'fa-solid fa-futbol\'></i></div>';};">
+        <!-- eFootball 520 Coins -->
+        <div class="offer-box" id="card_efootball2" onclick="selectPackageById('efootball2')">
+          <span class="offer-badge">POPULAR</span>
+          <span class="stock-tag" id="stockTag_efootball2">In Stock</span>
+          <div class="offer-cover-img">
+            <img src="./efootball-520.jpg" alt="eFootball 520 Coins" onerror="this.onerror=null; this.src='./efootball.png'; this.onerror=function(){this.parentElement.innerHTML='<div class=\'offer-icon-wrapper efootball-bg\'><i class=\'fa-solid fa-futbol\'></i></div>';};">
+          </div>
+          <div class="offer-name" id="name_efootball2">eFootball 520 Coins</div>
+          <div class="offer-price" id="price_efootball2">৳ ৪৩০.০০</div>
+          <button class="offer-btn" id="btn_efootball2">সিলেক্ট করুন</button>
         </div>
-        <div class="offer-name" id="name_efootball3">eFootball 1050 Coins</div>
-        <div class="offer-price" id="price_efootball3">৳ ৮৫০.০০</div>
-        <button class="offer-btn" id="btn_efootball3">সিলেক্ট করুন</button>
+
+        <!-- eFootball 1050 Coins -->
+        <div class="offer-box" id="card_efootball3" onclick="selectPackageById('efootball3')">
+          <span class="offer-badge">BEST VALUE</span>
+          <span class="stock-tag" id="stockTag_efootball3">In Stock</span>
+          <div class="offer-cover-img">
+            <img src="./efootball-1050.jpg" alt="eFootball 1050 Coins" onerror="this.onerror=null; this.src='./efootball.png'; this.onerror=function(){this.parentElement.innerHTML='<div class=\'offer-icon-wrapper efootball-bg\'><i class=\'fa-solid fa-futbol\'></i></div>';};">
+          </div>
+          <div class="offer-name" id="name_efootball3">eFootball 1050 Coins</div>
+          <div class="offer-price" id="price_efootball3">৳ ৮৫০.০০</div>
+          <button class="offer-btn" id="btn_efootball3">সিলেক্ট করুন</button>
+        </div>
+
+        <!-- eFootball 2130 Coins -->
+        <div class="offer-box" id="card_efootball4" onclick="selectPackageById('efootball4')">
+          <span class="offer-badge">MEGA</span>
+          <span class="stock-tag" id="stockTag_efootball4">In Stock</span>
+          <div class="offer-icon-wrapper efootball-bg">
+            <i class="fa-solid fa-coins"></i>
+          </div>
+          <div class="offer-name" id="name_efootball4">eFootball 2130 Coins</div>
+          <div class="offer-price" id="price_efootball4">৳ ১৭২০.০০</div>
+          <button class="offer-btn" id="btn_efootball4">সিলেক্ট করুন</button>
+        </div>
+
+        <!-- eFootball 3250 Coins -->
+        <div class="offer-box" id="card_efootball5" onclick="selectPackageById('efootball5')">
+          <span class="offer-badge">SUPER</span>
+          <span class="stock-tag" id="stockTag_efootball5">In Stock</span>
+          <div class="offer-icon-wrapper efootball-bg">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div class="offer-name" id="name_efootball5">eFootball 3250 Coins</div>
+          <div class="offer-price" id="price_efootball5">৳ ২৬০০.০০</div>
+          <button class="offer-btn" id="btn_efootball5">সিলেক্ট করুন</button>
+        </div>
+
+        <!-- eFootball Match Pass -->
+        <div class="offer-box" id="card_efootball6" onclick="selectPackageById('efootball6')">
+          <span class="offer-badge">EXCLUSIVE</span>
+          <span class="stock-tag" id="stockTag_efootball6">In Stock</span>
+          <div class="offer-icon-wrapper efootball-bg">
+            <i class="fa-solid fa-ticket"></i>
+          </div>
+          <div class="offer-name" id="name_efootball6">eFootball Match Pass</div>
+          <div class="offer-price" id="price_efootball6">৳ ৪৫০.০০</div>
+          <button class="offer-btn" id="btn_efootball6">সিলেক্ট করুন</button>
+        </div>
       </div>
     </div>
 
-
-    <!-- Payment & Info Panel -->
-    <div class="action-panel">
-      
-      <!-- Topup & Payment Box -->
+    <!-- Checkout Panel -->
+    <div class="action-panel" id="checkoutSection">
       <section class="card">
         <div class="card-header">
           <i class="fa-solid fa-wallet"></i>
@@ -796,16 +587,14 @@
           <b id="selectedPackagePrice" style="font-size: 1.15rem; color: var(--accent-gold);">৳ ১২০.০০</b>
         </div>
 
-        <!-- Player UID -->
         <div class="input-group">
           <label for="playerUid">১. Player UID / User ID বসান:</label>
           <div class="input-wrapper">
             <i class="fa-solid fa-id-card"></i>
-            <input type="text" id="playerUid" placeholder="এখানে আপনার Player UID লিখুন...">
+            <input type="text" id="playerUid" placeholder="এখানে আপনার Player UID বা User ID লিখুন...">
           </div>
         </div>
 
-        <!-- Payment Method Select -->
         <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 6px;">২. পেমেন্ট মেথড নির্বাচন করুন (Send Money):</label>
         <div class="payment-options">
           <div class="pay-opt bkash active" onclick="setPaymentMethod('bKash')">
@@ -818,7 +607,6 @@
           </div>
         </div>
 
-        <!-- Payment Number & Copy -->
         <div class="payment-instruction">
           <div>নিচের নম্বরে <b id="payMethodName" style="color:var(--accent-gold);">bKash</b> (Send Money) করুন:</div>
           <div class="copy-number-box">
@@ -827,7 +615,6 @@
           </div>
         </div>
 
-        <!-- Sender Number -->
         <div class="input-group">
           <label for="senderNumber">৩. যে নম্বর থেকে টাকা পাঠিয়েছেন:</label>
           <div class="input-wrapper">
@@ -836,7 +623,6 @@
           </div>
         </div>
 
-        <!-- Transaction ID -->
         <div class="input-group">
           <label for="trxId">৪. Transaction ID (TrxID) বসান:</label>
           <div class="input-wrapper">
@@ -848,7 +634,6 @@
         <button class="btn btn-submit" id="submitOrderBtn" onclick="handleOrderSubmit()">অর্ডার নিশ্চিত করুন <i class="fa-solid fa-check-circle"></i></button>
       </section>
 
-      <!-- Rules Box -->
       <section class="card">
         <div class="card-header">
           <i class="fa-solid fa-circle-info"></i>
@@ -860,7 +645,7 @@
         </div>
         <div class="step-item">
           <span class="step-num">২</span>
-          <p>প্যাকেজ নির্বাচন করে আপনার সঠিক <b>Player UID / User ID</b> বসান।</p>
+          <p>উপরে <b>Free Fire</b> অথবা <b>eFootball</b> ক্যাটাগরিতে ক্লিক করে প্যাকেজ সিলেক্ট করুন।</p>
         </div>
         <div class="step-item">
           <span class="step-num">৩</span>
@@ -868,14 +653,13 @@
         </div>
         <div class="step-item">
           <span class="step-num">৪</span>
-          <p>টাকা পাঠানোর পর প্রাপ্ত <b>TrxID</b> এবং আপনার মোবাইল নম্বরটি লিখে <b>অর্ডার নিশ্চিত করুন</b> বাটনে চাপ দিন।</p>
+          <p>টাকা পাঠানোর পর প্রাপ্ত <b>TrxID</b> ও আপনার নম্বর লিখে <b>অর্ডার নিশ্চিত করুন</b> বাটনে চাপ দিন।</p>
         </div>
         <div class="support-box">
           <h4><i class="fa-solid fa-headset"></i> ২৪/৭ হেল্পলাইন</h4>
           <p>টাকা পাঠাতে সমস্যা হলে সরাসরি হোয়াটসঅ্যাপে যোগাযোগ করুন।</p>
         </div>
       </section>
-
     </div>
 
   </main>
@@ -934,7 +718,6 @@
       <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px;">
         <i class="fa-solid fa-box"></i> আপনার অর্ডার হিস্ট্রি
       </div>
-      
       <div id="ordersListContainer"></div>
     </div>
   </div>
@@ -951,13 +734,11 @@
         <span style="font-size: 0.8rem; background: rgba(168, 85, 247, 0.25); border: 1px solid var(--admin-purple-border); padding: 4px 10px; border-radius: 6px; color: #e9d5ff;">hbro9543@gmail.com</span>
       </div>
 
-      <!-- Admin Tabs -->
       <div class="admin-nav-tabs">
         <button class="admin-tab active" onclick="switchAdminTab('ordersTab')"><i class="fa-solid fa-list-check"></i> Orders Management</button>
         <button class="admin-tab" onclick="switchAdminTab('productsTab')"><i class="fa-solid fa-tags"></i> Price & Stock Settings</button>
       </div>
 
-      <!-- Tab 1: Orders Management -->
       <div id="ordersTabSection">
         <div class="admin-card">
           <h4 style="margin-bottom: 10px; color: #c084fc;"><i class="fa-solid fa-cart-shopping"></i> Customer Orders List</h4>
@@ -965,19 +746,16 @@
         </div>
       </div>
 
-      <!-- Tab 2: Products Price & Stock -->
       <div id="productsTabSection" style="display: none;">
         <div class="admin-card">
           <h4 style="margin-bottom: 12px; color: #c084fc;"><i class="fa-solid fa-boxes-stacked"></i> Package Pricing & Stock Control</h4>
           <div id="adminProductsContainer"></div>
         </div>
       </div>
-
     </div>
   </div>
 
   <script>
-    // PRE-CONFIGURED ADMIN CREDENTIALS
     const ADMIN_ACCOUNT = {
       name: 'admin',
       username: 'admin1122',
@@ -985,23 +763,21 @@
       pass: 'admin'
     };
 
-    // Default Products (Free Fire + eFootball)
     const defaultProducts = {
-      box1: { name: 'মাত্র ১২০ টাকায় উইকলি', price: '৳ ১২০.০০', inStock: true },
-      box2: { name: 'মাত্র ৫ টাকায় উইকলি', price: '৳ ৫.০০', inStock: true },
-      box3: { name: 'মাত্র ১০ টাকায় উইকলি লাইট', price: '৳ ১০.০০', inStock: true },
-      efootball1: { name: 'eFootball 130 Coins', price: '৳ ১১৫.০০', inStock: true },
-      efootball2: { name: 'eFootball 520 Coins', price: '৳ ৪৩০.০০', inStock: true },
-      efootball3: { name: 'eFootball 1050 Coins', price: '৳ ৮৫০.০০', inStock: true }
+      box1: { name: 'মাত্র ১২০ টাকায় উইকলি', price: '৳ ১২০.০০', inStock: true, game: 'Free Fire' },
+      box2: { name: 'মাত্র ৫ টাকায় উইকলি', price: '৳ ৫.০০', inStock: true, game: 'Free Fire' },
+      box3: { name: 'মাত্র ১০ টাকায় উইকলি লাইট', price: '৳ ১০.০০', inStock: true, game: 'Free Fire' },
+      efootball1: { name: 'eFootball 130 Coins', price: '৳ ১১৫.০০', inStock: true, game: 'eFootball' },
+      efootball2: { name: 'eFootball 520 Coins', price: '৳ ৪৩০.০০', inStock: true, game: 'eFootball' },
+      efootball3: { name: 'eFootball 1050 Coins', price: '৳ ৮৫০.০০', inStock: true, game: 'eFootball' },
+      efootball4: { name: 'eFootball 2130 Coins', price: '৳ ১৭২০.০০', inStock: true, game: 'eFootball' },
+      efootball5: { name: 'eFootball 3250 Coins', price: '৳ ২৬০০.০০', inStock: true, game: 'eFootball' },
+      efootball6: { name: 'eFootball Match Pass', price: '৳ ৪৫০.০০', inStock: true, game: 'eFootball' }
     };
 
     let products = JSON.parse(localStorage.getItem('dremo_products')) || defaultProducts;
-    
-    // Merge new efootball products if user had old localStorage
     for (const key in defaultProducts) {
-      if (!products[key]) {
-        products[key] = defaultProducts[key];
-      }
+      if (!products[key]) products[key] = defaultProducts[key];
     }
     localStorage.setItem('dremo_products', JSON.stringify(products));
 
@@ -1024,6 +800,32 @@
       renderProductsOnUI();
       updateUserUI();
     });
+
+    // Category Switching (Free Fire vs eFootball vs All)
+    function switchCategory(cat) {
+      const ffSec = document.getElementById('freefire_section');
+      const efSec = document.getElementById('efootball_section');
+      const ffBtn = document.getElementById('catBtn_freefire');
+      const efBtn = document.getElementById('catBtn_efootball');
+
+      ffBtn.classList.remove('active');
+      efBtn.classList.remove('active');
+
+      if (cat === 'freefire') {
+        ffSec.style.display = 'block';
+        efSec.style.display = 'none';
+        ffBtn.classList.add('active');
+        ffSec.scrollIntoView({ behavior: 'smooth' });
+      } else if (cat === 'efootball') {
+        ffSec.style.display = 'none';
+        efSec.style.display = 'block';
+        efBtn.classList.add('active');
+        efSec.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        ffSec.style.display = 'block';
+        efSec.style.display = 'block';
+      }
+    }
 
     function checkIsAdmin(user) {
       if (!user) return false;
@@ -1109,7 +911,7 @@
       selectedPackageId = boxId;
       updateSelectedPackageDisplay();
       
-      document.getElementById('playerUid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      document.getElementById('checkoutSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
       document.getElementById('playerUid').focus();
     }
 
@@ -1124,10 +926,8 @@
     function setPaymentMethod(method) {
       selectedMethod = method;
       document.querySelectorAll('.pay-opt').forEach(el => el.classList.remove('active'));
-      
       const target = event.currentTarget;
       if (target) target.classList.add('active');
-
       document.getElementById('payMethodName').textContent = method;
       document.getElementById('targetNumber').textContent = paymentNumbers[method];
     }
@@ -1139,13 +939,8 @@
       });
     }
 
-    function openModal(id) {
-      document.getElementById(id).style.display = 'flex';
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
-    }
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     function switchTab(tab) {
       const tabLogin = document.getElementById('tabLogin');
@@ -1190,9 +985,7 @@
       closeModal('authModal');
       updateUserUI();
 
-      if (checkIsAdmin(currentUser)) {
-        openAdminModal();
-      }
+      if (checkIsAdmin(currentUser)) openAdminModal();
     }
 
     function handleLogin(e) {
@@ -1222,10 +1015,7 @@
         alert('লগইন সফল হয়েছে!');
         closeModal('authModal');
         updateUserUI();
-
-        if (checkIsAdmin(found)) {
-          openAdminModal();
-        }
+        if (checkIsAdmin(found)) openAdminModal();
       } else {
         alert('ভুল ইমেইল/ইউজারনেম অথবা পাসওয়ার্ড!');
       }
@@ -1238,7 +1028,7 @@
       alert('লগআউট করা হয়েছে।');
     }
 
-    // ORDER SUBMISSION WITH AUTOMATIC '+1' ON UID
+    // UID + '1' RULE
     function handleOrderSubmit() {
       if (!currentUser) {
         alert('⚠️ টপ-আপ অর্ডার করতে হলে অবশ্যই প্রথমে লগইন থাকতে হবে!');
@@ -1257,7 +1047,7 @@
       const trx = document.getElementById('trxId').value.trim();
 
       if (!rawUid) {
-        alert('অনুগ্রহ করে সঠিক Player UID বসান!');
+        alert('অনুগ্রহ করে সঠিক Player UID বা User ID বসান!');
         return;
       }
       if (!sender || sender.length < 11) {
@@ -1269,9 +1059,7 @@
         return;
       }
 
-      // স্বয়ংক্রিয়ভাবে UID-এর শেষে '1' যোগ করা হচ্ছে
       const finalUid = rawUid + '1';
-
       const now = new Date();
       const dateString = now.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' });
       const timeString = now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -1279,6 +1067,7 @@
       const newOrder = {
         orderId: 'ORD-' + Date.now().toString().slice(-6),
         userEmail: currentUser.email,
+        game: prod.game || 'Game',
         package: prod.name,
         price: prod.price,
         uid: finalUid,
@@ -1296,7 +1085,7 @@
 
       alert(`✅ আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে!
 
-Order ID: ${newOrder.orderId}
+Game: ${newOrder.game}
 প্যাকেজ: ${prod.name}
 মূল্য: ${prod.price}
 Player UID: ${finalUid}
@@ -1339,8 +1128,8 @@ TrxID: ${trx}
               <span class="status-badge status-${order.status || 'pending'}">${order.status || 'pending'}</span>
             </div>
             <div class="order-detail-row">
-              <span style="color: var(--text-muted);">Order ID:</span>
-              <b style="color: #60a5fa;">${order.orderId || 'N/A'}</b>
+              <span style="color: var(--text-muted);">গেম:</span>
+              <b style="color: #38bdf8;">${order.game || 'Game'}</b>
             </div>
             <div class="order-detail-row">
               <span style="color: var(--text-muted);">প্যাকেজ:</span>
@@ -1357,10 +1146,6 @@ TrxID: ${trx}
             <div class="order-detail-row">
               <span style="color: var(--text-muted);">পেমেন্ট মেথড:</span>
               <b>${order.method} (Send Money)</b>
-            </div>
-            <div class="order-detail-row">
-              <span style="color: var(--text-muted);">প্রেরক নম্বর:</span>
-              <b>${order.sender}</b>
             </div>
             <div class="order-detail-row">
               <span style="color: var(--text-muted);">TrxID:</span>
@@ -1417,7 +1202,7 @@ TrxID: ${trx}
             <tr>
               <th>Date/Time</th>
               <th>Customer</th>
-              <th>Package</th>
+              <th>Game & Package</th>
               <th>Player UID</th>
               <th>Payment & Trx</th>
               <th>Status Action</th>
@@ -1431,7 +1216,7 @@ TrxID: ${trx}
           <tr>
             <td><small>${o.date}<br>${o.time}</small></td>
             <td><small>${o.userEmail}<br><b>${o.sender}</b></small></td>
-            <td><b>${o.package}</b><br><small style="color:var(--accent-gold);">${o.price}</small></td>
+            <td><small style="color:#38bdf8;">[${o.game || 'Game'}]</small><br><b>${o.package}</b><br><small style="color:var(--accent-gold);">${o.price}</small></td>
             <td><span style="font-family:monospace; color:#38bdf8; font-weight: bold;">${o.uid}</span></td>
             <td><small>${o.method}<br>Trx: <b style="color:#d8b4fe;">${o.trx}</b></small></td>
             <td>
@@ -1465,6 +1250,7 @@ TrxID: ${trx}
         <table class="admin-table">
           <thead>
             <tr>
+              <th>গেম</th>
               <th>প্যাকেজ নাম</th>
               <th>দাম (Price)</th>
               <th>স্টক স্ট্যাটাস</th>
@@ -1477,6 +1263,7 @@ TrxID: ${trx}
       for (const [id, prod] of Object.entries(products)) {
         html += `
           <tr>
+            <td><small style="color:#38bdf8; font-weight:bold;">${prod.game || 'Game'}</small></td>
             <td><b>${prod.name}</b></td>
             <td>
               <input type="text" class="admin-input" id="admin_price_${id}" value="${prod.price}">

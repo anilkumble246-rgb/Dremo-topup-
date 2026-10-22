@@ -129,10 +129,10 @@
       z-index: 2;
     }
 
-    /* Cover image container for cards */
+    /* Cover Image Container */
     .offer-cover-img {
       width: 100%;
-      height: 125px;
+      height: 130px;
       border-radius: 10px;
       overflow: hidden;
       margin-bottom: 0.9rem;
@@ -148,7 +148,7 @@
 
     .offer-icon-wrapper {
       width: 100%;
-      height: 125px;
+      height: 130px;
       border-radius: 10px;
       background: linear-gradient(135deg, #15326d, #081738);
       display: flex;
@@ -402,12 +402,15 @@
     <!-- 6 Grid Offers Section -->
     <div class="grid-offers">
       
-      <!-- Box 1 -->
+      <!-- Box 1 (120 Taka Weekly - With Custom Cover Image) -->
       <div class="offer-box" onclick="selectPackage('মাত্র ১২০ টাকায় উইকলি', '৳ ১২০.০০')">
         <span class="offer-badge">POPULAR</span>
-        <div class="offer-icon-wrapper">
-          <i class="fa-solid fa-gem"></i>
+        
+        <!-- Weekly 120 Cover Image -->
+        <div class="offer-cover-img">
+          <img src="./weekly-120.jpg" alt="Weekly Membership 120" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'offer-icon-wrapper\' style=\'margin-bottom:0;\'><i class=\'fa-solid fa-gem\'></i></div>';">
         </div>
+
         <div class="offer-name">মাত্র ১২০ টাকায় উইকলি</div>
         <div class="offer-price">৳ ১২০.০০</div>
         <button class="offer-btn">সিলেক্ট করুন</button>
@@ -424,13 +427,13 @@
         <button class="offer-btn">সিলেক্ট করুন</button>
       </div>
 
-      <!-- Box 3 (With Custom Weekly Lite Cover Image) -->
+      <!-- Box 3 (Weekly Lite - With Custom Cover Image) -->
       <div class="offer-box" onclick="selectPackage('মাত্র ১০ টাকায় উইকলি লাইট', '৳ ১০.০০')">
         <span class="offer-badge">MEGA</span>
         
-        <!-- আপনার দেওয়া কভার ইমেজ এখানে লোড হবে -->
+        <!-- Weekly Lite Cover Image -->
         <div class="offer-cover-img">
-          <img src="./weekly-lite.jpg" alt="Weekly Lite" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'offer-icon-wrapper\\' style=\\'margin-bottom:0;\\'><i class=\\'fa-solid fa-crown\\'></i></div>';">
+          <img src="./weekly-lite.jpg" alt="Weekly Lite" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'offer-icon-wrapper\' style=\'margin-bottom:0;\'><i class=\'fa-solid fa-crown\'></i></div>';">
         </div>
 
         <div class="offer-name">মাত্র ১০ টাকায় উইকলি লাইট</div>
@@ -483,9 +486,9 @@
         <div class="selected-banner">
           <div>
             <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">নির্বাচিত প্যাকেজ:</span>
-            <b id="selectedPackageName">মাত্র ১০ টাকায় উইকলি লাইট</b>
+            <b id="selectedPackageName">মাত্র ১২০ টাকায় উইকলি</b>
           </div>
-          <b id="selectedPackagePrice" style="font-size: 1.15rem; color: var(--accent-gold);">৳ ১০.০০</b>
+          <b id="selectedPackagePrice" style="font-size: 1.15rem; color: var(--accent-gold);">৳ ১২০.০০</b>
         </div>
 
         <div class="input-group">
@@ -577,8 +580,8 @@
 
   <script>
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-    let currentSelectedPackage = 'মাত্র ১০ টাকায় উইকলি লাইট';
-    let currentSelectedPrice = '৳ ১০.০০';
+    let currentSelectedPackage = 'মাত্র ১২০ টাকায় উইকলি';
+    let currentSelectedPrice = '৳ ১২০.০০';
 
     document.addEventListener('DOMContentLoaded', updateUserUI);
 

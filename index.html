@@ -83,6 +83,12 @@
       display: none;
       align-items: center;
       gap: 6px;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(168, 85, 247, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
     }
 
     .menu-btn {
@@ -112,7 +118,7 @@
       border: 1px solid var(--card-border);
       border-radius: 10px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      width: 170px;
+      width: 175px;
       overflow: hidden;
       z-index: 995;
     }
@@ -451,7 +457,7 @@
     .step-num { 
       background: rgba(24, 119, 242, 0.2); 
       color: var(--accent-gold); 
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--card-border); 
       font-weight: 700; 
       width: 24px; 
       height: 24px; 
@@ -472,7 +478,7 @@
     .support-box h4 { color: var(--accent-gold); margin-bottom: 4px; font-size: 0.95rem; }
     .support-box p { color: var(--text-muted); font-size: 0.85rem; }
 
-    /* Modal Global */
+    /* Modals */
     .modal { 
       display: none; 
       position: fixed; 
@@ -545,10 +551,10 @@
     #adminModal .modal-content {
       background-color: var(--admin-purple-bg);
       border: 2px solid var(--admin-purple-border);
-      max-width: 850px;
+      max-width: 880px;
       width: 95%;
       color: #fff;
-      box-shadow: 0 10px 40px rgba(126, 34, 206, 0.4);
+      box-shadow: 0 10px 40px rgba(126, 34, 206, 0.5);
     }
     .admin-nav-tabs {
       display: flex;
@@ -596,10 +602,10 @@
       background: #0d0618;
       border: 1px solid var(--admin-purple-border);
       color: #fff;
-      padding: 4px 8px;
+      padding: 5px 8px;
       border-radius: 6px;
       outline: none;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
     }
     .admin-input {
       background: #0d0618;
@@ -647,7 +653,7 @@
     <div class="logo">
       <img src="./logo.png" alt="logo" class="logo-img" onerror="this.style.display='none'; document.getElementById('altGem').style.display='inline-block';">
       <i id="altGem" class="fa-solid fa-gem" style="display: none; color: var(--accent-gold);"></i>
-      <span class="logo-text">⚡ 𝐃𝐫𝐞𝐦𝐨 𝐭𝐨𝐩𝐮𝐩 ⚡</span>
+      <span class="logo-text">⚡ 𝐃𝐫𝐞𝐦𝐨 𝐭𝐨𝐩𝐮up ⚡</span>
     </div>
 
     <div class="nav-right">
@@ -878,11 +884,11 @@
       <form id="loginForm" onsubmit="handleLogin(event)">
         <div class="input-group">
           <label>Email বা Username</label>
-          <input type="text" id="loginId" required placeholder="hbro9543@gmail.com">
+          <input type="text" id="loginId" required placeholder="admin1122 ba hbro9543@gmail.com">
         </div>
         <div class="input-group">
           <label>Password</label>
-          <input type="password" id="loginPass" required placeholder="পাসওয়ার্ড দিন">
+          <input type="password" id="loginPass" required placeholder="Password দিন (admin)">
         </div>
         <button type="submit" class="btn btn-submit">Login করুন</button>
       </form>
@@ -930,7 +936,7 @@
         <h2 style="font-size: 1.35rem; color: #d8b4fe; display: flex; align-items: center; gap: 8px;">
           <i class="fa-solid fa-crown" style="color: var(--accent-gold);"></i> Dremo Admin Control Panel
         </h2>
-        <span style="font-size: 0.8rem; background: rgba(168, 85, 247, 0.2); padding: 4px 8px; border-radius: 6px; color: #e9d5ff;">hbro9543@gmail.com</span>
+        <span style="font-size: 0.8rem; background: rgba(168, 85, 247, 0.25); border: 1px solid var(--admin-purple-border); padding: 4px 10px; border-radius: 6px; color: #e9d5ff;">hbro9543@gmail.com</span>
       </div>
 
       <!-- Admin Tabs -->
@@ -959,9 +965,14 @@
   </div>
 
   <script>
-    const ADMIN_EMAIL = 'hbro9543@gmail.com';
+    // HARDCODED ADMIN CREDENTIALS
+    const ADMIN_ACCOUNT = {
+      name: 'admin',
+      username: 'admin1122',
+      email: 'hbro9543@gmail.com',
+      pass: 'admin'
+    };
 
-    // Default Products state
     const defaultProducts = {
       box1: { name: 'মাত্র ১২০ টাকায় উইকলি', price: '৳ ১২০.০০', inStock: true },
       box2: { name: 'মাত্র ৫ টাকায় উইকলি', price: '৳ ৫.০০', inStock: true },
@@ -979,9 +990,23 @@
     };
 
     document.addEventListener('DOMContentLoaded', () => {
+      // Ensure admin exists in registered users
+      let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+      if (!users.some(u => u.email.toLowerCase() === ADMIN_ACCOUNT.email.toLowerCase())) {
+        users.push(ADMIN_ACCOUNT);
+        localStorage.setItem('registeredUsers', JSON.stringify(users));
+      }
+
       renderProductsOnUI();
       updateUserUI();
     });
+
+    function checkIsAdmin(user) {
+      if (!user) return false;
+      const emailMatch = user.email && user.email.toLowerCase() === ADMIN_ACCOUNT.email.toLowerCase();
+      const userMatch = user.username && user.username.toLowerCase() === ADMIN_ACCOUNT.username.toLowerCase();
+      return emailMatch || userMatch;
+    }
 
     function renderProductsOnUI() {
       for (const [id, prod] of Object.entries(products)) {
@@ -1029,7 +1054,7 @@
       const adminShortcutBtn = document.getElementById('adminShortcutBtn');
       const adminDropdownItem = document.getElementById('adminDropdownItem');
 
-      const isAdmin = currentUser && currentUser.email && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+      const isAdmin = checkIsAdmin(currentUser);
 
       if (currentUser) {
         authNav.style.display = 'none';
@@ -1124,7 +1149,7 @@
       const email = document.getElementById('regEmail').value.trim();
       const pass = document.getElementById('regPass').value;
 
-      const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+      let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
       if (users.find(u => u.email.toLowerCase() === email.toLowerCase() || u.username === username)) {
         alert('এই ইমেইল বা ইউজারনেম দিয়ে ইতোমধ্যে একাউন্ট খোলা আছে!');
         return;
@@ -1141,7 +1166,7 @@
       closeModal('authModal');
       updateUserUI();
 
-      if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+      if (checkIsAdmin(currentUser)) {
         openAdminModal();
       }
     }
@@ -1151,15 +1176,22 @@
       const loginId = document.getElementById('loginId').value.trim().toLowerCase();
       const pass = document.getElementById('loginPass').value;
 
-      let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-      
-      // Auto register admin if first time logging in
-      if (loginId === ADMIN_EMAIL.toLowerCase() && !users.find(u => u.email.toLowerCase() === ADMIN_EMAIL.toLowerCase())) {
-        const adminObj = { name: 'Admin', username: 'admin', email: ADMIN_EMAIL, pass: pass };
-        users.push(adminObj);
-        localStorage.setItem('registeredUsers', JSON.stringify(users));
+      // Direct check against Hardcoded Admin Account
+      if (
+        (loginId === ADMIN_ACCOUNT.email.toLowerCase() || loginId === ADMIN_ACCOUNT.username.toLowerCase()) &&
+        pass === ADMIN_ACCOUNT.pass
+      ) {
+        currentUser = ADMIN_ACCOUNT;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        alert('👑 অ্যাডমিন হিসেবে লগইন সফল হয়েছে!');
+        closeModal('authModal');
+        updateUserUI();
+        openAdminModal();
+        return;
       }
 
+      // Check against general registered users
+      const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
       const found = users.find(u => (u.email.toLowerCase() === loginId || u.username.toLowerCase() === loginId) && u.pass === pass);
 
       if (found) {
@@ -1169,8 +1201,7 @@
         closeModal('authModal');
         updateUserUI();
 
-        // If admin logs in, open Admin Panel directly
-        if (found.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        if (checkIsAdmin(found)) {
           openAdminModal();
         }
       } else {
@@ -1228,7 +1259,7 @@
         method: selectedMethod,
         sender: sender,
         trx: trx,
-        status: 'pending', // pending, processing, complete, cancel
+        status: 'pending',
         date: dateString,
         time: timeString
       };
@@ -1270,7 +1301,7 @@ TrxID: ${trx}
         container.innerHTML = `
           <div style="text-align: center; padding: 2rem 1rem; color: var(--text-muted);">
             <i class="fa-solid fa-box-open" style="font-size: 2.5rem; margin-bottom: 10px; display: block; opacity: 0.5;"></i>
-            আপনার জিমেইল (${currentUser.email}) থেকে এখনো কোনো অর্ডার করা হয়নি!
+            আপনার অ্যাকাউন্ট থেকে এখনো কোনো অর্ডার করা হয়নি!
           </div>
         `;
       } else {
@@ -1317,8 +1348,11 @@ TrxID: ${trx}
 
     /* ADMIN PANEL FUNCTIONS */
     function openAdminModal() {
-      if (!currentUser || currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-        alert('⚠️ অ্যাক্সেস ডিনাইড! শুধুমাত্র অ্যাডমিন ' + ADMIN_EMAIL + ' প্রবেশ করতে পারবে।');
+      const dropdown = document.getElementById('dropdownMenu');
+      if (dropdown) dropdown.classList.remove('show');
+
+      if (!checkIsAdmin(currentUser)) {
+        alert('⚠️ অ্যাক্সেস ডিনাইড! শুধুমাত্র অ্যাডমিন ' + ADMIN_ACCOUNT.email + ' প্রবেশ করতে পারবে।');
         return;
       }
       renderAdminOrders();
@@ -1346,7 +1380,7 @@ TrxID: ${trx}
       const container = document.getElementById('adminOrdersTableContainer');
 
       if (orders.length === 0) {
-        container.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 1.5rem;">কোনো অর্ডার পাওয়া যায়নি।</p>';
+        container.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 1.5rem;">কোনো কাস্টমার অর্ডার পাওয়া যায়নি।</p>';
         return;
       }
 
@@ -1357,7 +1391,7 @@ TrxID: ${trx}
               <th>Date/Time</th>
               <th>Customer</th>
               <th>Package</th>
-              <th>UID</th>
+              <th>Player UID</th>
               <th>Payment & Trx</th>
               <th>Status Action</th>
             </tr>
@@ -1371,7 +1405,7 @@ TrxID: ${trx}
             <td><small>${o.date}<br>${o.time}</small></td>
             <td><small>${o.userEmail}<br><b>${o.sender}</b></small></td>
             <td><b>${o.package}</b><br><small style="color:var(--accent-gold);">${o.price}</small></td>
-            <td><span style="font-family:monospace; color:#38bdf8;">${o.uid}</span></td>
+            <td><span style="font-family:monospace; color:#38bdf8; font-weight: bold;">${o.uid}</span></td>
             <td><small>${o.method}<br>Trx: <b style="color:#d8b4fe;">${o.trx}</b></small></td>
             <td>
               <select class="admin-select" onchange="updateOrderStatus(${index}, this.value)">
@@ -1427,7 +1461,7 @@ TrxID: ${trx}
               </select>
             </td>
             <td>
-              <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem; background: var(--admin-accent);" onclick="saveProductConfig('${id}')">Save</button>
+              <button class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem; background: var(--admin-accent);" onclick="saveProductConfig('${id}')">Save</button>
             </td>
           </tr>
         `;

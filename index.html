@@ -19,6 +19,12 @@
       --radius: 14px;
       --bkash: #e2136e;
       --nagad: #f7921e;
+      
+      /* Admin Theme Colors */
+      --admin-purple-bg: #130924;
+      --admin-purple-card: #20103c;
+      --admin-purple-border: #44247d;
+      --admin-accent: #a855f7;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', 'Hind Siliguri', sans-serif; }
     
@@ -62,10 +68,23 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    /* 3-line hamburger menu */
+    .admin-btn {
+      background: linear-gradient(135deg, #7e22ce, #9333ea);
+      border: 1px solid #c084fc;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+
     .menu-btn {
       background: rgba(24, 119, 242, 0.15);
       border: 1px solid var(--card-border);
@@ -191,6 +210,22 @@
       padding: 3px 8px;
       border-radius: 12px;
       z-index: 2;
+    }
+
+    .stock-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #10b981;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 8px;
+      z-index: 2;
+    }
+    .stock-tag.out {
+      background: #ef4444;
     }
 
     /* Cover Image Container */
@@ -437,7 +472,7 @@
     .support-box h4 { color: var(--accent-gold); margin-bottom: 4px; font-size: 0.95rem; }
     .support-box p { color: var(--text-muted); font-size: 0.85rem; }
 
-    /* Modal */
+    /* Modal Global */
     .modal { 
       display: none; 
       position: fixed; 
@@ -450,15 +485,15 @@
     }
     .modal-content { 
       background: #0f1c3f; 
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--card-border); 
       padding: 2rem; 
       border-radius: var(--radius); 
       width: 90%; 
       max-width: 420px; 
       position: relative; 
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      max-height: 85vh;
-      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6); 
+      max-height: 85vh; 
+      overflow-y: auto; 
     }
     .close-btn { position: absolute; top: 12px; right: 16px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
     .tab-header { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 1.4rem; }
@@ -493,6 +528,89 @@
       color: #fff;
     }
 
+    /* Status Badges */
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+    .status-pending { background: #eab308; color: #000; }
+    .status-processing { background: #3b82f6; color: #fff; }
+    .status-complete { background: #22c55e; color: #fff; }
+    .status-cancel { background: #ef4444; color: #fff; }
+
+    /* ADMIN PANEL MODAL (Purple Theme) */
+    #adminModal .modal-content {
+      background-color: var(--admin-purple-bg);
+      border: 2px solid var(--admin-purple-border);
+      max-width: 850px;
+      width: 95%;
+      color: #fff;
+      box-shadow: 0 10px 40px rgba(126, 34, 206, 0.4);
+    }
+    .admin-nav-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--admin-purple-border);
+      padding-bottom: 10px;
+    }
+    .admin-tab {
+      background: var(--admin-purple-card);
+      border: 1px solid var(--admin-purple-border);
+      color: #cbd5e1;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .admin-tab.active {
+      background: var(--admin-accent);
+      color: #fff;
+      border-color: #d8b4fe;
+    }
+    .admin-card {
+      background: var(--admin-purple-card);
+      border: 1px solid var(--admin-purple-border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    .admin-table th, .admin-table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--admin-purple-border);
+    }
+    .admin-table th {
+      background: rgba(168, 85, 247, 0.15);
+      color: #e9d5ff;
+    }
+    .admin-select {
+      background: #0d0618;
+      border: 1px solid var(--admin-purple-border);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      outline: none;
+      font-size: 0.8rem;
+    }
+    .admin-input {
+      background: #0d0618;
+      border: 1px solid var(--admin-purple-border);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      width: 100px;
+      font-weight: bold;
+    }
+
     /* Floating WhatsApp Button */
     .whatsapp-float {
       position: fixed;
@@ -515,6 +633,7 @@
     @media (max-width: 768px) { 
       .grid-offers { grid-template-columns: repeat(2, 1fr); }
       .action-panel { grid-template-columns: 1fr; }
+      .admin-table { display: block; overflow-x: auto; }
     }
     @media (max-width: 480px) {
       .grid-offers { grid-template-columns: 1fr; }
@@ -532,6 +651,11 @@
     </div>
 
     <div class="nav-right">
+      <!-- Admin Panel Shortcut Button -->
+      <button class="admin-btn" id="adminShortcutBtn" onclick="openAdminModal()">
+        <i class="fa-solid fa-crown"></i> Admin Panel
+      </button>
+
       <div id="authNav">
         <button class="btn btn-primary" onclick="openModal('authModal')">
           <i class="fa-solid fa-user"></i> Login / Register
@@ -547,10 +671,13 @@
         <i class="fa-solid fa-bars"></i>
       </button>
 
-      <!-- Dropdown with Orders option -->
+      <!-- Dropdown with Orders and Admin options -->
       <div class="dropdown-menu" id="dropdownMenu">
         <div class="dropdown-item" onclick="openOrdersModal()">
           <i class="fa-solid fa-clock-rotate-left" style="color: var(--accent-gold);"></i> Orders
+        </div>
+        <div class="dropdown-item" id="adminDropdownItem" style="display: none;" onclick="openAdminModal()">
+          <i class="fa-solid fa-crown" style="color: var(--admin-accent);"></i> Admin Panel
         </div>
       </div>
     </div>
@@ -571,37 +698,40 @@
     <!-- 6 Grid Offers Section -->
     <div class="grid-offers">
       
-      <!-- Box 1 (120 Taka Weekly - Dual Support: weekly-120.jpg or weekly-120.jpg.png) -->
-      <div class="offer-box" onclick="selectPackage('মাত্র ১২০ টাকায় উইকলি', '৳ ১২০.০০')">
+      <!-- Box 1 (120 Taka Weekly) -->
+      <div class="offer-box" id="card_box1" onclick="selectPackageById('box1')">
         <span class="offer-badge">POPULAR</span>
+        <span class="stock-tag" id="stockTag_box1">In Stock</span>
         <div class="offer-cover-img">
           <img src="./weekly-120.jpg" alt="Weekly Membership 120" onerror="this.onerror=null; this.src='./weekly-120.jpg.png';">
         </div>
-        <div class="offer-name">মাত্র ১২০ টাকায় উইকলি</div>
-        <div class="offer-price">৳ ১২০.০০</div>
-        <button class="offer-btn">সিলেক্ট করুন</button>
+        <div class="offer-name" id="name_box1">মাত্র ১২০ টাকায় উইকলি</div>
+        <div class="offer-price" id="price_box1">৳ ১২০.০০</div>
+        <button class="offer-btn" id="btn_box1">সিলেক্ট করুন</button>
       </div>
 
       <!-- Box 2 (5 Taka Weekly) -->
-      <div class="offer-box" onclick="selectPackage('মাত্র ৫ টাকায় উইকলি', '৳ ৫.০০')">
+      <div class="offer-box" id="card_box2" onclick="selectPackageById('box2')">
         <span class="offer-badge">HOT DEAL</span>
+        <span class="stock-tag" id="stockTag_box2">In Stock</span>
         <div class="offer-cover-img">
           <img src="./weekly-5.jpg" alt="Weekly 5 Taka" onerror="this.onerror=null; this.src='./weekly-5.jpg.png';">
         </div>
-        <div class="offer-name">মাত্র ৫ টাকায় উইকলি</div>
-        <div class="offer-price">৳ ৫.০০</div>
-        <button class="offer-btn">সিলেক্ট করুন</button>
+        <div class="offer-name" id="name_box2">মাত্র ৫ টাকায় উইকলি</div>
+        <div class="offer-price" id="price_box2">৳ ৫.০০</div>
+        <button class="offer-btn" id="btn_box2">সিলেক্ট করুন</button>
       </div>
 
       <!-- Box 3 (Weekly Lite) -->
-      <div class="offer-box" onclick="selectPackage('মাত্র ১০ টাকায় উইকলি লাইট', '৳ ১০.০০')">
+      <div class="offer-box" id="card_box3" onclick="selectPackageById('box3')">
         <span class="offer-badge">MEGA</span>
+        <span class="stock-tag" id="stockTag_box3">In Stock</span>
         <div class="offer-cover-img">
           <img src="./weekly-lite.jpg" alt="Weekly Lite" onerror="this.onerror=null; this.src='./weekly-lite.jpg.png';">
         </div>
-        <div class="offer-name">মাত্র ১০ টাকায় উইকলি লাইট</div>
-        <div class="offer-price">৳ ১০.০০</div>
-        <button class="offer-btn">সিলেক্ট করুন</button>
+        <div class="offer-name" id="name_box3">মাত্র ১০ টাকায় উইকলি লাইট</div>
+        <div class="offer-price" id="price_box3">৳ ১০.০০</div>
+        <button class="offer-btn" id="btn_box3">সিলেক্ট করুন</button>
       </div>
 
       <!-- Box 4 -->
@@ -697,7 +827,7 @@
           </div>
         </div>
 
-        <button class="btn btn-submit" onclick="handleOrderSubmit()">অর্ডার নিশ্চিত করুন <i class="fa-solid fa-check-circle"></i></button>
+        <button class="btn btn-submit" id="submitOrderBtn" onclick="handleOrderSubmit()">অর্ডার নিশ্চিত করুন <i class="fa-solid fa-check-circle"></i></button>
       </section>
 
       <!-- Rules Box -->
@@ -748,7 +878,7 @@
       <form id="loginForm" onsubmit="handleLogin(event)">
         <div class="input-group">
           <label>Email বা Username</label>
-          <input type="text" id="loginId" required placeholder="ইমেইল বা ইউজারনেম দিন">
+          <input type="text" id="loginId" required placeholder="hbro9543@gmail.com">
         </div>
         <div class="input-group">
           <label>Password</label>
@@ -787,16 +917,60 @@
         <i class="fa-solid fa-box"></i> আপনার অর্ডার হিস্ট্রি
       </div>
       
-      <div id="ordersListContainer">
-        <!-- Orders will render here dynamically -->
+      <div id="ordersListContainer"></div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL MODAL (Purple Theme) -->
+  <div class="modal" id="adminModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
+      
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--admin-purple-border); padding-bottom: 12px; margin-bottom: 1rem;">
+        <h2 style="font-size: 1.35rem; color: #d8b4fe; display: flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-crown" style="color: var(--accent-gold);"></i> Dremo Admin Control Panel
+        </h2>
+        <span style="font-size: 0.8rem; background: rgba(168, 85, 247, 0.2); padding: 4px 8px; border-radius: 6px; color: #e9d5ff;">hbro9543@gmail.com</span>
       </div>
+
+      <!-- Admin Tabs -->
+      <div class="admin-nav-tabs">
+        <button class="admin-tab active" onclick="switchAdminTab('ordersTab')"><i class="fa-solid fa-list-check"></i> Orders Management</button>
+        <button class="admin-tab" onclick="switchAdminTab('productsTab')"><i class="fa-solid fa-tags"></i> Price & Stock Settings</button>
+      </div>
+
+      <!-- Tab 1: Orders Management -->
+      <div id="ordersTabSection">
+        <div class="admin-card">
+          <h4 style="margin-bottom: 10px; color: #c084fc;"><i class="fa-solid fa-cart-shopping"></i> Customer Orders List</h4>
+          <div id="adminOrdersTableContainer"></div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Products Price & Stock -->
+      <div id="productsTabSection" style="display: none;">
+        <div class="admin-card">
+          <h4 style="margin-bottom: 12px; color: #c084fc;"><i class="fa-solid fa-boxes-stacked"></i> Package Pricing & Stock Control</h4>
+          <div id="adminProductsContainer"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <script>
+    const ADMIN_EMAIL = 'hbro9543@gmail.com';
+
+    // Default Products state
+    const defaultProducts = {
+      box1: { name: 'মাত্র ১২০ টাকায় উইকলি', price: '৳ ১২০.০০', inStock: true },
+      box2: { name: 'মাত্র ৫ টাকায় উইকলি', price: '৳ ৫.০০', inStock: true },
+      box3: { name: 'মাত্র ১০ টাকায় উইকলি লাইট', price: '৳ ১০.০০', inStock: true }
+    };
+
+    let products = JSON.parse(localStorage.getItem('dremo_products')) || defaultProducts;
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-    let currentSelectedPackage = 'মাত্র ১২০ টাকায় উইকলি';
-    let currentSelectedPrice = '৳ ১২০.০০';
+    let selectedPackageId = 'box1';
     let selectedMethod = 'bKash';
 
     const paymentNumbers = {
@@ -804,7 +978,37 @@
       'Nagad': '01846-008588'
     };
 
-    document.addEventListener('DOMContentLoaded', updateUserUI);
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProductsOnUI();
+      updateUserUI();
+    });
+
+    function renderProductsOnUI() {
+      for (const [id, prod] of Object.entries(products)) {
+        const nameEl = document.getElementById(`name_${id}`);
+        const priceEl = document.getElementById(`price_${id}`);
+        const stockEl = document.getElementById(`stockTag_${id}`);
+        const btnEl = document.getElementById(`btn_${id}`);
+
+        if (nameEl) nameEl.textContent = prod.name;
+        if (priceEl) priceEl.textContent = prod.price;
+        
+        if (stockEl && btnEl) {
+          if (prod.inStock) {
+            stockEl.textContent = 'In Stock';
+            stockEl.className = 'stock-tag';
+            btnEl.textContent = 'সিলেক্ট করুন';
+            btnEl.style.background = 'linear-gradient(135deg, var(--primary-blue), #0f58bd)';
+          } else {
+            stockEl.textContent = 'Stock Out';
+            stockEl.className = 'stock-tag out';
+            btnEl.textContent = 'Stock Out';
+            btnEl.style.background = '#64748b';
+          }
+        }
+      }
+      updateSelectedPackageDisplay();
+    }
 
     function toggleDropdown(e) {
       e.stopPropagation();
@@ -822,25 +1026,50 @@
       const authNav = document.getElementById('authNav');
       const userNav = document.getElementById('userNav');
       const displayUsername = document.getElementById('displayUsername');
+      const adminShortcutBtn = document.getElementById('adminShortcutBtn');
+      const adminDropdownItem = document.getElementById('adminDropdownItem');
+
+      const isAdmin = currentUser && currentUser.email && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
 
       if (currentUser) {
         authNav.style.display = 'none';
         userNav.style.display = 'flex';
         displayUsername.textContent = currentUser.name || currentUser.username;
+
+        if (isAdmin) {
+          adminShortcutBtn.style.display = 'inline-flex';
+          adminDropdownItem.style.display = 'flex';
+        } else {
+          adminShortcutBtn.style.display = 'none';
+          adminDropdownItem.style.display = 'none';
+        }
       } else {
         authNav.style.display = 'block';
         userNav.style.display = 'none';
+        adminShortcutBtn.style.display = 'none';
+        adminDropdownItem.style.display = 'none';
       }
     }
 
-    function selectPackage(name, price) {
-      currentSelectedPackage = name;
-      currentSelectedPrice = price;
-      document.getElementById('selectedPackageName').textContent = name;
-      document.getElementById('selectedPackagePrice').textContent = price;
+    function selectPackageById(boxId) {
+      const prod = products[boxId];
+      if (!prod.inStock) {
+        alert('⚠️ দুঃখিত, এই প্যাকেজটি বর্তমানে Stock Out আছে!');
+        return;
+      }
+      selectedPackageId = boxId;
+      updateSelectedPackageDisplay();
       
       document.getElementById('playerUid').scrollIntoView({ behavior: 'smooth', block: 'center' });
       document.getElementById('playerUid').focus();
+    }
+
+    function updateSelectedPackageDisplay() {
+      const prod = products[selectedPackageId];
+      if (prod) {
+        document.getElementById('selectedPackageName').textContent = prod.name;
+        document.getElementById('selectedPackagePrice').textContent = prod.price;
+      }
     }
 
     function setPaymentMethod(method) {
@@ -896,7 +1125,7 @@
       const pass = document.getElementById('regPass').value;
 
       const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-      if (users.find(u => u.email === email || u.username === username)) {
+      if (users.find(u => u.email.toLowerCase() === email.toLowerCase() || u.username === username)) {
         alert('এই ইমেইল বা ইউজারনেম দিয়ে ইতোমধ্যে একাউন্ট খোলা আছে!');
         return;
       }
@@ -911,15 +1140,27 @@
       alert('রেজিস্ট্রেশন সফল হয়েছে!');
       closeModal('authModal');
       updateUserUI();
+
+      if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        openAdminModal();
+      }
     }
 
     function handleLogin(e) {
       e.preventDefault();
-      const loginId = document.getElementById('loginId').value.trim();
+      const loginId = document.getElementById('loginId').value.trim().toLowerCase();
       const pass = document.getElementById('loginPass').value;
 
-      const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-      const found = users.find(u => (u.email === loginId || u.username === loginId) && u.pass === pass);
+      let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+      
+      // Auto register admin if first time logging in
+      if (loginId === ADMIN_EMAIL.toLowerCase() && !users.find(u => u.email.toLowerCase() === ADMIN_EMAIL.toLowerCase())) {
+        const adminObj = { name: 'Admin', username: 'admin', email: ADMIN_EMAIL, pass: pass };
+        users.push(adminObj);
+        localStorage.setItem('registeredUsers', JSON.stringify(users));
+      }
+
+      const found = users.find(u => (u.email.toLowerCase() === loginId || u.username.toLowerCase() === loginId) && u.pass === pass);
 
       if (found) {
         currentUser = found;
@@ -927,6 +1168,11 @@
         alert('লগইন সফল হয়েছে!');
         closeModal('authModal');
         updateUserUI();
+
+        // If admin logs in, open Admin Panel directly
+        if (found.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+          openAdminModal();
+        }
       } else {
         alert('ভুল ইমেইল/ইউজারনেম অথবা পাসওয়ার্ড!');
       }
@@ -943,6 +1189,12 @@
       if (!currentUser) {
         alert('⚠️ টপ-আপ অর্ডার করতে হলে অবশ্যই প্রথমে লগইন থাকতে হবে!');
         openModal('authModal');
+        return;
+      }
+
+      const prod = products[selectedPackageId];
+      if (!prod.inStock) {
+        alert('⚠️ এই পণ্যটি বর্তমানে Stock Out আছে!');
         return;
       }
 
@@ -968,13 +1220,15 @@
       const timeString = now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', hour12: true });
 
       const newOrder = {
+        orderId: 'ORD-' + Date.now().toString().slice(-6),
         userEmail: currentUser.email,
-        package: currentSelectedPackage,
-        price: currentSelectedPrice,
+        package: prod.name,
+        price: prod.price,
         uid: uid,
         method: selectedMethod,
         sender: sender,
         trx: trx,
+        status: 'pending', // pending, processing, complete, cancel
         date: dateString,
         time: timeString
       };
@@ -985,14 +1239,14 @@
 
       alert(`✅ আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে!
 
-প্যাকেজ: ${currentSelectedPackage}
-মূল্য: ${currentSelectedPrice}
+Order ID: ${newOrder.orderId}
+প্যাকেজ: ${prod.name}
+মূল্য: ${prod.price}
 Player UID: ${uid}
 মেথড: ${selectedMethod} (Send Money)
-প্রেরক নম্বর: ${sender}
 TrxID: ${trx}
 
-অর্ডার হিস্ট্রি দেখতে উপরের ৩-লাইন মেনুতে চাপ দিয়ে Orders-এ যান।`);
+অর্ডার হিস্ট্রি দেখতে ৩-লাইন মেনু থেকে Orders-এ যান।`);
       
       document.getElementById('senderNumber').value = '';
       document.getElementById('trxId').value = '';
@@ -1009,7 +1263,7 @@ TrxID: ${trx}
       }
 
       const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
-      const userOrders = orders.filter(o => o.userEmail === currentUser.email);
+      const userOrders = orders.filter(o => o.userEmail.toLowerCase() === currentUser.email.toLowerCase());
       const container = document.getElementById('ordersListContainer');
 
       if (userOrders.length === 0) {
@@ -1024,7 +1278,11 @@ TrxID: ${trx}
           <div class="order-card-item">
             <div class="order-card-header">
               <span><i class="fa-regular fa-calendar"></i> ${order.date} | ${order.time}</span>
-              <span style="color: #22c55e; font-weight: 600;"><i class="fa-solid fa-spinner fa-spin"></i> Processing</span>
+              <span class="status-badge status-${order.status || 'pending'}">${order.status || 'pending'}</span>
+            </div>
+            <div class="order-detail-row">
+              <span style="color: var(--text-muted);">Order ID:</span>
+              <b style="color: #60a5fa;">${order.orderId || 'N/A'}</b>
             </div>
             <div class="order-detail-row">
               <span style="color: var(--text-muted);">প্যাকেজ:</span>
@@ -1048,13 +1306,147 @@ TrxID: ${trx}
             </div>
             <div class="order-detail-row">
               <span style="color: var(--text-muted);">TrxID:</span>
-              <b style="color: #60a5fa;">${order.trx}</b>
+              <b style="color: #a855f7;">${order.trx}</b>
             </div>
           </div>
         `).join('');
       }
 
       openModal('ordersModal');
+    }
+
+    /* ADMIN PANEL FUNCTIONS */
+    function openAdminModal() {
+      if (!currentUser || currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        alert('⚠️ অ্যাক্সেস ডিনাইড! শুধুমাত্র অ্যাডমিন ' + ADMIN_EMAIL + ' প্রবেশ করতে পারবে।');
+        return;
+      }
+      renderAdminOrders();
+      renderAdminProducts();
+      openModal('adminModal');
+    }
+
+    function switchAdminTab(tabName) {
+      document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      if (tabName === 'ordersTab') {
+        document.getElementById('ordersTabSection').style.display = 'block';
+        document.getElementById('productsTabSection').style.display = 'none';
+        renderAdminOrders();
+      } else {
+        document.getElementById('ordersTabSection').style.display = 'none';
+        document.getElementById('productsTabSection').style.display = 'block';
+        renderAdminProducts();
+      }
+    }
+
+    function renderAdminOrders() {
+      const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
+      const container = document.getElementById('adminOrdersTableContainer');
+
+      if (orders.length === 0) {
+        container.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 1.5rem;">কোনো অর্ডার পাওয়া যায়নি।</p>';
+        return;
+      }
+
+      let html = `
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Date/Time</th>
+              <th>Customer</th>
+              <th>Package</th>
+              <th>UID</th>
+              <th>Payment & Trx</th>
+              <th>Status Action</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      orders.forEach((o, index) => {
+        html += `
+          <tr>
+            <td><small>${o.date}<br>${o.time}</small></td>
+            <td><small>${o.userEmail}<br><b>${o.sender}</b></small></td>
+            <td><b>${o.package}</b><br><small style="color:var(--accent-gold);">${o.price}</small></td>
+            <td><span style="font-family:monospace; color:#38bdf8;">${o.uid}</span></td>
+            <td><small>${o.method}<br>Trx: <b style="color:#d8b4fe;">${o.trx}</b></small></td>
+            <td>
+              <select class="admin-select" onchange="updateOrderStatus(${index}, this.value)">
+                <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>Pending</option>
+                <option value="processing" ${o.status === 'processing' ? 'selected' : ''}>Processing</option>
+                <option value="complete" ${o.status === 'complete' ? 'selected' : ''}>Complete</option>
+                <option value="cancel" ${o.status === 'cancel' ? 'selected' : ''}>Cancel</option>
+              </select>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    function updateOrderStatus(index, newStatus) {
+      const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
+      if (orders[index]) {
+        orders[index].status = newStatus;
+        localStorage.setItem('userOrders', JSON.stringify(orders));
+        alert('✅ Order Status পরিবর্তিত হয়ে "' + newStatus + '" হয়েছে!');
+      }
+    }
+
+    function renderAdminProducts() {
+      const container = document.getElementById('adminProductsContainer');
+      let html = `
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>প্যাকেজ নাম</th>
+              <th>দাম (Price)</th>
+              <th>স্টক স্ট্যাটাস</th>
+              <th>অ্যাকশন</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      for (const [id, prod] of Object.entries(products)) {
+        html += `
+          <tr>
+            <td><b>${prod.name}</b></td>
+            <td>
+              <input type="text" class="admin-input" id="admin_price_${id}" value="${prod.price}">
+            </td>
+            <td>
+              <select class="admin-select" id="admin_stock_${id}">
+                <option value="in" ${prod.inStock ? 'selected' : ''}>In Stock</option>
+                <option value="out" ${!prod.inStock ? 'selected' : ''}>Stock Out</option>
+              </select>
+            </td>
+            <td>
+              <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem; background: var(--admin-accent);" onclick="saveProductConfig('${id}')">Save</button>
+            </td>
+          </tr>
+        `;
+      }
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    function saveProductConfig(boxId) {
+      const priceVal = document.getElementById(`admin_price_${boxId}`).value.trim();
+      const stockVal = document.getElementById(`admin_stock_${boxId}`).value;
+
+      products[boxId].price = priceVal;
+      products[boxId].inStock = (stockVal === 'in');
+
+      localStorage.setItem('dremo_products', JSON.stringify(products));
+      renderProductsOnUI();
+      alert(`✅ ${products[boxId].name} এর Price ও Stock সফলভাবে আপডেট হয়েছে!`);
     }
   </script>
 </body>

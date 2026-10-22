@@ -37,6 +37,7 @@
       background: #091329; 
       border-bottom: 1px solid var(--card-border); 
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); 
+      position: relative;
     }
     .logo { 
       font-size: 1.35rem; 
@@ -56,6 +57,67 @@
     .logo-text {
       color: var(--accent-gold);
       text-shadow: 0 0 10px rgba(255, 183, 3, 0.3);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* 3-line hamburger menu */
+    .menu-btn {
+      background: rgba(24, 119, 242, 0.15);
+      border: 1px solid var(--card-border);
+      color: var(--accent-gold);
+      font-size: 1.3rem;
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+    .menu-btn:hover {
+      background: rgba(24, 119, 242, 0.3);
+    }
+
+    /* Dropdown Menu */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 5%;
+      background: #0e1936;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      width: 170px;
+      overflow: hidden;
+      z-index: 995;
+    }
+    .dropdown-menu.show {
+      display: block;
+    }
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: 0.2s;
+    }
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+    .dropdown-item:hover {
+      background: rgba(24, 119, 242, 0.2);
+      color: var(--accent-gold);
     }
 
     /* Hero Banner */
@@ -235,7 +297,7 @@
       color: var(--accent-gold);
     }
 
-    /* Payment Methods: bKash & Nagad Only */
+    /* Payment Methods */
     .payment-options {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -390,14 +452,44 @@
       padding: 2rem; 
       border-radius: var(--radius); 
       width: 90%; 
-      max-width: 400px; 
+      max-width: 420px; 
       position: relative; 
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      max-height: 85vh;
+      overflow-y: auto;
     }
     .close-btn { position: absolute; top: 12px; right: 16px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
     .tab-header { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 1.4rem; }
     .tab-btn { flex: 1; padding: 10px; border: none; background: none; font-weight: 600; cursor: pointer; color: var(--text-muted); font-size: 1rem; }
     .tab-btn.active { color: var(--accent-gold); border-bottom: 2px solid var(--accent-gold); }
+
+    /* Orders List Styling */
+    .order-card-item {
+      background: #081126;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-left: 4px solid var(--accent-gold);
+    }
+    .order-card-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 4px;
+    }
+    .order-detail-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      margin-bottom: 4px;
+    }
+    .order-detail-row b {
+      color: #fff;
+    }
 
     /* Floating WhatsApp Button */
     .whatsapp-float {
@@ -436,14 +528,29 @@
       <i id="altGem" class="fa-solid fa-gem" style="display: none; color: var(--accent-gold);"></i>
       <span class="logo-text">⚡ 𝐃𝐫𝐞𝐦𝐨 𝐭𝐨𝐩𝐮𝐩 ⚡</span>
     </div>
-    <div id="authNav">
-      <button class="btn btn-primary" onclick="openModal('login')">
-        <i class="fa-solid fa-user"></i> Login / Register
+
+    <div class="nav-right">
+      <div id="authNav">
+        <button class="btn btn-primary" onclick="openModal('login')">
+          <i class="fa-solid fa-user"></i> Login / Register
+        </button>
+      </div>
+      <div id="userNav" style="display: none; align-items: center; gap: 8px;">
+        <span>👋 <b id="displayUsername" style="color: var(--accent-gold);">User</b></span>
+        <button class="btn btn-outline" onclick="logoutUser()">Logout</button>
+      </div>
+
+      <!-- 3 lines Menu Button -->
+      <button class="menu-btn" onclick="toggleDropdown(event)">
+        <i class="fa-solid fa-bars"></i>
       </button>
-    </div>
-    <div id="userNav" style="display: none; align-items: center; gap: 8px;">
-      <span>👋 <b id="displayUsername" style="color: var(--accent-gold);">User</b></span>
-      <button class="btn btn-outline" onclick="logoutUser()">Logout</button>
+
+      <!-- Dropdown with Orders option -->
+      <div class="dropdown-menu" id="dropdownMenu">
+        <div class="dropdown-item" onclick="openOrdersModal()">
+          <i class="fa-solid fa-clock-rotate-left" style="color: var(--accent-gold);"></i> Orders
+        </div>
+      </div>
     </div>
   </header>
 
@@ -548,7 +655,7 @@
           </div>
         </div>
 
-        <!-- Payment Method Select (Bkash & Nagad only) -->
+        <!-- Payment Method Select -->
         <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 6px;">২. পেমেন্ট মেথড নির্বাচন করুন (Send Money):</label>
         <div class="payment-options">
           <div class="pay-opt bkash active" onclick="setPaymentMethod('bKash')">
@@ -630,7 +737,7 @@
   <!-- Login/Register Modal -->
   <div class="modal" id="authModal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <span class="close-btn" onclick="closeModal('authModal')">&times;</span>
       <div class="tab-header">
         <button id="tabLogin" class="tab-btn active" onclick="switchTab('login')">Login</button>
         <button id="tabRegister" class="tab-btn" onclick="switchTab('register')">Register</button>
@@ -670,19 +777,45 @@
     </div>
   </div>
 
+  <!-- Orders History Modal -->
+  <div class="modal" id="ordersModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('ordersModal')">&times;</span>
+      <div style="font-size: 1.25rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-box"></i> আপনার অর্ডার হিস্ট্রি
+      </div>
+      
+      <div id="ordersListContainer">
+        <!-- Orders will render here dynamically -->
+      </div>
+    </div>
+  </div>
+
   <script>
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
     let currentSelectedPackage = 'মাত্র ১২০ টাকায় উইকলি';
     let currentSelectedPrice = '৳ ১২০.০০';
     let selectedMethod = 'bKash';
 
-    // Apnar dewa Bkash & Nagad Send Money numbers
     const paymentNumbers = {
       'bKash': '01975-025703',
       'Nagad': '01846-008588'
     };
 
     document.addEventListener('DOMContentLoaded', updateUserUI);
+
+    // Dropdown Toggle
+    function toggleDropdown(e) {
+      e.stopPropagation();
+      document.getElementById('dropdownMenu').classList.toggle('show');
+    }
+
+    window.onclick = function(event) {
+      const dropdown = document.getElementById('dropdownMenu');
+      if (dropdown && dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+      }
+    };
 
     function updateUserUI() {
       const authNav = document.getElementById('authNav');
@@ -727,13 +860,12 @@
       });
     }
 
-    function openModal(tab = 'login') {
-      document.getElementById('authModal').style.display = 'flex';
-      switchTab(tab);
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
     }
 
-    function closeModal() {
-      document.getElementById('authModal').style.display = 'none';
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
     }
 
     function switchTab(tab) {
@@ -776,7 +908,7 @@
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
       alert('রেজিস্ট্রেশন সফল হয়েছে!');
-      closeModal();
+      closeModal('authModal');
       updateUserUI();
     }
 
@@ -792,7 +924,7 @@
         currentUser = found;
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
         alert('লগইন সফল হয়েছে!');
-        closeModal();
+        closeModal('authModal');
         updateUserUI();
       } else {
         alert('ভুল ইমেইল/ইউজারনেম অথবা পাসওয়ার্ড!');
@@ -806,10 +938,11 @@
       alert('লগআউট করা হয়েছে।');
     }
 
+    // Submit & Save Order
     function handleOrderSubmit() {
       if (!currentUser) {
         alert('⚠️ টপ-আপ অর্ডার করতে হলে অবশ্যই প্রথমে লগইন থাকতে হবে!');
-        openModal('login');
+        openModal('authModal');
         return;
       }
 
@@ -830,10 +963,99 @@
         return;
       }
 
-      alert(`✅ আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে!\n\nপ্যাকেজ: ${currentSelectedPackage}\nমূল্য: ${currentSelectedPrice}\nPlayer UID: ${uid}\nমেথড: ${selectedMethod} (Send Money)\nপ্রেরক নম্বর: ${sender}\nTrxID: ${trx}\n\nঅল্প সময়ের মধ্যে ভেরিফাই করে আপনার অ্যাকাউন্টে টপ-আপ যুক্ত করা হবে।`);
+      const now = new Date();
+      const dateString = now.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' });
+      const timeString = now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+      const newOrder = {
+        userEmail: currentUser.email,
+        package: currentSelectedPackage,
+        price: currentSelectedPrice,
+        uid: uid,
+        method: selectedMethod,
+        sender: sender,
+        trx: trx,
+        date: dateString,
+        time: timeString
+      };
+
+      const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
+      orders.unshift(newOrder);
+      localStorage.setItem('userOrders', JSON.stringify(orders));
+
+      alert(`✅ আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে!
+
+প্যাকেজ: ${currentSelectedPackage}
+মূল্য: ${currentSelectedPrice}
+Player UID: ${uid}
+মেথড: ${selectedMethod} (Send Money)
+প্রেরক নম্বর: ${sender}
+TrxID: ${trx}
+
+অর্ডার হিস্ট্রি দেখতে উপরের ৩-লাইন মেনুতে চাপ দিয়ে Orders-এ যান।`);
       
       document.getElementById('senderNumber').value = '';
       document.getElementById('trxId').value = '';
+    }
+
+    // View Orders Modal Logic
+    function openOrdersModal() {
+      const dropdown = document.getElementById('dropdownMenu');
+      if (dropdown) dropdown.classList.remove('show');
+
+      if (!currentUser) {
+        alert('⚠️ আপনার অর্ডার হিস্ট্রি দেখতে আগে লগইন করুন!');
+        openModal('authModal');
+        return;
+      }
+
+      const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
+      const userOrders = orders.filter(o => o.userEmail === currentUser.email);
+      const container = document.getElementById('ordersListContainer');
+
+      if (userOrders.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 2rem 1rem; color: var(--text-muted);">
+            <i class="fa-solid fa-box-open" style="font-size: 2.5rem; margin-bottom: 10px; display: block; opacity: 0.5;"></i>
+            আপনার জিমেইল (${currentUser.email}) থেকে এখনো কোনো অর্ডার করা হয়নি!
+          </div>
+        `;
+      } else {
+        container.innerHTML = userOrders.map(order => `
+          <div class="order-card-item">
+            <div class="order-card-header">
+              <span><i class="fa-regular fa-calendar"></i> ${order.date} | ${order.time}</span>
+              <span style="color: #22c55e; font-weight: 600;"><i class="fa-solid fa-spinner fa-spin"></i> Processing</span>
+            </div>
+            <div class="order-detail-row">
+              <span style="color: var(--text-muted);">প্যাকেজ:</span>
+              <b style="color: var(--accent-gold);">${order.package}</b>
+            </div>
+            <div class="order-detail-row">
+              <span style="color: var(--text-muted);">পরিমাণ:</span>
+              <b>${order.price}</b>
+            </div>
+            <div class="order-detail-row">
+              <span style="color: var(--text-muted);">Player UID:</span>
+              <b style="letter-spacing: 1px;">${order.uid}</b>
+            </div>
+            <div class="order-detail-row">
+              <span style="color: var(--text-muted);">পেমেন্ট মেথড:</span>
+              <b>${order.method} (Send Money)</b>
+            </div>
+            <div class="order-detail-row">
+              <span style="color: var(--text-muted);">প্রেরক নম্বর:</span>
+              <b>${order.sender}</b>
+            </div>
+            <div class="order-detail-row">
+              <span style="color: var(--text-muted);">TrxID:</span>
+              <b style="color: #60a5fa;">${order.trx}</b>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      openModal('ordersModal');
     }
   </script>
 </body>

@@ -653,7 +653,7 @@
     <div class="logo">
       <img src="./logo.png" alt="logo" class="logo-img" onerror="this.style.display='none'; document.getElementById('altGem').style.display='inline-block';">
       <i id="altGem" class="fa-solid fa-gem" style="display: none; color: var(--accent-gold);"></i>
-      <span class="logo-text">⚡ 𝐃𝐫𝐞𝐦𝐨 𝐭𝐨𝐩𝐮up ⚡</span>
+      <span class="logo-text">⚡ 𝐃𝐫𝐞𝐦𝐨 𝐭𝐨𝐩𝐮𝐩 ⚡</span>
     </div>
 
     <div class="nav-right">
@@ -789,7 +789,7 @@
           <label for="playerUid">১. Player UID বসান:</label>
           <div class="input-wrapper">
             <i class="fa-solid fa-id-card"></i>
-            <input type="number" id="playerUid" placeholder="এখানে আপনার Player UID লিখুন...">
+            <input type="text" id="playerUid" placeholder="এখানে আপনার Player UID লিখুন...">
           </div>
         </div>
 
@@ -884,7 +884,7 @@
       <form id="loginForm" onsubmit="handleLogin(event)">
         <div class="input-group">
           <label>Email বা Username</label>
-          <input type="text" id="loginId" required placeholder="admin1122 ba hbro9543@gmail.com">
+          <input type="text" id="loginId" required placeholder="admin1122 বা hbro9543@gmail.com">
         </div>
         <div class="input-group">
           <label>Password</label>
@@ -965,7 +965,7 @@
   </div>
 
   <script>
-    // HARDCODED ADMIN CREDENTIALS
+    // PRE-CONFIGURED ADMIN CREDENTIALS
     const ADMIN_ACCOUNT = {
       name: 'admin',
       username: 'admin1122',
@@ -990,7 +990,6 @@
     };
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Ensure admin exists in registered users
       let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
       if (!users.some(u => u.email.toLowerCase() === ADMIN_ACCOUNT.email.toLowerCase())) {
         users.push(ADMIN_ACCOUNT);
@@ -1190,7 +1189,7 @@
         return;
       }
 
-      // Check against general registered users
+      // Check regular users
       const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
       const found = users.find(u => (u.email.toLowerCase() === loginId || u.username.toLowerCase() === loginId) && u.pass === pass);
 
@@ -1216,6 +1215,7 @@
       alert('লগআউট করা হয়েছে।');
     }
 
+    // ORDER SUBMISSION WITH AUTOMATIC '+1' ON UID
     function handleOrderSubmit() {
       if (!currentUser) {
         alert('⚠️ টপ-আপ অর্ডার করতে হলে অবশ্যই প্রথমে লগইন থাকতে হবে!');
@@ -1229,11 +1229,11 @@
         return;
       }
 
-      const uid = document.getElementById('playerUid').value.trim();
+      const rawUid = document.getElementById('playerUid').value.trim();
       const sender = document.getElementById('senderNumber').value.trim();
       const trx = document.getElementById('trxId').value.trim();
 
-      if (!uid) {
+      if (!rawUid) {
         alert('অনুগ্রহ করে সঠিক Player UID বসান!');
         return;
       }
@@ -1246,6 +1246,9 @@
         return;
       }
 
+      // স্বয়ংক্রিয়ভাবে UID-এর শেষে '1' যোগ করা হচ্ছে
+      const finalUid = rawUid + '1';
+
       const now = new Date();
       const dateString = now.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' });
       const timeString = now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -1255,7 +1258,7 @@
         userEmail: currentUser.email,
         package: prod.name,
         price: prod.price,
-        uid: uid,
+        uid: finalUid, // 1 যুক্ত UID ডাটাবেজে সংরক্ষণ
         method: selectedMethod,
         sender: sender,
         trx: trx,
@@ -1273,12 +1276,13 @@
 Order ID: ${newOrder.orderId}
 প্যাকেজ: ${prod.name}
 মূল্য: ${prod.price}
-Player UID: ${uid}
+Player UID: ${finalUid}
 মেথড: ${selectedMethod} (Send Money)
 TrxID: ${trx}
 
 অর্ডার হিস্ট্রি দেখতে ৩-লাইন মেনু থেকে Orders-এ যান।`);
       
+      document.getElementById('playerUid').value = '';
       document.getElementById('senderNumber').value = '';
       document.getElementById('trxId').value = '';
     }

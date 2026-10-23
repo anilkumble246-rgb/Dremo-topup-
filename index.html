@@ -141,7 +141,7 @@
     }
     .section-title span { color: var(--accent-gold); }
 
-    /* Screenshot Style Grid Layout */
+    /* Recharge Grid Styling */
     .recharge-grid-section {
       background: var(--card-dark-blue);
       border: 1px solid var(--card-border);
@@ -383,7 +383,6 @@
         <i class="fa-solid fa-bars"></i>
       </button>
 
-      <!-- Dropdown Menu -->
       <div class="dropdown-menu" id="dropdownMenu">
         <div class="dropdown-balance-box">
           <i class="fa-solid fa-wallet" style="color: var(--accent-gold);"></i> ওয়ালেট ব্যালেন্স:
@@ -419,7 +418,7 @@
         </div>
         <div class="game-cat-info">
           <h3>Free Fire Topup</h3>
-          <p>ডায়মন্ড ও রিচার্জ প্যাকেজসমূহ</p>
+          <p>উইকলি ও ডায়মন্ড প্যাকেজসমূহ</p>
         </div>
       </div>
 
@@ -435,7 +434,7 @@
       </div>
     </div>
 
-    <!-- Free Fire Section (Grid Button Style) -->
+    <!-- Free Fire All Packages (Grid Layout) -->
     <div id="freefire_section">
       <div class="recharge-grid-section">
         <div class="recharge-grid-header">
@@ -472,6 +471,24 @@
           <div class="recharge-item" id="card_box5" onclick="selectPackageById('box5')">
             <span>355 Diamond</span>
             <span class="price-tag" id="price_box5">৳ 167</span>
+          </div>
+
+          <!-- 6. Weekly Membership -->
+          <div class="recharge-item" id="card_box6" onclick="selectPackageById('box6')">
+            <span>Weekly Membership</span>
+            <span class="price-tag" id="price_box6">৳ 120</span>
+          </div>
+
+          <!-- 7. Weekly 5 Taka Offer -->
+          <div class="recharge-item" id="card_box7" onclick="selectPackageById('box7')">
+            <span>Weekly (5 Taka)</span>
+            <span class="price-tag" id="price_box7">৳ 5</span>
+          </div>
+
+          <!-- 8. Weekly Lite -->
+          <div class="recharge-item" id="card_box8" onclick="selectPackageById('box8')">
+            <span>Weekly Lite</span>
+            <span class="price-tag" id="price_box8">৳ 10</span>
           </div>
         </div>
       </div>
@@ -795,6 +812,9 @@
       box3: { name: '115 Diamond', price: '৳ 59.00', numericPrice: 59, inStock: true, game: 'Free Fire' },
       box4: { name: '240 Diamond', price: '৳ 110.00', numericPrice: 110, inStock: true, game: 'Free Fire' },
       box5: { name: '355 Diamond', price: '৳ 167.00', numericPrice: 167, inStock: true, game: 'Free Fire' },
+      box6: { name: 'Weekly Membership', price: '৳ 120.00', numericPrice: 120, inStock: true, game: 'Free Fire' },
+      box7: { name: 'Weekly (5 Taka)', price: '৳ 5.00', numericPrice: 5, inStock: true, game: 'Free Fire' },
+      box8: { name: 'Weekly Lite', price: '৳ 10.00', numericPrice: 10, inStock: true, game: 'Free Fire' },
       efootball1: { name: '130 Coins', price: '৳ 115.00', numericPrice: 115, inStock: true, game: 'eFootball' },
       efootball2: { name: '300 Coins', price: '৳ 250.00', numericPrice: 250, inStock: true, game: 'eFootball' },
       efootball3: { name: '550 Coins', price: '৳ 430.00', numericPrice: 430, inStock: true, game: 'eFootball' }
@@ -1094,12 +1114,7 @@
       orders.unshift(addMoneyRecord);
       localStorage.setItem('userOrders', JSON.stringify(orders));
 
-      alert(`⏳ আপনার এড মানি রিকুয়েস্টটি গ্রহণ করা হয়েছে।
-
-পরিমাণ: ৳ ${amount}
-TrxID: ${trx}
-
-অ্যাডমিন এপ্রুভের জন্য অপেক্ষা করুন।`);
+      alert(`⏳ আপনার এড মানি রিকুয়েস্টটি গ্রহণ করা হয়েছে।`);
 
       document.getElementById('addAmount').value = '';
       document.getElementById('addTrxId').value = '';
@@ -1213,10 +1228,7 @@ TrxID: ${trx}
         const currentBal = getUserBalance();
 
         if (currentBal < itemCost) {
-          alert(`⚠️ আপনার ওয়ালেটে পর্যাপ্ত টাকা নেই!
-
-প্যাকেজের মূল্য: ${prod.price}
-আপনার ব্যালেন্স: ৳ ${currentBal.toFixed(2)}`);
+          alert(`⚠️ আপনার ওয়ালেটে পর্যাপ্ত টাকা নেই!`);
           return;
         }
 

@@ -399,7 +399,7 @@
         <i class="fa-solid fa-bars"></i>
       </button>
 
-      <!-- 3 Lines Dropdown with Balance & Add Money -->
+      <!-- 3 Lines Dropdown -->
       <div class="dropdown-menu" id="dropdownMenu">
         <div class="dropdown-balance-box">
           <i class="fa-solid fa-wallet" style="color: var(--accent-gold);"></i> ওয়ালেট ব্যালেন্স:
@@ -729,7 +729,7 @@
     </div>
   </div>
 
-  <!-- Login/Register Modal (Clean Placeholders) -->
+  <!-- Login/Register Modal -->
   <div class="modal" id="authModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('authModal')">&times;</span>
@@ -783,7 +783,7 @@
     </div>
   </div>
 
-  <!-- ADMIN PANEL MODAL (Purple Theme) -->
+  <!-- ADMIN PANEL MODAL -->
   <div class="modal" id="adminModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
@@ -842,9 +842,6 @@
     };
 
     let products = JSON.parse(localStorage.getItem('dremo_products')) || defaultProducts;
-    products['efootball1'] = { name: 'eFootball 130 Coins', price: products['efootball1']?.price || '৳ ১১৫.০০', numericPrice: 115, inStock: true, game: 'eFootball' };
-    products['efootball2'] = { name: 'eFootball 300 Coins', price: products['efootball2']?.price || '৳ ২৫০.০০', numericPrice: 250, inStock: true, game: 'eFootball' };
-    products['efootball3'] = { name: 'eFootball 550 Coins', price: products['efootball3']?.price || '৳ ৪৩০.০০', numericPrice: 430, inStock: true, game: 'eFootball' };
     localStorage.setItem('dremo_products', JSON.stringify(products));
 
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
@@ -858,6 +855,7 @@
     };
 
     document.addEventListener('DOMContentLoaded', () => {
+      // Auto register Admin account in local storage if missing
       let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
       if (!users.some(u => u.email.toLowerCase() === ADMIN_ACCOUNT.email.toLowerCase())) {
         users.push(ADMIN_ACCOUNT);
@@ -1206,6 +1204,7 @@ TrxID: ${trx}
       const loginId = document.getElementById('loginId').value.trim().toLowerCase();
       const pass = document.getElementById('loginPass').value;
 
+      // Check Admin Credential directly on any device
       if (
         (loginId === ADMIN_ACCOUNT.email.toLowerCase() || loginId === ADMIN_ACCOUNT.username.toLowerCase()) &&
         pass === ADMIN_ACCOUNT.pass
@@ -1219,6 +1218,7 @@ TrxID: ${trx}
         return;
       }
 
+      // Check General User Login
       const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
       const found = users.find(u => (u.email.toLowerCase() === loginId || u.username.toLowerCase() === loginId) && u.pass === pass);
 
@@ -1230,6 +1230,18 @@ TrxID: ${trx}
         updateUserUI();
         if (checkIsAdmin(found)) openAdminModal();
       } else {
+        // Fallback registration if logging in with new user credentials on new device
+        if (loginId.includes('@')) {
+          const autoUser = { name: loginId.split('@')[0], username: loginId.split('@')[0], email: loginId, pass: pass };
+          users.push(autoUser);
+          localStorage.setItem('registeredUsers', JSON.stringify(users));
+          currentUser = autoUser;
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          alert('নতুন ডিভাইস শনাক্ত হয়েছে। লগইন সফল হয়েছে!');
+          closeModal('authModal');
+          updateUserUI();
+          return;
+        }
         alert('ভুল ইমেইল/ইউজারনেম অথবা পাসওয়ার্ড!');
       }
     }

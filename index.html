@@ -729,7 +729,7 @@
     </div>
   </div>
 
-  <!-- Login/Register Modal -->
+  <!-- Login/Register Modal (Clean Placeholders) -->
   <div class="modal" id="authModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('authModal')">&times;</span>
@@ -741,11 +741,11 @@
       <form id="loginForm" onsubmit="handleLogin(event)">
         <div class="input-group">
           <label>Email বা Username</label>
-          <input type="text" id="loginId" required placeholder="admin1122 বা hbro9543@gmail.com">
+          <input type="text" id="loginId" required placeholder="আপনার ইমেইল বা ইউজারনেম লিখুন">
         </div>
         <div class="input-group">
           <label>Password</label>
-          <input type="password" id="loginPass" required placeholder="Password দিন (admin)">
+          <input type="password" id="loginPass" required placeholder="আপনার পাসওয়ার্ড দিন">
         </div>
         <button type="submit" class="btn btn-submit">Login করুন</button>
       </form>
@@ -867,7 +867,6 @@
       renderProductsOnUI();
       updateUserUI();
 
-      // Cross-device storage listener to auto-refresh admin notification instantly
       window.addEventListener('storage', (e) => {
         if (e.key === 'userOrders') {
           if (currentUser && checkIsAdmin(currentUser)) {

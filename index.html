@@ -426,7 +426,7 @@
 
   <main class="container">
     
-    <!-- Games Category Cards (Pashapashi) -->
+    <!-- Games Category Cards -->
     <div class="games-cat-grid">
       <!-- Free Fire Card -->
       <div class="game-cat-card active" id="catBtn_freefire" onclick="switchCategory('freefire')">
@@ -453,7 +453,7 @@
       </div>
     </div>
 
-    <!-- Section 1: Free Fire Packages (Default Active) -->
+    <!-- Section 1: Free Fire Packages -->
     <div id="freefire_section">
       <div class="section-title">
         <div>Free Fire <span>প্যাকেজসমূহ</span></div>
@@ -498,7 +498,7 @@
       </div>
     </div>
 
-    <!-- Section 2: eFootball Services Section (130, 300, 550 Coins) -->
+    <!-- Section 2: eFootball Services Section -->
     <div id="efootball_section" style="display: none;">
       <div class="section-title">
         <div><i class="fa-solid fa-futbol" style="color:var(--accent-gold);"></i> eFootball <span>Coins Services</span></div>
@@ -610,7 +610,7 @@
           </div>
         </div>
 
-        <!-- Manual Payment Instruction (Bkash/Nagad) -->
+        <!-- Manual Payment Instruction -->
         <div id="manualPaySection">
           <div class="payment-instruction">
             <div>নিচের নম্বরে <b id="payMethodName" style="color:var(--accent-gold);">bKash</b> (Send Money) করুন:</div>
@@ -866,6 +866,16 @@
 
       renderProductsOnUI();
       updateUserUI();
+
+      // Cross-device storage listener to auto-refresh admin notification instantly
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'userOrders') {
+          if (currentUser && checkIsAdmin(currentUser)) {
+            renderAdminAddMoneyRequests();
+            renderAdminOrders();
+          }
+        }
+      });
     });
 
     function getUserBalance(userEmail) {
@@ -1168,12 +1178,12 @@ TrxID: ${trx}
     function handleRegister(e) {
       e.preventDefault();
       const name = document.getElementById('regName').value.trim();
-      const username = document.getElementById('regUsername').value.trim();
-      const email = document.getElementById('regEmail').value.trim();
+      const username = document.getElementById('regUsername').value.trim().toLowerCase();
+      const email = document.getElementById('regEmail').value.trim().toLowerCase();
       const pass = document.getElementById('regPass').value;
 
       let users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-      if (users.find(u => u.email.toLowerCase() === email.toLowerCase() || u.username === username)) {
+      if (users.find(u => u.email.toLowerCase() === email || u.username.toLowerCase() === username)) {
         alert('এই ইমেইল বা ইউজারনেম দিয়ে ইতোমধ্যে একাউন্ট খোলা আছে!');
         return;
       }
@@ -1262,7 +1272,6 @@ TrxID: ${trx}
           return;
         }
 
-        // Deduct money from wallet
         deductUserBalance(currentUser.email, itemCost);
         sender = 'Dremo Wallet Balance';
         trx = 'WALLET-PAY-' + Date.now().toString().slice(-6);
@@ -1346,7 +1355,6 @@ ${selectedMethod === 'Dremo Wallet' ? 'অবশিষ্ট ব্যালে�
 
 অর্ডার হিস্ট্রি দেখতে ৩-লাইন মেনু থেকে Orders-এ যান।`);
 
-      // Clear Inputs
       document.getElementById('playerUid').value = '';
       document.getElementById('konamiEmail').value = '';
       document.getElementById('konamiPass').value = '';

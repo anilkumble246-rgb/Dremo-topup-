@@ -152,19 +152,19 @@
       font-size: 0.9rem; font-weight: 700;
     }
 
-    /* Uniform Grid for Free Fire Diamonds (Equal Height & Width) */
-    .recharge-grid-uniform {
+    /* EQUAL HEIGHT GRID FOR ALL DIAMOND PACKAGES */
+    .diamond-uniform-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
-    .recharge-item-uniform {
+    .diamond-item {
       background: var(--input-bg);
       border: 2px solid var(--card-border);
       border-radius: 10px;
-      height: 60px;
-      padding: 0 1rem;
+      height: 65px;
+      padding: 0 1.2rem;
       text-align: center;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -175,19 +175,20 @@
       font-size: 0.95rem;
       color: #ffffff;
     }
-    .recharge-item-uniform:hover, .recharge-item-uniform.active {
+    .diamond-item:hover, .diamond-item.active {
       border-color: #ef4444;
       background: rgba(239, 68, 68, 0.12);
       box-shadow: 0 4px 15px rgba(239, 68, 68, 0.25);
       transform: translateY(-2px);
     }
-    .recharge-item-uniform .price-tag {
+    .diamond-item .price-tag {
       color: #ef4444;
       font-weight: 700;
+      font-size: 1rem;
     }
 
-    /* Cards with Logo Grid (Weekly Offers & eFootball Coins) */
-    .recharge-grid-cards {
+    /* GRID FOR WEEKLY & EFOOTBALL COINS WITH LOGO */
+    .weekly-cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 1.2rem;
@@ -213,7 +214,7 @@
     }
     .recharge-item-img {
       width: 100%;
-      height: 75px;
+      height: 80px;
       border-radius: 8px;
       object-fit: cover;
       margin-bottom: 4px;
@@ -384,13 +385,13 @@
     }
 
     @media (max-width: 768px) { 
-      .recharge-grid-uniform, .recharge-grid-cards { grid-template-columns: repeat(2, 1fr); }
+      .diamond-uniform-grid, .weekly-cards-grid { grid-template-columns: repeat(2, 1fr); }
       .action-panel { grid-template-columns: 1fr; }
       .admin-table { display: block; overflow-x: auto; }
     }
     @media (max-width: 480px) {
       .games-cat-grid { grid-template-columns: 1fr; }
-      .recharge-grid-uniform, .recharge-grid-cards { grid-template-columns: repeat(2, 1fr); }
+      .diamond-uniform-grid, .weekly-cards-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -482,36 +483,36 @@
           <span>Select Recharge Package</span>
         </div>
 
-        <!-- Equal Size Text Diamonds Grid -->
-        <div class="recharge-grid-uniform">
-          <div class="recharge-item-uniform active" id="card_box1" onclick="selectPackageById('box1')">
+        <!-- 1. ALL DIAMOND PACKAGES (EQUAL SIZE & HEIGHT - NO LOGO) -->
+        <div class="diamond-uniform-grid">
+          <div class="diamond-item active" id="card_box1" onclick="selectPackageById('box1')">
             <span>25 Diamond</span>
             <span class="price-tag" id="price_box1">৳ 18</span>
           </div>
 
-          <div class="recharge-item-uniform" id="card_box2" onclick="selectPackageById('box2')">
+          <div class="diamond-item" id="card_box2" onclick="selectPackageById('box2')">
             <span>50 Diamond</span>
             <span class="price-tag" id="price_box2">৳ 30</span>
           </div>
 
-          <div class="recharge-item-uniform" id="card_box3" onclick="selectPackageById('box3')">
+          <div class="diamond-item" id="card_box3" onclick="selectPackageById('box3')">
             <span>115 Diamond</span>
             <span class="price-tag" id="price_box3">৳ 59</span>
           </div>
 
-          <div class="recharge-item-uniform" id="card_box4" onclick="selectPackageById('box4')">
+          <div class="diamond-item" id="card_box4" onclick="selectPackageById('box4')">
             <span>240 Diamond</span>
             <span class="price-tag" id="price_box4">৳ 110</span>
           </div>
 
-          <div class="recharge-item-uniform" id="card_box5" onclick="selectPackageById('box5')">
+          <div class="diamond-item" id="card_box5" onclick="selectPackageById('box5')">
             <span>355 Diamond</span>
             <span class="price-tag" id="price_box5">৳ 167</span>
           </div>
         </div>
 
-        <!-- Weekly Memberships WITH Logo -->
-        <div class="recharge-grid-cards">
+        <!-- 2. WEEKLY MEMBERSHIPS (WITH LOGO) -->
+        <div class="weekly-cards-grid">
           <div class="recharge-item-card" id="card_box6" onclick="selectPackageById('box6')">
             <img src="./weekly-120.jpg" class="recharge-item-img" alt="Weekly Membership" onerror="this.src='./weekly-120.jpg.png';">
             <span class="pkg-title">Weekly Membership</span>
@@ -541,7 +542,7 @@
           <span>Select eFootball Coins</span>
         </div>
 
-        <div class="recharge-grid-cards">
+        <div class="weekly-cards-grid">
           <div class="recharge-item-card" id="card_efootball1" onclick="selectPackageById('efootball1')">
             <img src="./efootball-coin.png" class="recharge-item-img" alt="130 Coins" onerror="this.src='./efootball-coin.jpg';">
             <span class="pkg-title">130 Coins</span>
@@ -1040,7 +1041,7 @@
       }
       selectedPackageId = boxId;
 
-      document.querySelectorAll('.recharge-item-uniform, .recharge-item-card').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('.diamond-item, .recharge-item-card').forEach(item => item.classList.remove('active'));
       const activeCard = document.getElementById(`card_${boxId}`);
       if (activeCard) activeCard.classList.add('active');
 

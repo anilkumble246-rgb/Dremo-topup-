@@ -134,7 +134,7 @@
       padding: 2px 7px; border-radius: 6px;
     }
 
-    /* Recharge Section with Card Logos */
+    /* Recharge Grid Styling */
     .recharge-grid-section {
       background: var(--card-dark-blue);
       border: 1px solid var(--card-border);
@@ -155,9 +155,39 @@
     .recharge-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
+      gap: 1rem;
     }
-    .recharge-item {
+
+    /* Style for Text-Only Diamond Packages (Screenshot like) */
+    .recharge-item-text {
+      background: var(--input-bg);
+      border: 2px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1rem 0.8rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #ffffff;
+    }
+    .recharge-item-text:hover, .recharge-item-text.active {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.12);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.25);
+      transform: translateY(-2px);
+    }
+    .recharge-item-text .price-tag {
+      color: #ef4444;
+      font-weight: 700;
+    }
+
+    /* Style for Packages with Logo (Weekly & eFootball) */
+    .recharge-item-card {
       background: var(--input-bg);
       border: 2px solid var(--card-border);
       border-radius: 12px;
@@ -169,9 +199,8 @@
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      position: relative;
     }
-    .recharge-item:hover, .recharge-item.active {
+    .recharge-item-card:hover, .recharge-item-card.active {
       border-color: #ef4444;
       background: rgba(239, 68, 68, 0.12);
       box-shadow: 0 4px 15px rgba(239, 68, 68, 0.25);
@@ -179,27 +208,28 @@
     }
     .recharge-item-img {
       width: 100%;
-      height: 80px;
+      height: 75px;
       border-radius: 8px;
       object-fit: cover;
       margin-bottom: 4px;
       border: 1px solid rgba(255,255,255,0.08);
       background: #091329;
     }
-    .recharge-item .pkg-title {
+    .recharge-item-card .pkg-title {
       font-size: 0.9rem;
       font-weight: 700;
       color: #ffffff;
     }
-    .recharge-item .price-tag {
+    .recharge-item-card .price-tag {
       color: #ef4444;
       font-weight: 700;
       font-size: 0.95rem;
     }
-    .recharge-item.out-of-stock {
+
+    .out-of-stock {
       opacity: 0.5;
-      cursor: not-allowed;
-      border-color: #475569;
+      cursor: not-allowed !important;
+      border-color: #475569 !important;
     }
 
     .action-panel {
@@ -439,7 +469,7 @@
       </div>
     </div>
 
-    <!-- Free Fire All Packages (With Logo & Grid) -->
+    <!-- Free Fire Section -->
     <div id="freefire_section">
       <div class="recharge-grid-section">
         <div class="recharge-grid-header">
@@ -448,57 +478,46 @@
         </div>
 
         <div class="recharge-grid">
-          <!-- 1. 25 Diamond -->
-          <div class="recharge-item active" id="card_box1" onclick="selectPackageById('box1')">
-            <img src="./uid.jpg.png" class="recharge-item-img" alt="25 Diamond" onerror="this.src='./uid.jpg';">
-            <span class="pkg-title">25 Diamond</span>
+          <!-- Text Only Packages (As requested in image list - No Logo) -->
+          <div class="recharge-item-text active" id="card_box1" onclick="selectPackageById('box1')">
+            <span>25 Diamond</span>
             <span class="price-tag" id="price_box1">৳ 18</span>
           </div>
 
-          <!-- 2. 50 Diamond -->
-          <div class="recharge-item" id="card_box2" onclick="selectPackageById('box2')">
-            <img src="./uid.jpg.png" class="recharge-item-img" alt="50 Diamond" onerror="this.src='./uid.jpg';">
-            <span class="pkg-title">50 Diamond</span>
+          <div class="recharge-item-text" id="card_box2" onclick="selectPackageById('box2')">
+            <span>50 Diamond</span>
             <span class="price-tag" id="price_box2">৳ 30</span>
           </div>
 
-          <!-- 3. 115 Diamond -->
-          <div class="recharge-item" id="card_box3" onclick="selectPackageById('box3')">
-            <img src="./uid.jpg.png" class="recharge-item-img" alt="115 Diamond" onerror="this.src='./uid.jpg';">
-            <span class="pkg-title">115 Diamond</span>
+          <div class="recharge-item-text" id="card_box3" onclick="selectPackageById('box3')">
+            <span>115 Diamond</span>
             <span class="price-tag" id="price_box3">৳ 59</span>
           </div>
 
-          <!-- 4. 240 Diamond -->
-          <div class="recharge-item" id="card_box4" onclick="selectPackageById('box4')">
-            <img src="./uid.jpg.png" class="recharge-item-img" alt="240 Diamond" onerror="this.src='./uid.jpg';">
-            <span class="pkg-title">240 Diamond</span>
+          <div class="recharge-item-text" id="card_box4" onclick="selectPackageById('box4')">
+            <span>240 Diamond</span>
             <span class="price-tag" id="price_box4">৳ 110</span>
           </div>
 
-          <!-- 5. 355 Diamond -->
-          <div class="recharge-item" id="card_box5" onclick="selectPackageById('box5')">
-            <img src="./uid.jpg.png" class="recharge-item-img" alt="355 Diamond" onerror="this.src='./uid.jpg';">
-            <span class="pkg-title">355 Diamond</span>
+          <div class="recharge-item-text" id="card_box5" onclick="selectPackageById('box5')">
+            <span>355 Diamond</span>
             <span class="price-tag" id="price_box5">৳ 167</span>
           </div>
 
-          <!-- 6. Weekly Membership (With Logo) -->
-          <div class="recharge-item" id="card_box6" onclick="selectPackageById('box6')">
+          <!-- Weekly Offers WITH Logo -->
+          <div class="recharge-item-card" id="card_box6" onclick="selectPackageById('box6')">
             <img src="./weekly-120.jpg" class="recharge-item-img" alt="Weekly Membership" onerror="this.src='./weekly-120.jpg.png';">
             <span class="pkg-title">Weekly Membership</span>
             <span class="price-tag" id="price_box6">৳ 120</span>
           </div>
 
-          <!-- 7. Weekly 5 Taka Offer (With Logo) -->
-          <div class="recharge-item" id="card_box7" onclick="selectPackageById('box7')">
+          <div class="recharge-item-card" id="card_box7" onclick="selectPackageById('box7')">
             <img src="./weekly-5.jpg" class="recharge-item-img" alt="Weekly 5 Taka" onerror="this.src='./weekly-5.jpg.png';">
             <span class="pkg-title">Weekly (5 Taka)</span>
             <span class="price-tag" id="price_box7">৳ 5</span>
           </div>
 
-          <!-- 8. Weekly Lite (With Logo) -->
-          <div class="recharge-item" id="card_box8" onclick="selectPackageById('box8')">
+          <div class="recharge-item-card" id="card_box8" onclick="selectPackageById('box8')">
             <img src="./weekly-lite.jpg" class="recharge-item-img" alt="Weekly Lite" onerror="this.src='./weekly-lite.jpg.png';">
             <span class="pkg-title">Weekly Lite</span>
             <span class="price-tag" id="price_box8">৳ 10</span>
@@ -507,7 +526,7 @@
       </div>
     </div>
 
-    <!-- eFootball Section -->
+    <!-- eFootball Section (WITH Logo) -->
     <div id="efootball_section" style="display: none;">
       <div class="recharge-grid-section">
         <div class="recharge-grid-header">
@@ -516,17 +535,17 @@
         </div>
 
         <div class="recharge-grid">
-          <div class="recharge-item" id="card_efootball1" onclick="selectPackageById('efootball1')">
+          <div class="recharge-item-card" id="card_efootball1" onclick="selectPackageById('efootball1')">
             <img src="./efootball-coin.png" class="recharge-item-img" alt="130 Coins" onerror="this.src='./efootball-coin.jpg';">
             <span class="pkg-title">130 Coins</span>
             <span class="price-tag" id="price_efootball1">৳ 115</span>
           </div>
-          <div class="recharge-item" id="card_efootball2" onclick="selectPackageById('efootball2')">
+          <div class="recharge-item-card" id="card_efootball2" onclick="selectPackageById('efootball2')">
             <img src="./efootball-coin.png" class="recharge-item-img" alt="300 Coins" onerror="this.src='./efootball-coin.jpg';">
             <span class="pkg-title">300 Coins</span>
             <span class="price-tag" id="price_efootball2">৳ 250</span>
           </div>
-          <div class="recharge-item" id="card_efootball3" onclick="selectPackageById('efootball3')">
+          <div class="recharge-item-card" id="card_efootball3" onclick="selectPackageById('efootball3')">
             <img src="./efootball-coin.png" class="recharge-item-img" alt="550 Coins" onerror="this.src='./efootball-coin.jpg';">
             <span class="pkg-title">550 Coins</span>
             <span class="price-tag" id="price_efootball3">৳ 430</span>
@@ -1014,7 +1033,7 @@
       }
       selectedPackageId = boxId;
 
-      document.querySelectorAll('.recharge-item').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('.recharge-item-text, .recharge-item-card').forEach(item => item.classList.remove('active'));
       const activeCard = document.getElementById(`card_${boxId}`);
       if (activeCard) activeCard.classList.add('active');
 

@@ -236,18 +236,19 @@
     }
     .selected-banner b { color: var(--accent-gold); }
 
-    .payment-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.2rem; }
+    .payment-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.2rem; }
     .pay-opt {
       border: 2px solid var(--card-border); background: var(--input-bg);
-      border-radius: 10px; padding: 12px 10px; text-align: center;
-      cursor: pointer; font-size: 0.95rem; font-weight: 700;
+      border-radius: 10px; padding: 10px 6px; text-align: center;
+      cursor: pointer; font-size: 0.85rem; font-weight: 700;
       transition: all 0.2s ease; display: flex; flex-direction: column;
       align-items: center; gap: 4px;
     }
-    .pay-opt small { font-size: 0.75rem; font-weight: 400; color: var(--text-muted); }
+    .pay-opt small { font-size: 0.7rem; font-weight: 400; color: var(--text-muted); }
     .pay-opt.active { border-color: var(--accent-gold); background: rgba(255, 183, 3, 0.12); color: var(--accent-gold); }
     .pay-opt.bkash { border-bottom: 4px solid var(--bkash); }
     .pay-opt.nagad { border-bottom: 4px solid var(--nagad); }
+    .pay-opt.wallet { border-bottom: 4px solid #10b981; }
 
     .payment-instruction {
       background: rgba(255, 255, 255, 0.03); border: 1px dashed var(--card-border);
@@ -593,40 +594,52 @@
           </div>
         </div>
 
-        <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 6px;" id="payStepLabel">২. পেমেন্ট মেথড নির্বাচন করুন (Send Money):</label>
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 6px;" id="payStepLabel">২. পেমেন্ট মেথড নির্বাচন করুন:</label>
         <div class="payment-options">
-          <div class="pay-opt bkash active" onclick="setPaymentMethod('bKash')">
+          <div class="pay-opt bkash active" id="payOptBkash" onclick="setPaymentMethod('bKash')">
             <span><i class="fa-solid fa-mobile-screen-button"></i> bKash</span>
             <small>Send Money</small>
           </div>
-          <div class="pay-opt nagad" onclick="setPaymentMethod('Nagad')">
+          <div class="pay-opt nagad" id="payOptNagad" onclick="setPaymentMethod('Nagad')">
             <span><i class="fa-solid fa-mobile-screen-button"></i> Nagad</span>
             <small>Send Money</small>
           </div>
-        </div>
-
-        <div class="payment-instruction">
-          <div>নিচের নম্বরে <b id="payMethodName" style="color:var(--accent-gold);">bKash</b> (Send Money) করুন:</div>
-          <div class="copy-number-box">
-            <span id="targetNumber" style="font-weight: 700; letter-spacing: 1px; font-size: 1.05rem;">01975-025703</span>
-            <button class="copy-btn" onclick="copyNumber('targetNumber')"><i class="fa-regular fa-copy"></i> Copy</button>
+          <div class="pay-opt wallet" id="payOptWallet" onclick="setPaymentMethod('Dremo Wallet')">
+            <span><i class="fa-solid fa-wallet" style="color:#10b981;"></i> Dremo Wallet</span>
+            <small id="walletOptSubtext">৳ 0.00</small>
           </div>
         </div>
 
-        <div class="input-group">
-          <label for="senderNumber">যে নম্বর থেকে টাকা পাঠিয়েছেন:</label>
-          <div class="input-wrapper">
-            <i class="fa-solid fa-phone"></i>
-            <input type="number" id="senderNumber" placeholder="যেমন: 01XXXXXXXXX">
+        <!-- Manual Payment Instruction (Bkash/Nagad) -->
+        <div id="manualPaySection">
+          <div class="payment-instruction">
+            <div>নিচের নম্বরে <b id="payMethodName" style="color:var(--accent-gold);">bKash</b> (Send Money) করুন:</div>
+            <div class="copy-number-box">
+              <span id="targetNumber" style="font-weight: 700; letter-spacing: 1px; font-size: 1.05rem;">01975-025703</span>
+              <button class="copy-btn" onclick="copyNumber('targetNumber')"><i class="fa-regular fa-copy"></i> Copy</button>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="senderNumber">যে নম্বর থেকে টাকা পাঠিয়েছেন:</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-phone"></i>
+              <input type="number" id="senderNumber" placeholder="যেমন: 01XXXXXXXXX">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="trxId">Transaction ID (TrxID) বসান:</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-receipt"></i>
+              <input type="text" id="trxId" placeholder="যেমন: BL8A92KM">
+            </div>
           </div>
         </div>
 
-        <div class="input-group">
-          <label for="trxId">Transaction ID (TrxID) বসান:</label>
-          <div class="input-wrapper">
-            <i class="fa-solid fa-receipt"></i>
-            <input type="text" id="trxId" placeholder="যেমন: BL8A92KM">
-          </div>
+        <!-- Wallet Payment Notice -->
+        <div id="walletPayNotice" style="display: none; background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px; padding: 1rem; margin-bottom: 1.2rem; font-size: 0.88rem; color: #34d399;">
+          <i class="fa-solid fa-circle-check"></i> Dremo Wallet সিলেক্ট করেছেন। আপনার ওয়ালেট থেকে সরাসরি টাকা কেটে নেয়া হবে (TrxID বা নম্বরের প্রয়োজন নেই)।
         </div>
 
         <button class="btn btn-submit" id="submitOrderBtn" onclick="handleOrderSubmit()">অর্ডার নিশ্চিত করুন <i class="fa-solid fa-check-circle"></i></button>
@@ -647,11 +660,11 @@
         </div>
         <div class="step-item">
           <span class="step-num">৩</span>
-          <p>বিকাশ বা নগদ নম্বর কপি করে প্যাকেজের সমপরিমাণ টাকা <b>Send Money</b> করুন।</p>
+          <p><b>bKash/Nagad</b> বেছে নিলে টাকা পাঠাতে হবে, আর <b>Dremo Wallet</b> বেছে নিলে ওয়ালেট ব্যালেন্স থেকে অটো পে হবে!</p>
         </div>
         <div class="step-item">
           <span class="step-num">৪</span>
-          <p>টাকা পাঠানোর পর প্রাপ্ত <b>TrxID</b> ও আপনার নম্বর লিখে <b>অর্ডার নিশ্চিত করুন</b> বাটনে চাপ দিন।</p>
+          <p>মেথড নিশ্চিত করার পর <b>অর্ডার নিশ্চিত করুন</b> বাটনে চাপ দিন।</p>
         </div>
         <div class="support-box">
           <h4><i class="fa-solid fa-headset"></i> ২৪/৭ হেল্পলাইন</h4>
@@ -820,18 +833,18 @@
     };
 
     const defaultProducts = {
-      box1: { name: 'মাত্র ১২০ টাকায় উইকলি', price: '৳ ১২০.০০', inStock: true, game: 'Free Fire' },
-      box2: { name: 'মাত্র ৫ টাকায় উইকলি', price: '৳ ৫.০০', inStock: true, game: 'Free Fire' },
-      box3: { name: 'মাত্র ১০ টাকায় উইকলি লাইট', price: '৳ ১০.০০', inStock: true, game: 'Free Fire' },
-      efootball1: { name: 'eFootball 130 Coins', price: '৳ ১১৫.০০', inStock: true, game: 'eFootball' },
-      efootball2: { name: 'eFootball 300 Coins', price: '৳ ২৫০.০০', inStock: true, game: 'eFootball' },
-      efootball3: { name: 'eFootball 550 Coins', price: '৳ ৪৩০.০০', inStock: true, game: 'eFootball' }
+      box1: { name: 'মাত্র ১২০ টাকায় উইকলি', price: '৳ ১২০.০০', numericPrice: 120, inStock: true, game: 'Free Fire' },
+      box2: { name: 'মাত্র ৫ টাকায় উইকলি', price: '৳ ৫.০০', numericPrice: 5, inStock: true, game: 'Free Fire' },
+      box3: { name: 'মাত্র ১০ টাকায় উইকলি লাইট', price: '৳ ১০.০০', numericPrice: 10, inStock: true, game: 'Free Fire' },
+      efootball1: { name: 'eFootball 130 Coins', price: '৳ ১১৫.০০', numericPrice: 115, inStock: true, game: 'eFootball' },
+      efootball2: { name: 'eFootball 300 Coins', price: '৳ ২৫০.০০', numericPrice: 250, inStock: true, game: 'eFootball' },
+      efootball3: { name: 'eFootball 550 Coins', price: '৳ ৪৩০.০০', numericPrice: 430, inStock: true, game: 'eFootball' }
     };
 
     let products = JSON.parse(localStorage.getItem('dremo_products')) || defaultProducts;
-    products['efootball1'] = { name: 'eFootball 130 Coins', price: products['efootball1']?.price || '৳ ১১৫.০০', inStock: true, game: 'eFootball' };
-    products['efootball2'] = { name: 'eFootball 300 Coins', price: products['efootball2']?.price || '৳ ২৫০.০০', inStock: true, game: 'eFootball' };
-    products['efootball3'] = { name: 'eFootball 550 Coins', price: products['efootball3']?.price || '৳ ৪৩০.০০', inStock: true, game: 'eFootball' };
+    products['efootball1'] = { name: 'eFootball 130 Coins', price: products['efootball1']?.price || '৳ ১১৫.০০', numericPrice: 115, inStock: true, game: 'eFootball' };
+    products['efootball2'] = { name: 'eFootball 300 Coins', price: products['efootball2']?.price || '৳ ২৫০.০০', numericPrice: 250, inStock: true, game: 'eFootball' };
+    products['efootball3'] = { name: 'eFootball 550 Coins', price: products['efootball3']?.price || '৳ ৪৩০.০০', numericPrice: 430, inStock: true, game: 'eFootball' };
     localStorage.setItem('dremo_products', JSON.stringify(products));
 
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
@@ -871,6 +884,17 @@
       updateUserUI();
     }
 
+    function deductUserBalance(userEmail, amount) {
+      if (!userEmail) return false;
+      let balances = JSON.parse(localStorage.getItem('user_balances')) || {};
+      let current = balances[userEmail.toLowerCase()] || 0;
+      if (current < amount) return false;
+      balances[userEmail.toLowerCase()] = current - Number(amount);
+      localStorage.setItem('user_balances', JSON.stringify(balances));
+      updateUserUI();
+      return true;
+    }
+
     function switchCategory(cat) {
       const ffSec = document.getElementById('freefire_section');
       const efSec = document.getElementById('efootball_section');
@@ -892,7 +916,7 @@
 
         ffInputs.style.display = 'block';
         efInputs.style.display = 'none';
-        payStepLabel.textContent = '২. পেমেন্ট মেথড নির্বাচন করুন (Send Money):';
+        payStepLabel.textContent = '২. পেমেন্ট মেথড নির্বাচন করুন:';
         updateSelectedPackageDisplay();
       } else if (cat === 'efootball') {
         ffSec.style.display = 'none';
@@ -902,7 +926,7 @@
 
         ffInputs.style.display = 'none';
         efInputs.style.display = 'block';
-        payStepLabel.textContent = '৪. পেমেন্ট মেথড নির্বাচন করুন (Send Money):';
+        payStepLabel.textContent = '৪. পেমেন্ট মেথড নির্বাচন করুন:';
         updateSelectedPackageDisplay();
       }
     }
@@ -960,14 +984,17 @@
       const adminShortcutBtn = document.getElementById('adminShortcutBtn');
       const adminDropdownItem = document.getElementById('adminDropdownItem');
       const menuBalanceDisplay = document.getElementById('menuBalanceDisplay');
+      const walletOptSubtext = document.getElementById('walletOptSubtext');
 
       const isAdmin = checkIsAdmin(currentUser);
+      const bal = getUserBalance();
 
       if (currentUser) {
         authNav.style.display = 'none';
         userNav.style.display = 'flex';
         displayUsername.textContent = currentUser.name || currentUser.username;
-        menuBalanceDisplay.textContent = '৳ ' + getUserBalance().toFixed(2);
+        menuBalanceDisplay.textContent = '৳ ' + bal.toFixed(2);
+        if (walletOptSubtext) walletOptSubtext.textContent = '৳ ' + bal.toFixed(2);
 
         if (isAdmin) {
           adminShortcutBtn.style.display = 'inline-flex';
@@ -982,6 +1009,7 @@
         adminShortcutBtn.style.display = 'none';
         adminDropdownItem.style.display = 'none';
         menuBalanceDisplay.textContent = 'লগইন করুন';
+        if (walletOptSubtext) walletOptSubtext.textContent = '৳ 0.00';
       }
     }
 
@@ -1008,10 +1036,27 @@
     function setPaymentMethod(method) {
       selectedMethod = method;
       document.querySelectorAll('#checkoutSection .pay-opt').forEach(el => el.classList.remove('active'));
-      const target = event.currentTarget;
-      if (target) target.classList.add('active');
-      document.getElementById('payMethodName').textContent = method;
-      document.getElementById('targetNumber').textContent = paymentNumbers[method];
+
+      const manualSec = document.getElementById('manualPaySection');
+      const walletNotice = document.getElementById('walletPayNotice');
+
+      if (method === 'bKash') {
+        document.getElementById('payOptBkash').classList.add('active');
+        manualSec.style.display = 'block';
+        walletNotice.style.display = 'none';
+        document.getElementById('payMethodName').textContent = 'bKash';
+        document.getElementById('targetNumber').textContent = paymentNumbers['bKash'];
+      } else if (method === 'Nagad') {
+        document.getElementById('payOptNagad').classList.add('active');
+        manualSec.style.display = 'block';
+        walletNotice.style.display = 'none';
+        document.getElementById('payMethodName').textContent = 'Nagad';
+        document.getElementById('targetNumber').textContent = paymentNumbers['Nagad'];
+      } else if (method === 'Dremo Wallet') {
+        document.getElementById('payOptWallet').classList.add('active');
+        manualSec.style.display = 'none';
+        walletNotice.style.display = 'block';
+      }
     }
 
     function setAddMoneyMethod(method) {
@@ -1200,16 +1245,40 @@ TrxID: ${trx}
         return;
       }
 
-      const sender = document.getElementById('senderNumber').value.trim();
-      const trx = document.getElementById('trxId').value.trim();
+      let sender = '';
+      let trx = '';
 
-      if (!sender || sender.length < 11) {
-        alert('টাকা পাঠানোর সঠিক মোবাইল নম্বরটি দিন!');
-        return;
-      }
-      if (!trx || trx.length < 5) {
-        alert('সঠিক Transaction ID (TrxID) বসান!');
-        return;
+      if (selectedMethod === 'Dremo Wallet') {
+        const itemCost = prod.numericPrice || parseInt(prod.price.replace(/[^0-9]/g, '')) || 0;
+        const currentBal = getUserBalance();
+
+        if (currentBal < itemCost) {
+          alert(`⚠️ আপনার ওয়ালেটে পর্যাপ্ত টাকা নেই!
+
+প্যাকেজের মূল্য: ${prod.price}
+আপনার ব্যালেন্স: ৳ ${currentBal.toFixed(2)}
+
+অনুগ্রহ করে ৩-লাইন মেনু থেকে Add Money করে ওয়ালেট রিচার্জ করুন।`);
+          return;
+        }
+
+        // Deduct money from wallet
+        deductUserBalance(currentUser.email, itemCost);
+        sender = 'Dremo Wallet Balance';
+        trx = 'WALLET-PAY-' + Date.now().toString().slice(-6);
+
+      } else {
+        sender = document.getElementById('senderNumber').value.trim();
+        trx = document.getElementById('trxId').value.trim();
+
+        if (!sender || sender.length < 11) {
+          alert('টাকা পাঠানোর সঠিক মোবাইল নম্বরটি দিন!');
+          return;
+        }
+        if (!trx || trx.length < 5) {
+          alert('সঠিক Transaction ID (TrxID) বসান!');
+          return;
+        }
       }
 
       let orderReference = '';
@@ -1272,8 +1341,8 @@ Game: ${newOrder.game}
 প্যাকেজ: ${prod.name}
 মূল্য: ${prod.price}
 তথ্য / রেফারেন্স: ${orderReference}
-মেথড: ${selectedMethod} (Send Money)
-TrxID: ${trx}
+পেমেন্ট মেথড: ${selectedMethod}
+${selectedMethod === 'Dremo Wallet' ? 'অবশিষ্ট ব্যালেন্স: ৳ ' + getUserBalance().toFixed(2) : 'TrxID: ' + trx}
 
 অর্ডার হিস্ট্রি দেখতে ৩-লাইন মেনু থেকে Orders-এ যান।`);
 
@@ -1335,7 +1404,7 @@ TrxID: ${trx}
               <b>${order.method}</b>
             </div>
             <div class="order-detail-row">
-              <span style="color: var(--text-muted);">TrxID:</span>
+              <span style="color: var(--text-muted);">TrxID / Ref:</span>
               <b style="color: #a855f7;">${order.trx}</b>
             </div>
           </div>
@@ -1576,6 +1645,7 @@ TrxID: ${trx}
       const stockVal = document.getElementById(`admin_stock_${boxId}`).value;
 
       products[boxId].price = priceVal;
+      products[boxId].numericPrice = parseInt(priceVal.replace(/[^0-9]/g, '')) || 0;
       products[boxId].inStock = (stockVal === 'in');
 
       localStorage.setItem('dremo_products', JSON.stringify(products));

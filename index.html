@@ -558,15 +558,42 @@
           <b id="selectedPackagePrice" style="font-size: 1.15rem; color: var(--accent-gold);">৳ ১২০.০০</b>
         </div>
 
-        <div class="input-group">
-          <label for="playerUid">১. Player UID / User ID বসান:</label>
-          <div class="input-wrapper">
-            <i class="fa-solid fa-id-card"></i>
-            <input type="text" id="playerUid" placeholder="এখানে আপনার Player UID বা User ID লিখুন...">
+        <!-- Dynamic Inputs based on Game -->
+        <div id="freefire_inputs">
+          <div class="input-group">
+            <label for="playerUid">১. Player UID / User ID বসান:</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-id-card"></i>
+              <input type="text" id="playerUid" placeholder="এখানে আপনার Player UID বা User ID লিখুন...">
+            </div>
           </div>
         </div>
 
-        <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 6px;">২. পেমেন্ট মেথড নির্বাচন করুন (Send Money):</label>
+        <div id="efootball_inputs" style="display: none;">
+          <div class="input-group">
+            <label for="konamiEmail">১. Konami ID Gmail / Email বসান:</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" id="konamiEmail" placeholder="যেমন: user@gmail.com">
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="konamiPass">২. Konami ID Password বসান:</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-key"></i>
+              <input type="text" id="konamiPass" placeholder="আপনার Konami পাসওয়ার্ড">
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="customerWa">৩. আপনার WhatsApp Number বসান:</label>
+            <div class="input-wrapper">
+              <i class="fa-brands fa-whatsapp"></i>
+              <input type="number" id="customerWa" placeholder="যেমন: 01XXXXXXXXX">
+            </div>
+          </div>
+        </div>
+
+        <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); display: block; margin-bottom: 6px;" id="payStepLabel">২. পেমেন্ট মেথড নির্বাচন করুন (Send Money):</label>
         <div class="payment-options">
           <div class="pay-opt bkash active" onclick="setPaymentMethod('bKash')">
             <span><i class="fa-solid fa-mobile-screen-button"></i> bKash</span>
@@ -587,7 +614,7 @@
         </div>
 
         <div class="input-group">
-          <label for="senderNumber">৩. যে নম্বর থেকে টাকা পাঠিয়েছেন:</label>
+          <label for="senderNumber">যে নম্বর থেকে টাকা পাঠিয়েছেন:</label>
           <div class="input-wrapper">
             <i class="fa-solid fa-phone"></i>
             <input type="number" id="senderNumber" placeholder="যেমন: 01XXXXXXXXX">
@@ -595,7 +622,7 @@
         </div>
 
         <div class="input-group">
-          <label for="trxId">৪. Transaction ID (TrxID) বসান:</label>
+          <label for="trxId">Transaction ID (TrxID) বসান:</label>
           <div class="input-wrapper">
             <i class="fa-solid fa-receipt"></i>
             <input type="text" id="trxId" placeholder="যেমন: BL8A92KM">
@@ -616,7 +643,7 @@
         </div>
         <div class="step-item">
           <span class="step-num">২</span>
-          <p>উপরে <b>Free Fire</b> অথবা <b>eFootball</b> কার্ডে ক্লিক করে পছন্দের গেমের প্যাকেজ সিলেক্ট করুন।</p>
+          <p><b>Free Fire</b> হলে UID এবং <b>eFootball</b> হলে Konami Gmail ও Password সঠিকভাবে প্রদান করুন।</p>
         </div>
         <div class="step-item">
           <span class="step-num">৩</span>
@@ -850,6 +877,10 @@
       const ffBtn = document.getElementById('catBtn_freefire');
       const efBtn = document.getElementById('catBtn_efootball');
 
+      const ffInputs = document.getElementById('freefire_inputs');
+      const efInputs = document.getElementById('efootball_inputs');
+      const payStepLabel = document.getElementById('payStepLabel');
+
       ffBtn.classList.remove('active');
       efBtn.classList.remove('active');
 
@@ -858,12 +889,20 @@
         efSec.style.display = 'none';
         ffBtn.classList.add('active');
         selectedPackageId = 'box1';
+
+        ffInputs.style.display = 'block';
+        efInputs.style.display = 'none';
+        payStepLabel.textContent = '২. পেমেন্ট মেথড নির্বাচন করুন (Send Money):';
         updateSelectedPackageDisplay();
       } else if (cat === 'efootball') {
         ffSec.style.display = 'none';
         efSec.style.display = 'block';
         efBtn.classList.add('active');
         selectedPackageId = 'efootball1';
+
+        ffInputs.style.display = 'none';
+        efInputs.style.display = 'block';
+        payStepLabel.textContent = '৪. পেমেন্ট মেথড নির্বাচন করুন (Send Money):';
         updateSelectedPackageDisplay();
       }
     }
@@ -956,7 +995,6 @@
       updateSelectedPackageDisplay();
       
       document.getElementById('checkoutSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      document.getElementById('playerUid').focus();
     }
 
     function updateSelectedPackageDisplay() {
@@ -1013,7 +1051,6 @@
       openModal('addMoneyModal');
     }
 
-    /* Add Money Request Submit (5 minit wait for admin approve) */
     function handleAddMoneySubmit() {
       if (!currentUser) return;
       const amount = Number(document.getElementById('addAmount').value.trim());
@@ -1163,14 +1200,9 @@ TrxID: ${trx}
         return;
       }
 
-      const rawUid = document.getElementById('playerUid').value.trim();
       const sender = document.getElementById('senderNumber').value.trim();
       const trx = document.getElementById('trxId').value.trim();
 
-      if (!rawUid) {
-        alert('অনুগ্রহ করে সঠিক Player UID বা User ID বসান!');
-        return;
-      }
       if (!sender || sender.length < 11) {
         alert('টাকা পাঠানোর সঠিক মোবাইল নম্বরটি দিন!');
         return;
@@ -1180,7 +1212,36 @@ TrxID: ${trx}
         return;
       }
 
-      const finalUid = rawUid + '1';
+      let orderReference = '';
+
+      if (prod.game === 'Free Fire') {
+        const rawUid = document.getElementById('playerUid').value.trim();
+        if (!rawUid) {
+          alert('অনুগ্রহ করে সঠিক Player UID বা User ID বসান!');
+          return;
+        }
+        orderReference = 'UID: ' + rawUid + '1';
+      } else if (prod.game === 'eFootball') {
+        const email = document.getElementById('konamiEmail').value.trim();
+        const pass = document.getElementById('konamiPass').value.trim();
+        const wa = document.getElementById('customerWa').value.trim();
+
+        if (!email) {
+          alert('অনুগ্রহ করে সঠিক Konami ID Email দিন!');
+          return;
+        }
+        if (!pass) {
+          alert('অনুগ্রহ করে Konami ID Password দিন!');
+          return;
+        }
+        if (!wa || wa.length < 11) {
+          alert('সঠিক WhatsApp Number প্রদান করুন!');
+          return;
+        }
+
+        orderReference = `Email: ${email} | Pass: ${pass} | WA: ${wa}`;
+      }
+
       const now = new Date();
       const dateString = now.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric' });
       const timeString = now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -1192,7 +1253,7 @@ TrxID: ${trx}
         game: prod.game || 'Game',
         package: prod.name,
         price: prod.price,
-        uid: finalUid,
+        uid: orderReference,
         method: selectedMethod,
         sender: sender,
         trx: trx,
@@ -1210,13 +1271,17 @@ TrxID: ${trx}
 Game: ${newOrder.game}
 প্যাকেজ: ${prod.name}
 মূল্য: ${prod.price}
-Player UID: ${finalUid}
+তথ্য / রেফারেন্স: ${orderReference}
 মেথড: ${selectedMethod} (Send Money)
 TrxID: ${trx}
 
 অর্ডার হিস্ট্রি দেখতে ৩-লাইন মেনু থেকে Orders-এ যান।`);
-      
+
+      // Clear Inputs
       document.getElementById('playerUid').value = '';
+      document.getElementById('konamiEmail').value = '';
+      document.getElementById('konamiPass').value = '';
+      document.getElementById('customerWa').value = '';
       document.getElementById('senderNumber').value = '';
       document.getElementById('trxId').value = '';
     }
@@ -1262,8 +1327,8 @@ TrxID: ${trx}
               <b>${order.price}</b>
             </div>
             <div class="order-detail-row">
-              <span style="color: var(--text-muted);">UID / রেফারেন্স:</span>
-              <b style="letter-spacing: 1px;">${order.uid}</b>
+              <span style="color: var(--text-muted);">অর্ডার ইনফো / Ref:</span>
+              <b style="font-size:0.8rem; color:#a7f3d0; word-break:break-all;">${order.uid}</b>
             </div>
             <div class="order-detail-row">
               <span style="color: var(--text-muted);">পেমেন্ট মেথড:</span>
@@ -1332,7 +1397,7 @@ TrxID: ${trx}
               <th>Date/Time</th>
               <th>Customer</th>
               <th>Details</th>
-              <th>Player UID</th>
+              <th>Login Info / Ref</th>
               <th>Payment & Trx</th>
               <th>Status Action</th>
             </tr>
@@ -1347,7 +1412,7 @@ TrxID: ${trx}
             <td><small>${o.date}<br>${o.time}</small></td>
             <td><small>${o.userEmail}<br><b>${o.sender || ''}</b></small></td>
             <td><small style="color:#38bdf8;">[${o.game || 'Game'}]</small><br><b>${o.package}</b><br><small style="color:var(--accent-gold);">${o.price}</small></td>
-            <td><span style="font-family:monospace; color:#38bdf8; font-weight: bold;">${o.uid}</span></td>
+            <td><span style="font-family:monospace; color:#a7f3d0; font-size:0.8rem; word-break:break-all;">${o.uid}</span></td>
             <td><small>${o.method}<br>Trx: <b style="color:#d8b4fe;">${o.trx}</b></small></td>
             <td>
               <select class="admin-select" onchange="updateOrderStatus(${index}, this.value)">
@@ -1365,7 +1430,6 @@ TrxID: ${trx}
       container.innerHTML = html;
     }
 
-    /* Admin Add Money Approval Logic */
     function renderAdminAddMoneyRequests() {
       const orders = JSON.parse(localStorage.getItem('userOrders')) || [];
       const addMoneyRequests = orders.filter(o => o.type === 'add_money');
@@ -1438,7 +1502,6 @@ TrxID: ${trx}
         req.uid = 'Approved by Admin';
         localStorage.setItem('userOrders', JSON.stringify(orders));
 
-        // Add balance to customer account
         addBalanceToUser(req.userEmail, req.amount);
 
         alert(`✅ ${req.userEmail} এর অ্যাকাউন্টে ৳ ${req.amount} সফলভাবে যোগ করা হয়েছে!`);

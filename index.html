@@ -174,6 +174,7 @@
       font-weight: 600;
       font-size: 0.95rem;
       color: #ffffff;
+      position: relative;
     }
     .diamond-item:hover, .diamond-item.active {
       border-color: #ef4444;
@@ -205,6 +206,7 @@
       flex-direction: column;
       align-items: center;
       gap: 6px;
+      position: relative;
     }
     .recharge-item-card:hover, .recharge-item-card.active {
       border-color: #ef4444;
@@ -232,10 +234,27 @@
       font-size: 0.95rem;
     }
 
+    /* STOCK OUT STYLING */
     .out-of-stock {
-      opacity: 0.5;
+      opacity: 0.45 !important;
       cursor: not-allowed !important;
-      border-color: #475569 !important;
+      border-color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.05) !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+    .stock-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.5);
+      z-index: 5;
     }
 
     .action-panel {
@@ -483,7 +502,7 @@
           <span>Select Recharge Package</span>
         </div>
 
-        <!-- 1. ALL DIAMOND PACKAGES (EQUAL SIZE & HEIGHT - NO LOGO) -->
+        <!-- 1. ALL DIAMOND PACKAGES -->
         <div class="diamond-uniform-grid">
           <div class="diamond-item active" id="card_box1" onclick="selectPackageById('box1')">
             <span>25 Diamond</span>
@@ -511,7 +530,7 @@
           </div>
         </div>
 
-        <!-- 2. WEEKLY MEMBERSHIPS (WITH LOGO) -->
+        <!-- 2. WEEKLY MEMBERSHIPS -->
         <div class="weekly-cards-grid">
           <div class="recharge-item-card" id="card_box6" onclick="selectPackageById('box6')">
             <img src="./weekly-120.jpg" class="recharge-item-img" alt="Weekly Membership" onerror="this.src='./weekly-120.jpg.png';">
@@ -534,7 +553,7 @@
       </div>
     </div>
 
-    <!-- eFootball Section (WITH Logo) -->
+    <!-- eFootball Section -->
     <div id="efootball_section" style="display: none;">
       <div class="recharge-grid-section">
         <div class="recharge-grid-header">
@@ -887,7 +906,9 @@
       updateUserUI();
 
       window.addEventListener('storage', (e) => {
-        if (e.key === 'user_balances' || e.key === 'userOrders') {
+        if (e.key === 'user_balances' || e.key === 'userOrders' || e.key === 'dremo_products') {
+          products = JSON.parse(localStorage.getItem('dremo_products')) || defaultProducts;
+          renderProductsOnUI();
           updateUserUI();
           if (currentUser && checkIsAdmin(currentUser)) {
             renderAdminAddMoneyRequests();
@@ -941,7 +962,10 @@
         ffSec.style.display = 'block';
         efSec.style.display = 'none';
         ffBtn.classList.add('active');
-        selectedPackageId = 'box1';
+        
+        // Auto select first available item
+        let availableBox = Object.keys(products).find(k => products[k].game === 'Free Fire' && products[k].inStock) || 'box1';
+        selectedPackageId = availableBox;
 
         ffInputs.style.display = 'block';
         efInputs.style.display = 'none';
@@ -951,13 +975,16 @@
         ffSec.style.display = 'none';
         efSec.style.display = 'block';
         efBtn.classList.add('active');
-        selectedPackageId = 'efootball1';
+
+        let availableBox = Object.keys(products).find(k => products[k].game === 'eFootball' && products[k].inStock) || 'efootball1';
+        selectedPackageId = availableBox;
 
         ffInputs.style.display = 'none';
         efInputs.style.display = 'block';
         payStepLabel.textContent = '৪. Select Payment:';
         updateSelectedPackageDisplay();
       }
+      renderProductsOnUI();
     }
 
     function checkIsAdmin(user) {
@@ -967,6 +994,7 @@
       return emailMatch || userMatch;
     }
 
+    /* RENDER PRODUCTS AND VISUALLY REFLECT STOCK OUT */
     function renderProductsOnUI() {
       for (const [id, prod] of Object.entries(products)) {
         const cardEl = document.getElementById(`card_${id}`);
@@ -975,10 +1003,19 @@
         if (priceEl) priceEl.textContent = prod.price.replace('.00', '');
         
         if (cardEl) {
+          let existingBadge = cardEl.querySelector('.stock-badge');
+          
           if (!prod.inStock) {
             cardEl.classList.add('out-of-stock');
+            if (!existingBadge) {
+              let badge = document.createElement('span');
+              badge.className = 'stock-badge';
+              badge.textContent = 'Stock Out';
+              cardEl.appendChild(badge);
+            }
           } else {
             cardEl.classList.remove('out-of-stock');
+            if (existingBadge) existingBadge.remove();
           }
         }
       }
@@ -1035,7 +1072,7 @@
 
     function selectPackageById(boxId) {
       const prod = products[boxId];
-      if (!prod.inStock) {
+      if (!prod || !prod.inStock) {
         alert('⚠️ দুঃখিত, এই প্যাকেজটি বর্তমানে Stock Out আছে!');
         return;
       }
@@ -1258,7 +1295,7 @@
       }
 
       const prod = products[selectedPackageId];
-      if (!prod.inStock) {
+      if (!prod || !prod.inStock) {
         alert('⚠️ এই পণ্যটি বর্তমানে Stock Out আছে!');
         return;
       }
@@ -1555,7 +1592,6 @@
       }
     }
 
-    /* ALL SERVICES INCLUDING NEW WEEKLY OFFERS CAN BE UPDATED HERE */
     function renderAdminProducts() {
       const container = document.getElementById('adminProductsContainer');
       let html = `
@@ -1603,7 +1639,7 @@
 
       products[boxId].price = priceVal;
       products[boxId].numericPrice = parseInt(priceVal.replace(/[^0-9]/g, '')) || 0;
-      products[boxId].inStock = (stockVal === 'in');
+      products[boxId].inStock = (stockVal === 'out') ? false : true;
 
       localStorage.setItem('dremo_products', JSON.stringify(products));
       renderProductsOnUI();

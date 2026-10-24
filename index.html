@@ -528,6 +528,21 @@
             <span>355 Diamond</span>
             <span class="price-tag" id="price_box5">৳ 167</span>
           </div>
+
+          <div class="diamond-item" id="card_box9" onclick="selectPackageById('box9')">
+            <span>610 Diamond</span>
+            <span class="price-tag" id="price_box9">৳ 290</span>
+          </div>
+
+          <div class="diamond-item" id="card_box10" onclick="selectPackageById('box10')">
+            <span>1240 Diamond</span>
+            <span class="price-tag" id="price_box10">৳ 580</span>
+          </div>
+
+          <div class="diamond-item" id="card_box11" onclick="selectPackageById('box11')">
+            <span>2530 Diamond</span>
+            <span class="price-tag" id="price_box11">৳ 1180</span>
+          </div>
         </div>
 
         <!-- 2. WEEKLY MEMBERSHIPS -->
@@ -548,6 +563,12 @@
             <img src="./weekly-lite.jpg" class="recharge-item-img" alt="Weekly Lite" onerror="this.src='./weekly-lite.jpg.png';">
             <span class="pkg-title">Weekly Lite</span>
             <span class="price-tag" id="price_box8">৳ 10</span>
+          </div>
+
+          <div class="recharge-item-card" id="card_box12" onclick="selectPackageById('box12')">
+            <img src="./weekly-lite.jpg" class="recharge-item-img" alt="Monthly Membership" onerror="this.src='./weekly-120.jpg.png';">
+            <span class="pkg-title">Monthly Membership</span>
+            <span class="price-tag" id="price_box12">৳ 580</span>
           </div>
         </div>
       </div>
@@ -874,9 +895,13 @@
       box3: { name: '115 Diamond', price: '৳ 59.00', numericPrice: 59, inStock: true, game: 'Free Fire' },
       box4: { name: '240 Diamond', price: '৳ 110.00', numericPrice: 110, inStock: true, game: 'Free Fire' },
       box5: { name: '355 Diamond', price: '৳ 167.00', numericPrice: 167, inStock: true, game: 'Free Fire' },
+      box9: { name: '610 Diamond', price: '৳ 290.00', numericPrice: 290, inStock: true, game: 'Free Fire' },
+      box10: { name: '1240 Diamond', price: '৳ 580.00', numericPrice: 580, inStock: true, game: 'Free Fire' },
+      box11: { name: '2530 Diamond', price: '৳ 1180.00', numericPrice: 1180, inStock: true, game: 'Free Fire' },
       box6: { name: 'Weekly Membership', price: '৳ 120.00', numericPrice: 120, inStock: true, game: 'Free Fire' },
       box7: { name: 'Weekly (5 Taka)', price: '৳ 5.00', numericPrice: 5, inStock: true, game: 'Free Fire' },
       box8: { name: 'Weekly Lite', price: '৳ 10.00', numericPrice: 10, inStock: true, game: 'Free Fire' },
+      box12: { name: 'Monthly Membership', price: '৳ 580.00', numericPrice: 580, inStock: true, game: 'Free Fire' },
       efootball1: { name: '130 Coins', price: '৳ 115.00', numericPrice: 115, inStock: true, game: 'eFootball' },
       efootball2: { name: '300 Coins', price: '৳ 250.00', numericPrice: 250, inStock: true, game: 'eFootball' },
       efootball3: { name: '550 Coins', price: '৳ 430.00', numericPrice: 430, inStock: true, game: 'eFootball' }
@@ -963,7 +988,6 @@
         efSec.style.display = 'none';
         ffBtn.classList.add('active');
         
-        // Auto select first available item
         let availableBox = Object.keys(products).find(k => products[k].game === 'Free Fire' && products[k].inStock) || 'box1';
         selectedPackageId = availableBox;
 
